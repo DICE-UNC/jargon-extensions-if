@@ -17,13 +17,23 @@ public class FormBasedMetadataTemplate extends MetadataTemplate {
 	/**
 	 * Describes the list of elements in the metadata template
 	 */
-	private final List<MetadataElement> metadataElements = new ArrayList<MetadataElement>();
+	private List<MetadataElement> elements = new ArrayList<MetadataElement>();
+
+	public List<MetadataElement> getElements() {
+		return elements;
+	}
 
 	/**
 	 * 
 	 */
 	public FormBasedMetadataTemplate() {
 
+	}
+	
+	public FormBasedMetadataTemplate(FormBasedMetadataTemplate mt) {
+		for (MetadataElement me: mt.getElements()) {
+			elements.add(me);
+		}
 	}
 
 }

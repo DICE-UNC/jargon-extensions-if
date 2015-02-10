@@ -12,7 +12,7 @@ package org.irods.jargon.metadatatemplatesif;
 public class SourceBasedMetadataTemplate extends MetadataTemplate {
 
 	/**
-	 * Optional link to a metadata source that can describe an antology (like
+	 * Optional link to a metadata source that can describe an ontology (like
 	 * HIVE) to link to this collection
 	 */
 	private final MetadataSourceLink metadataSourceLink = null;

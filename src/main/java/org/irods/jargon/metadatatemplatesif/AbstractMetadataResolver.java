@@ -12,8 +12,8 @@ import java.util.List;
  * <p/>
  * <h2>Rules for Resolvers</h2>
  * <h3>Primacy</h3>
- * Metadata templates have a hierarchy when disocovered, which is dependent on
- * the implementaiton of the resolver. We can use the built-in iRODS resolver as
+ * Metadata templates have a hierarchy when discovered, which is dependent on
+ * the implementation of the resolver. We can use the built-in iRODS resolver as
  * a reference implementation, which will work as follows, other implementations
  * can deviate, but this provided a pretty clean and simple way of resolving.
  * <ul>

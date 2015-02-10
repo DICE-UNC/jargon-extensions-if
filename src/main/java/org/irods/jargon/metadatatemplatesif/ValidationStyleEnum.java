@@ -7,6 +7,6 @@ package org.irods.jargon.metadatatemplatesif;
  */
 public enum ValidationStyleEnum {
 
-	DEFAULT, IN_LIST, IN_RANGE, INRANGE_EXCLUSIVE, DO_NOT_VALIDATE
+	DEFAULT, IN_LIST, IN_RANGE, IN_RANGE_EXCLUSIVE, REGEX, DO_NOT_VALIDATE
 
 }
