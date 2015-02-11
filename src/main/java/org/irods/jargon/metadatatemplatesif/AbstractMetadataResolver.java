@@ -5,6 +5,7 @@ package org.irods.jargon.metadatatemplatesif;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Abstract superclass for a metadata resolver that can discover, and perform
@@ -129,4 +130,6 @@ public abstract class AbstractMetadataResolver {
 	public abstract MetadataTemplate findByName(String name);
 
 	public abstract MetadataTemplate findByUniqueName(String uniqueName);
+	
+	public abstract MetadataTemplate findByUUID(UUID uuid);
 }

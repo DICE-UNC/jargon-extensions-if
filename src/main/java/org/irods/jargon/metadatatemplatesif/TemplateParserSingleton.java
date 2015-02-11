@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.StringWriter;
  * parsers.
  * <p/>
  * Example:<br/>
- * <code>TemplateParserSingleton parser = TemplateParserSingleton.INSTANCE;<br/>
+ * <code>TemplateParserSingleton parser = TemplateParserSingleton.PARSER;<br/>
  * MetadataTemplate mt = parser.createMetadataTemplateFromFile(file);</code>
  * 
  * @author rskarbez
