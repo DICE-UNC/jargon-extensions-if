@@ -7,12 +7,17 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * Describes a metadata element in a template
  * 
  * @author Mike Conway and Rick Skarbez
  *
  */
+
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class MetadataElement {
 
 	/**
