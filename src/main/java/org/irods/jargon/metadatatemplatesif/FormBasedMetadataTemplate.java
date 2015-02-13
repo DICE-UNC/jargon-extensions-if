@@ -6,6 +6,8 @@ package org.irods.jargon.metadatatemplatesif;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
@@ -36,6 +38,8 @@ public class FormBasedMetadataTemplate extends MetadataTemplate {
 	}
 	
 	public FormBasedMetadataTemplate(FormBasedMetadataTemplate mt) {
+		this.setName(mt.getName());
+		
 		for (MetadataElement me: mt.getElements()) {
 			elements.add(me);
 		}

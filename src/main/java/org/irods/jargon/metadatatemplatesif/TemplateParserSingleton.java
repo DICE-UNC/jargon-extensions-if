@@ -1,8 +1,17 @@
 package org.irods.jargon.metadatatemplatesif;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.irods.jargon.core.pub.io.IRODSFileFactoryImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.StringWriter;
 
 /**
  * 
@@ -22,6 +31,7 @@ import com.fasterxml.jackson.databind.StringWriter;
  */
 
 public final class TemplateParserSingleton {
+	static Logger log = LoggerFactory.getLogger(IRODSFileFactoryImpl.class);
 	public final static TemplateParserSingleton PARSER = new TemplateParserSingleton();
 	
 	private ObjectMapper mapper = null;
@@ -32,8 +42,37 @@ public final class TemplateParserSingleton {
 		// Exists only to defeat instantiation
 	}
 
-	public FormBasedMetadataTemplate createMetadataTemplateFromJSON(byte[] jsonData) {
-		FormBasedMetadataTemplate mt = ObjectMapper.readValue(jsonData, FormBasedMetadataTemplate.class);
+	//public FormBasedMetadataTemplate createMetadataTemplateFromJSON(byte[] jsonData) {
+	//public FormBasedMetadataTemplate createMetadataTemplateFromJSON(InputStream is) {
+	public FormBasedMetadataTemplate createMetadataTemplateFromJSON(String s) {
+
+		FormBasedMetadataTemplate mt = new FormBasedMetadataTemplate();
+		mt.setName("NULL NAME - MAPPER DIDN'T DO ANYTHING");
+		log.info("createMetadataTemplateFromJSON");
+		//log.info(jsonData.toString());
+		log.info(s);
+		
+		try {
+			//mt = mapper.readValue(jsonData, FormBasedMetadataTemplate.class);
+			mt = mapper.readValue(s, FormBasedMetadataTemplate.class);
+		} catch (JsonParseException jpe) {
+			System.out.println("Json Parse exception: " + jpe);
+			// XXX Handle JsonParseException
+		} catch (JsonMappingException jme) {
+			System.out.println("Json Mapping exception: " + jme);
+			// XXX Handle JsonMappingException
+		} catch (IOException ioe) {
+			System.out.println("IO Exception: " + ioe);
+			// XXX Handle IOException
+		}
+		
+		if (mt == null) {
+			log.info("null mt returned from mapper");
+		}
+		
+		log.info(mt.getName());
+		log.info(mt.toString());
+		log.info(mt.getVersion());
 		
 		// If default values are defined, copy into current value
 		for (MetadataElement me: mt.getElements()) {
@@ -41,7 +80,7 @@ public final class TemplateParserSingleton {
 				me.setCurrentValue(me.getDefaultValue());
 		}
 			
-		return mt;
+		return new FormBasedMetadataTemplate(mt);
 	}
 	
 	public String createJSONFromMetadataTemplate(FormBasedMetadataTemplate template) {
@@ -53,7 +92,12 @@ public final class TemplateParserSingleton {
 				me.setDefaultValue(me.getCurrentValue());
 		}
 		
-		String json = mapper.writeValueAsString(mt);
+		String json = "";
+		try {
+			json = mapper.writeValueAsString(mt);
+		} catch (JsonProcessingException jpe) {
+			// XXX Handle JsonProcessingException
+		}
 		
 		return json;
 	}

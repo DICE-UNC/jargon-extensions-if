@@ -119,6 +119,8 @@ public abstract class AbstractMetadataResolver {
 																	// duplicate
 
 	public abstract void delete(String uniqueName);
+	
+	public abstract void delete(UUID uuid);
 
 	/**
 	 * This one uses same logic as listAll to find the closest md template with

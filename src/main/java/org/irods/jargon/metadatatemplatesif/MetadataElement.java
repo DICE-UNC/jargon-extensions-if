@@ -7,6 +7,8 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
@@ -27,12 +29,12 @@ public class MetadataElement {
 	 * that indicates that information for this metadata element will be
 	 * retrieved from a special list of elements. This is NOT YET SUPPORTED.
 	 */
-	private String elementName = "";
+	private String name = "";
 
 	/**
 	 * i18n property for element name, e.g. dc.author
 	 */
-	private String i18nElementName = "";
+	private String i18nName = "";
 
 	/**
 	 * Other name(s) this attribute could be known as in, e.g. a data
@@ -108,20 +110,20 @@ public class MetadataElement {
 	 * 
 	 */
 
-	public String getElementName() {
-		return elementName;
+	public String getName() {
+		return name;
 	}
 
 	public void setElementName(String elementName) {
-		this.elementName = elementName;
+		this.name = elementName;
 	}
 
-	public String getI18nElementName() {
-		return i18nElementName;
+	public String getI18nName() {
+		return i18nName;
 	}
 
-	public void setI18nElementName(String i18nElementName) {
-		this.i18nElementName = i18nElementName;
+	public void setI18nName(String i18nElementName) {
+		this.i18nName = i18nElementName;
 	}
 
 	public List<String> getAliases() {

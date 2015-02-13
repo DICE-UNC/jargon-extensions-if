@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
@@ -63,12 +65,12 @@ public class MetadataTemplate {
 	/**
 	 * When template was created
 	 */
-	private Date created = new Date(0);
+	//private Date created = new Date(0);
 
 	/**
 	 * When template was last modified
 	 */
-	private Date modified = new Date(0);
+	//private Date modified = new Date(0);
 
 	/**
 	 * What version of the template
@@ -90,7 +92,7 @@ public class MetadataTemplate {
 	 * 
 	 * XXX NOT YET SUPPORTED
 	 */
-	private MetadataDriver driver = new MetadataDriver();
+	//private MetadataDriver driver = new MetadataDriver();
 
 	/**
 	 * Indicates whether the given template is required. If true, the validator
@@ -108,7 +110,7 @@ public class MetadataTemplate {
 	 * resolver will find the closest template through the standard rule of 1)
 	 * nearest to the collection 2) user home dir 3) public viewable dirs
 	 */
-	private List<String> linkedTemplates = new ArrayList<String>();
+	//private List<String> linkedTemplates = new ArrayList<String>();
 
 	public UUID getUuid() {
 		return uuid;
@@ -149,7 +151,7 @@ public class MetadataTemplate {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
+/*
 	public Date getCreated() {
 		return created;
 	}
@@ -165,7 +167,7 @@ public class MetadataTemplate {
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-
+*/
 	public String getVersion() {
 		return version;
 	}
@@ -181,7 +183,7 @@ public class MetadataTemplate {
 	public void setSource(SourceEnum source) {
 		this.source = source;
 	}
-
+/*
 	public MetadataDriver getDriver() {
 		return driver;
 	}
@@ -189,7 +191,7 @@ public class MetadataTemplate {
 	public void setDriver(MetadataDriver driver) {
 		this.driver = driver;
 	}
-
+*/
 	public boolean isRequired() {
 		return required;
 	}
@@ -197,7 +199,7 @@ public class MetadataTemplate {
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
-
+/*
 	public List<String> getLinkedTemplates() {
 		return linkedTemplates;
 	}
@@ -205,11 +207,21 @@ public class MetadataTemplate {
 	public void setLinkedTemplates(List<String> linkedTemplates) {
 		this.linkedTemplates = linkedTemplates;
 	}
-
+*/
 	/**
 	 * 
 	 */
 	public MetadataTemplate() {
+	}
+	public MetadataTemplate(MetadataTemplate mt) {
+		this.setAuthor(mt.getAuthor());
+		this.setName(mt.getName());
+		this.setFqName(mt.getFqName());
+		this.setDescription(mt.getDescription());
+		this.setRequired(mt.isRequired());
+		this.setSource(mt.getSource());
+		this.setUuid(mt.getUuid());
+		this.setVersion(mt.getVersion());
 	}
 
 }
