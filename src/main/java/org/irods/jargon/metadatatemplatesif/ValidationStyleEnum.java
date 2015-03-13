@@ -3,6 +3,8 @@ package org.irods.jargon.metadatatemplatesif;
 /**
  *
  * @author Mike Conway and Rick Skarbez Indicates the style of validation to do
+ * 
+ * note:  how about 'is'?  The value has to be the default - MC
  *
  */
 public enum ValidationStyleEnum {
