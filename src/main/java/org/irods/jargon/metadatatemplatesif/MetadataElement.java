@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 
 @JsonInclude(Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MetadataElement {
 
 	/**
@@ -205,7 +205,29 @@ public class MetadataElement {
 	public void setRenderingOptions(List<String> renderingOptions) {
 		this.renderingOptions = renderingOptions;
 	}
-	
+
 	public MetadataElement() {
+	}
+
+	@Override
+	public String toString() {
+		String toReturn = "";
+		String defaultStr = "";
+		String requiredStr = "";
+
+		if (!this.getDefaultValue().isEmpty()) {
+			defaultStr = String
+					.format("(default = %s)", this.getDefaultValue());
+		}
+
+		if (this.isRequired()) {
+			requiredStr = "*** REQUIRED ***";
+		}
+
+		toReturn = String
+				.format("%s [%s]: %s %s %s\n", this.getName(), this.getType(),
+						this.getCurrentValue(), defaultStr, requiredStr);
+
+		return toReturn;
 	}
 }

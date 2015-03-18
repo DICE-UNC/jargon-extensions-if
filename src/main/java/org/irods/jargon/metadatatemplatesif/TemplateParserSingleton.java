@@ -70,9 +70,7 @@ public final class TemplateParserSingleton {
 			log.info("null mt returned from mapper");
 		}
 		
-		log.info(mt.getName());
 		log.info(mt.toString());
-		log.info(mt.getVersion());
 		
 		// If default values are defined, copy into current value
 		for (MetadataElement me: mt.getElements()) {
@@ -80,11 +78,11 @@ public final class TemplateParserSingleton {
 				me.setCurrentValue(me.getDefaultValue());
 		}
 			
-		return new FormBasedMetadataTemplate(mt);
+		return mt;
 	}
 	
 	public String createJSONFromMetadataTemplate(FormBasedMetadataTemplate template) {
-		FormBasedMetadataTemplate mt = new FormBasedMetadataTemplate(template);
+		FormBasedMetadataTemplate mt = template.deepCopy();
 		
 		// If default values are not defined, assume current value should be default
 		for (MetadataElement me: mt.getElements()) {

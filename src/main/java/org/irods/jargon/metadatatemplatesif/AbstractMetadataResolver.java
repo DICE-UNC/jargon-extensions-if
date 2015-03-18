@@ -72,12 +72,12 @@ public abstract class AbstractMetadataResolver {
 	 * @param templateGropus
 	 * @return
 	 */
-	public List<MetadataTemplate> listTemplatesInTemplateGroups() {
+	public List<MetadataTemplate> listTemplatesInPublicDirectory() {
 
 		return new ArrayList<MetadataTemplate>();
 	}
 
-	public List<MetadataTemplate> listAll(final String path,
+	public List<MetadataTemplate> listAllAvailableTemplates(final String path,
 			final String userName) {
 
 		/*
@@ -103,7 +103,7 @@ public abstract class AbstractMetadataResolver {
 			allTemplates.addAll(listTemplatesInUserHome(userName));
 		}
 
-		allTemplates.addAll(listTemplatesInTemplateGroups());
+		allTemplates.addAll(listTemplatesInPublicDirectory());
 		return allTemplates;
 
 	}
@@ -131,7 +131,7 @@ public abstract class AbstractMetadataResolver {
 	 */
 	public abstract MetadataTemplate findByName(String name);
 
-	public abstract MetadataTemplate findByUniqueName(String uniqueName);
+	public abstract MetadataTemplate findByFqName(String fqName);
 	
 	public abstract MetadataTemplate findByUUID(UUID uuid);
 }

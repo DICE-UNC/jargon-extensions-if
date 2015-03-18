@@ -11,6 +11,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Basic domain object for a metadata template
@@ -25,11 +26,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class MetadataTemplate {
+public abstract class MetadataTemplate {
 	/**
 	 * UUID that uniquely identifies this metadata template. Helpful to
 	 * implement versioning and template linking.
 	 */
+	@JsonProperty("uuid")
 	private UUID uuid = new UUID(0, 0);
 
 	/**
@@ -40,6 +42,7 @@ public class MetadataTemplate {
 	 * By convention, the template name is the same as the filename, for
 	 * example, a template named DC would be stored as a file named DC.json.
 	 */
+	@JsonProperty("name")
 	private String name = "";
 
 	/**
@@ -50,31 +53,37 @@ public class MetadataTemplate {
 	 * By convention, the fully-qualified identifier location/name.json must be
 	 * unique.
 	 */
+	@JsonProperty("fqName")
 	private String fqName = "";
 
 	/**
 	 * description, helpful text
 	 */
+	@JsonProperty("description")
 	private String description = "";
 
 	/**
 	 * Author of the template
 	 */
+	@JsonProperty("author")
 	private String author = "";
 
 	/**
 	 * When template was created
 	 */
+	//@JsonProperty("created")
 	//private Date created = new Date(0);
 
 	/**
 	 * When template was last modified
 	 */
+	//@JsonProperty("modified")
 	//private Date modified = new Date(0);
 
 	/**
 	 * What version of the template
 	 */
+	@JsonProperty("version")
 	private String version = "";
 
 	/**
@@ -82,6 +91,7 @@ public class MetadataTemplate {
 	 * 
 	 * XXX ONLY USER MODE IS CURRENTLY SUPPORTED
 	 */
+	@JsonProperty("source")
 	private SourceEnum source = SourceEnum.USER;
 
 	/**
@@ -92,6 +102,7 @@ public class MetadataTemplate {
 	 * 
 	 * XXX NOT YET SUPPORTED
 	 */
+	//@JsonProperty("driver")
 	//private MetadataDriver driver = new MetadataDriver();
 
 	/**
@@ -99,6 +110,7 @@ public class MetadataTemplate {
 	 * will reject a file/metadata if the attributes marked as required are not
 	 * populated with valid values.
 	 */
+	@JsonProperty("required")
 	private boolean required = false;
 
 	/**
@@ -213,6 +225,9 @@ public class MetadataTemplate {
 	 */
 	public MetadataTemplate() {
 	}
+	
+	public abstract MetadataTemplate deepCopy();
+	
 	public MetadataTemplate(MetadataTemplate mt) {
 		this.setAuthor(mt.getAuthor());
 		this.setName(mt.getName());
