@@ -31,6 +31,10 @@ import java.util.UUID;
  */
 public abstract class AbstractMetadataResolver {
 
+	/**
+	 * Holds locations (directories, database tables, etc.) where publicly
+	 * available metadata templates reside.
+	 */
 	private List<String> publicTemplateLocations = new ArrayList<String>();
 
 	/**
@@ -38,7 +42,7 @@ public abstract class AbstractMetadataResolver {
 	 */
 	public AbstractMetadataResolver() {
 	}
-	
+
 	public List<String> getPublicTemplateLocations() {
 		return publicTemplateLocations;
 	}
@@ -62,21 +66,22 @@ public abstract class AbstractMetadataResolver {
 	public abstract List<MetadataTemplate> listTemplatesInIrodsHierarchyAbovePath(
 			final String absolutePath) throws FileNotFoundException,
 			IOException;;
-/*
-	/**
-	 * Discover any metadata templates that are stored in the user home
+
+	/*
+	 * /** Discover any metadata templates that are stored in the user home
 	 * 
 	 * XXX TO BE REMOVED?
 	 * 
 	 * XXX TO RECONSIDER IN FUTURE
 	 * 
 	 * @param userName
+	 * 
 	 * @return
-	 *
-	public abstract List<MetadataTemplate> listTemplatesInUserHome(
-			final String userName) throws FileNotFoundException, IOException;
-*/
-			
+	 * 
+	 * public abstract List<MetadataTemplate> listTemplatesInUserHome( final
+	 * String userName) throws FileNotFoundException, IOException;
+	 */
+
 	/**
 	 * Given an abstract notion of a group, return metadata templates gathered
 	 * from that group. In our iRODS based reference implementation, these
@@ -108,13 +113,10 @@ public abstract class AbstractMetadataResolver {
 		} else {
 			allTemplates = listTemplatesInIrodsHierarchyAbovePath(path);
 		}
-/*
-		if (userName == null || userName.isEmpty()) {
-			// ignore
-		} else {
-			allTemplates.addAll(listTemplatesInUserHome(userName));
-		}
-*/
+		/*
+		 * if (userName == null || userName.isEmpty()) { // ignore } else {
+		 * allTemplates.addAll(listTemplatesInUserHome(userName)); }
+		 */
 		allTemplates.addAll(listPublicTemplates());
 		return allTemplates;
 
@@ -123,15 +125,15 @@ public abstract class AbstractMetadataResolver {
 	public List<MetadataTemplate> listAllRequiredTemplates(final String path,
 			final String userName) throws FileNotFoundException, IOException {
 		List<MetadataTemplate> requiredTemplates = new ArrayList<MetadataTemplate>();
-		
+
 		List<MetadataTemplate> allTemplates = listAllTemplates(path, userName);
-		
-		for (MetadataTemplate t: allTemplates) {
+
+		for (MetadataTemplate t : allTemplates) {
 			if (t.isRequired()) {
 				requiredTemplates.add(t);
 			}
 		}
-		
+
 		return requiredTemplates;
 	}
 
