@@ -3,13 +3,15 @@
  */
 package org.irods.jargon.metadatatemplatesif;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * Abstract superclass for a metadata resolver that can discover, and perform
- * CRUD on metadata templates
+ * Abstract superclass for a metadata resolver that can locate and perform CRUD
+ * operations on metadata templates.
  * <p/>
  * <h2>Rules for Resolvers</h2>
  * <h3>Primacy</h3>
@@ -20,7 +22,6 @@ import java.util.UUID;
  * <ul>
  * <li>Closest in directory hierarchy, recursively up to the parent,
  * grandparent, etc</li>
- * <li>In user home directory</li>
  * <li>In public directories</li>
  * </ul>
  * 
@@ -30,12 +31,20 @@ import java.util.UUID;
  */
 public abstract class AbstractMetadataResolver {
 
-	private final List<String> templateGroups = new ArrayList<String>();
+	private List<String> publicTemplateLocations = new ArrayList<String>();
 
 	/**
 	 * 
 	 */
 	public AbstractMetadataResolver() {
+	}
+	
+	public List<String> getPublicTemplateLocations() {
+		return publicTemplateLocations;
+	}
+
+	public void setPublicTemplateLocations(List<String> publicTemplateLocations) {
+		this.publicTemplateLocations = publicTemplateLocations;
 	}
 
 	/**
@@ -50,18 +59,24 @@ public abstract class AbstractMetadataResolver {
 	 * @param absolutePath
 	 * @return
 	 */
-	public abstract List<MetadataTemplate> listTemplatesAssociatedWithIrodsHierarchyForPath(
-			final String absolutePath);
-
+	public abstract List<MetadataTemplate> listTemplatesInIrodsHierarchyAbovePath(
+			final String absolutePath) throws FileNotFoundException,
+			IOException;;
+/*
 	/**
 	 * Discover any metadata templates that are stored in the user home
 	 * 
+	 * XXX TO BE REMOVED?
+	 * 
+	 * XXX TO RECONSIDER IN FUTURE
+	 * 
 	 * @param userName
 	 * @return
-	 */
+	 *
 	public abstract List<MetadataTemplate> listTemplatesInUserHome(
-			final String userName);
-
+			final String userName) throws FileNotFoundException, IOException;
+*/
+			
 	/**
 	 * Given an abstract notion of a group, return metadata templates gathered
 	 * from that group. In our iRODS based reference implementation, these
@@ -72,13 +87,10 @@ public abstract class AbstractMetadataResolver {
 	 * @param templateGropus
 	 * @return
 	 */
-	public List<MetadataTemplate> listTemplatesInPublicDirectory() {
+	public abstract List<MetadataTemplate> listPublicTemplates();
 
-		return new ArrayList<MetadataTemplate>();
-	}
-
-	public List<MetadataTemplate> listAllAvailableTemplates(final String path,
-			final String userName) {
+	public List<MetadataTemplate> listAllTemplates(final String path,
+			final String userName) throws FileNotFoundException, IOException {
 
 		/*
 		 * This is backwards, also, should this be a list. We want the strongest
@@ -94,44 +106,72 @@ public abstract class AbstractMetadataResolver {
 		if (path == null || path.isEmpty()) {
 			allTemplates = new ArrayList<MetadataTemplate>();
 		} else {
-			allTemplates = listTemplatesAssociatedWithIrodsHierarchyForPath(path);
+			allTemplates = listTemplatesInIrodsHierarchyAbovePath(path);
 		}
-
+/*
 		if (userName == null || userName.isEmpty()) {
 			// ignore
 		} else {
 			allTemplates.addAll(listTemplatesInUserHome(userName));
 		}
-
-		allTemplates.addAll(listTemplatesInPublicDirectory());
+*/
+		allTemplates.addAll(listPublicTemplates());
 		return allTemplates;
 
+	}
+
+	public List<MetadataTemplate> listAllRequiredTemplates(final String path,
+			final String userName) throws FileNotFoundException, IOException {
+		List<MetadataTemplate> requiredTemplates = new ArrayList<MetadataTemplate>();
+		
+		List<MetadataTemplate> allTemplates = listAllTemplates(path, userName);
+		
+		for (MetadataTemplate t: allTemplates) {
+			if (t.isRequired()) {
+				requiredTemplates.add(t);
+			}
+		}
+		
+		return requiredTemplates;
 	}
 
 	/**
 	 * Add or update existing by unique name
 	 * 
 	 * @param metadataTemplate
-	 */
-	public abstract void save(MetadataTemplate metadataTemplate); // add
-																	// exceptions
-																	// for
-																	// duplicate
-
-	public abstract void delete(String uniqueName);
-	
-	public abstract void delete(UUID uuid);
-
-	/**
-	 * This one uses same logic as listAll to find the closest md template with
-	 * given generic name
 	 * 
-	 * @param uniqueName
-	 * @return
+	 * @throws FileNotFoundException
+	 *             if <code>location</code> is not a valid save location
+	 * @throws IOException
+	 *             if save fails
 	 */
-	public abstract MetadataTemplate findByName(String name);
+	public abstract void saveTemplateAsJSON(MetadataTemplate metadataTemplate,
+			String location) throws FileNotFoundException, IOException;
 
-	public abstract MetadataTemplate findByFqName(String fqName);
-	
-	public abstract MetadataTemplate findByUUID(UUID uuid);
+	public abstract void renameTemplateByFqName(String uniqueName)
+			throws FileNotFoundException, IOException;
+
+	public void renameTemplateByUUID(UUID uuid) throws FileNotFoundException,
+			IOException {
+		updateTemplateByFqName(getFqNameForUUID(uuid));
+	}
+
+	public abstract void updateTemplateByFqName(String uniqueName)
+			throws FileNotFoundException, IOException;
+
+	public void updateTemplateByUUID(UUID uuid) throws FileNotFoundException,
+			IOException {
+		updateTemplateByFqName(getFqNameForUUID(uuid));
+	}
+
+	public abstract void deleteTemplateByFqName(String uniqueName)
+			throws FileNotFoundException, IOException;
+
+	public void deleteTemplateByUUID(UUID uuid) throws FileNotFoundException,
+			IOException {
+		deleteTemplateByFqName(getFqNameForUUID(uuid));
+	}
+
+	public abstract String getFqNameForUUID(UUID uuid)
+			throws FileNotFoundException;
 }

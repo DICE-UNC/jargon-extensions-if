@@ -104,6 +104,14 @@ public abstract class MetadataTemplate {
 	 */
 	//@JsonProperty("driver")
 	//private MetadataDriver driver = new MetadataDriver();
+	
+	/**
+	 * Specifies the format in which metadata is finally stored.
+	 * 
+	 * XXX ONLY IRODS MODE IS CURRENTLY SUPPORTED
+	 */
+	@JsonProperty("exporter")
+	private ExporterEnum exporter = ExporterEnum.IRODS;
 
 	/**
 	 * Indicates whether the given template is required. If true, the validator
@@ -195,6 +203,7 @@ public abstract class MetadataTemplate {
 	public void setSource(SourceEnum source) {
 		this.source = source;
 	}
+
 /*
 	public MetadataDriver getDriver() {
 		return driver;
@@ -204,6 +213,15 @@ public abstract class MetadataTemplate {
 		this.driver = driver;
 	}
 */
+	
+	public ExporterEnum getExporter() {
+		return exporter;
+	}
+
+	public void setExporter(ExporterEnum exporter) {
+		this.exporter = exporter;
+	}
+	
 	public boolean isRequired() {
 		return required;
 	}

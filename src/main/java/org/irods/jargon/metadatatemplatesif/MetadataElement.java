@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
@@ -105,6 +106,14 @@ public class MetadataElement {
 	 * XXX NOT YET DESIGNED OR IMPLEMENTED
 	 */
 	private List<String> renderingOptions = new ArrayList<String>();
+	
+	/**
+	 * Specifies the source of data that will populate the metadata element.
+	 * 
+	 * XXX ONLY USER MODE IS CURRENTLY SUPPORTED
+	 */
+	@JsonProperty("source")
+	private SourceEnum source = SourceEnum.USER;
 
 	/**
 	 * 
@@ -204,6 +213,14 @@ public class MetadataElement {
 
 	public void setRenderingOptions(List<String> renderingOptions) {
 		this.renderingOptions = renderingOptions;
+	}
+	
+	public SourceEnum getSource() {
+		return source;
+	}
+
+	public void setSource(SourceEnum source) {
+		this.source = source;
 	}
 
 	public MetadataElement() {

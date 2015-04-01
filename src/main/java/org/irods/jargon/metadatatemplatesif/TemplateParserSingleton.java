@@ -1,7 +1,6 @@
 package org.irods.jargon.metadatatemplatesif;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.irods.jargon.core.pub.io.IRODSFileFactoryImpl;
 import org.slf4j.Logger;
