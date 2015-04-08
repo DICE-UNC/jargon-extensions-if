@@ -137,6 +137,17 @@ public abstract class AbstractMetadataResolver {
 		return requiredTemplates;
 	}
 
+	public abstract MetadataTemplate findTemplateByName(String name)
+			throws FileNotFoundException, IOException;
+
+	public abstract MetadataTemplate findTemplateByFqName(String fqName)
+			throws FileNotFoundException, IOException;
+
+	public MetadataTemplate findTemplateByUUID(UUID uuid)
+			throws FileNotFoundException, IOException {
+		return findTemplateByFqName(getFqNameForUUID(uuid));
+	}
+
 	/**
 	 * Add or update existing by unique name
 	 * 
@@ -150,12 +161,12 @@ public abstract class AbstractMetadataResolver {
 	public abstract void saveTemplateAsJSON(MetadataTemplate metadataTemplate,
 			String location) throws FileNotFoundException, IOException;
 
-	public abstract void renameTemplateByFqName(String uniqueName)
-			throws FileNotFoundException, IOException;
+	public abstract void renameTemplateByFqName(String uniqueName,
+			String newName) throws FileNotFoundException, IOException;
 
-	public void renameTemplateByUUID(UUID uuid) throws FileNotFoundException,
-			IOException {
-		updateTemplateByFqName(getFqNameForUUID(uuid));
+	public void renameTemplateByUUID(UUID uuid, String newFqName)
+			throws FileNotFoundException, IOException {
+		renameTemplateByFqName(getFqNameForUUID(uuid), newFqName);
 	}
 
 	public abstract void updateTemplateByFqName(String uniqueName)
@@ -174,6 +185,5 @@ public abstract class AbstractMetadataResolver {
 		deleteTemplateByFqName(getFqNameForUUID(uuid));
 	}
 
-	public abstract String getFqNameForUUID(UUID uuid)
-			throws FileNotFoundException;
+	public abstract String getFqNameForUUID(UUID uuid);
 }
