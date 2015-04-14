@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public final class TemplateParserSingleton {
 	static Logger log = LoggerFactory.getLogger(IRODSFileFactoryImpl.class);
 	public final static TemplateParserSingleton PARSER = new TemplateParserSingleton();
-	
+
 	private ObjectMapper mapper = null;
 
 	private TemplateParserSingleton() {
@@ -41,18 +41,26 @@ public final class TemplateParserSingleton {
 		// Exists only to defeat instantiation
 	}
 
-	//public FormBasedMetadataTemplate createMetadataTemplateFromJSON(byte[] jsonData) {
-	//public FormBasedMetadataTemplate createMetadataTemplateFromJSON(InputStream is) {
+	/**
+	 * Returns a FormBasedMetadataTemplate generated from the JSON string in the
+	 * input parameter.
+	 * 
+	 * @param s
+	 *            {@link String} containing the JSON representation of a
+	 *            metadata template, most likely read from a saved metadata
+	 *            template file.
+	 * @return
+	 */
 	public FormBasedMetadataTemplate createMetadataTemplateFromJSON(String s) {
 
 		FormBasedMetadataTemplate mt = new FormBasedMetadataTemplate();
 		mt.setName("NULL NAME - MAPPER DIDN'T DO ANYTHING");
 		log.info("createMetadataTemplateFromJSON");
-		//log.info(jsonData.toString());
+		// log.info(jsonData.toString());
 		log.info(s);
-		
+
 		try {
-			//mt = mapper.readValue(jsonData, FormBasedMetadataTemplate.class);
+			// mt = mapper.readValue(jsonData, FormBasedMetadataTemplate.class);
 			mt = mapper.readValue(s, FormBasedMetadataTemplate.class);
 		} catch (JsonParseException jpe) {
 			System.out.println("Json Parse exception: " + jpe);
@@ -64,38 +72,54 @@ public final class TemplateParserSingleton {
 			System.out.println("IO Exception: " + ioe);
 			// XXX Handle IOException
 		}
-		
+
 		if (mt == null) {
 			log.info("null mt returned from mapper");
 		}
-		
+
 		log.info(mt.toString());
-		
+
 		// If default values are defined, copy into current value
-		for (MetadataElement me: mt.getElements()) {
+		for (MetadataElement me : mt.getElements()) {
 			if (!me.getDefaultValue().isEmpty())
 				me.setCurrentValue(me.getDefaultValue());
 		}
-			
+
 		return mt;
 	}
-	
-	public String createJSONFromMetadataTemplate(FormBasedMetadataTemplate template) {
+
+	/**
+	 * Returns a String containing a JSON representation of the MetadataTemplate
+	 * parameter.</p>
+	 * <p>
+	 * If default values for variables are not defined, any current values will
+	 * be saved as the default values.
+	 * 
+	 * @param s
+	 *            {@link MetadataTemplate} containing a populated metadata
+	 *            template
+	 * @return {@link String}
+	 */
+	public String createJSONFromMetadataTemplate(
+			FormBasedMetadataTemplate template) {
 		FormBasedMetadataTemplate mt = template.deepCopy();
-		
-		// If default values are not defined, assume current value should be default
-		for (MetadataElement me: mt.getElements()) {
+
+		// If default values are not defined, assume current value should be
+		// default
+		for (MetadataElement me : mt.getElements()) {
 			if (!me.getDefaultValue().isEmpty())
 				me.setDefaultValue(me.getCurrentValue());
 		}
-		
+
 		String json = "";
 		try {
 			json = mapper.writeValueAsString(mt);
 		} catch (JsonProcessingException jpe) {
 			// XXX Handle JsonProcessingException
 		}
-		
+
 		return json;
 	}
+	
+	// TODO: Add a flag that can disable the saving of current values as default values?
 }

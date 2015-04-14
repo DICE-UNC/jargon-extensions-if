@@ -104,6 +104,14 @@ public final class ValidatorSingleton {
 				return ValidationReturnEnum.NOT_VALIDATED;
 			}
 		}
+		
+		if (me.getValidationStyle() == ValidationStyleEnum.IS) {
+			if (me.getValidationOptions().get(0).equalsIgnoreCase(me.getCurrentValue())) {
+				return ValidationReturnEnum.SUCCESS;
+			}
+			
+			return ValidationReturnEnum.VALUE_NOT_EQUAL;
+		}
 
 		if (me.getValidationStyle() == ValidationStyleEnum.IN_LIST) {
 			for (String s : me.getValidationOptions()) {

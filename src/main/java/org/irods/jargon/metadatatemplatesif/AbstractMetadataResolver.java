@@ -65,7 +65,7 @@ public abstract class AbstractMetadataResolver {
 	 */
 	public abstract List<MetadataTemplate> listTemplatesInIrodsHierarchyAbovePath(
 			final String absolutePath) throws FileNotFoundException,
-			IOException;;
+			IOException;
 
 	/*
 	 * /** Discover any metadata templates that are stored in the user home
@@ -137,7 +137,7 @@ public abstract class AbstractMetadataResolver {
 		return requiredTemplates;
 	}
 
-	public abstract MetadataTemplate findTemplateByName(String name)
+	public abstract MetadataTemplate findTemplateByName(String name, String activeDir)
 			throws FileNotFoundException, IOException;
 
 	public abstract MetadataTemplate findTemplateByFqName(String fqName)
@@ -169,12 +169,13 @@ public abstract class AbstractMetadataResolver {
 		renameTemplateByFqName(getFqNameForUUID(uuid), newFqName);
 	}
 
-	public abstract void updateTemplateByFqName(String uniqueName)
-			throws FileNotFoundException, IOException;
+	public abstract void updateTemplateByFqName(String uniqueName,
+			MetadataTemplate mdTemplate) throws FileNotFoundException,
+			IOException;
 
-	public void updateTemplateByUUID(UUID uuid) throws FileNotFoundException,
-			IOException {
-		updateTemplateByFqName(getFqNameForUUID(uuid));
+	public void updateTemplateByUUID(UUID uuid, MetadataTemplate mdTemplate)
+			throws FileNotFoundException, IOException {
+		updateTemplateByFqName(getFqNameForUUID(uuid), mdTemplate);
 	}
 
 	public abstract void deleteTemplateByFqName(String uniqueName)
