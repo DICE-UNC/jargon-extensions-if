@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.irods.jargon.metadatatemplatesif;
+package org.irods.jargon.metadatatemplate;
 
 /**
  * Metadata template that links a source (such as an ontology)

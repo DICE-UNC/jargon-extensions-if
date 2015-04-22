@@ -1,4 +1,4 @@
-package org.irods.jargon.metadatatemplatesif;
+package org.irods.jargon.metadatatemplate;
 
 /**
  * 

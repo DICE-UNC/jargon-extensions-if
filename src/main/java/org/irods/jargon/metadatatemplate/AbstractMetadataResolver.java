@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.irods.jargon.metadatatemplatesif;
+package org.irods.jargon.metadatatemplate;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

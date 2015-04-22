@@ -1,4 +1,4 @@
-package org.irods.jargon.metadatatemplatesif;
+package org.irods.jargon.metadatatemplate;
 
 /**
  * This class will eventually support the population of metadata fields using

@@ -6,4 +6,4 @@
  * @author Mike Conway and Rick Skarbez
  *
  */
-package org.irods.jargon.metadatatemplatesif;
+package org.irods.jargon.metadatatemplate;
