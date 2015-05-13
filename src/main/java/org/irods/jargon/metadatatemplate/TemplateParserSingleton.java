@@ -51,30 +51,30 @@ public final class TemplateParserSingleton {
 	 *            template file.
 	 * @return
 	 */
-	public FormBasedMetadataTemplate createMetadataTemplateFromJSON(String s) {
+	public FormBasedMetadataTemplate createMetadataTemplateFromJSON(String s)
+			throws MetadataTemplateParsingException,
+			MetadataTemplateProcessingException {
+		log.info("createMetadataTemplateFromJSON()");
 
 		FormBasedMetadataTemplate mt = new FormBasedMetadataTemplate();
 		mt.setName("NULL NAME - MAPPER DIDN'T DO ANYTHING");
 		log.info("createMetadataTemplateFromJSON");
-		// log.info(jsonData.toString());
 		log.info(s);
 
 		try {
 			// mt = mapper.readValue(jsonData, FormBasedMetadataTemplate.class);
 			mt = mapper.readValue(s, FormBasedMetadataTemplate.class);
-		} catch (JsonParseException jpe) {
-			System.out.println("Json Parse exception: " + jpe);
-			// XXX Handle JsonParseException
-		} catch (JsonMappingException jme) {
-			System.out.println("Json Mapping exception: " + jme);
-			// XXX Handle JsonMappingException
+		} catch (JsonParseException | JsonMappingException je) {
+			log.error("Error in template JSON", je);
+			throw new MetadataTemplateParsingException("Error in templateJSON");
 		} catch (IOException ioe) {
-			System.out.println("IO Exception: " + ioe);
-			// XXX Handle IOException
+			log.error("Error in template file read", ioe);
+			throw new MetadataTemplateProcessingException(
+					"Error in template file read");
 		}
 
 		if (mt == null) {
-			log.info("null mt returned from mapper");
+			log.error("null mt returned from mapper");
 		}
 
 		log.info(mt.toString());
@@ -101,7 +101,8 @@ public final class TemplateParserSingleton {
 	 * @return {@link String}
 	 */
 	public String createJSONFromMetadataTemplate(
-			FormBasedMetadataTemplate template) {
+			FormBasedMetadataTemplate template)
+			throws MetadataTemplateProcessingException {
 		FormBasedMetadataTemplate mt = template.deepCopy();
 
 		// If default values are not defined, assume current value should be
@@ -115,11 +116,15 @@ public final class TemplateParserSingleton {
 		try {
 			json = mapper.writeValueAsString(mt);
 		} catch (JsonProcessingException jpe) {
-			// XXX Handle JsonProcessingException
+			log.error(
+					"JsonProcessingException when writing template to String",
+					jpe);
+			throw new MetadataTemplateProcessingException(
+					"Unable to generate String representation of template");
 		}
 
 		return json;
 	}
-	
-	// TODO: Add a flag that can disable the saving of current values as default values?
+	// TODO: Add a flag that can disable the saving of current values as default
+	// values?
 }

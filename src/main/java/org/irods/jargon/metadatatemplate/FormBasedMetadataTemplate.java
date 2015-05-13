@@ -25,6 +25,7 @@ public class FormBasedMetadataTemplate extends MetadataTemplate {
 	/**
 	 * Describes the list of elements in the metadata template
 	 */
+	// TODO Should probably end up as a hashmap, not a list
 	@JsonProperty("elements")
 	private List<MetadataElement> elements = new ArrayList<MetadataElement>();
 
