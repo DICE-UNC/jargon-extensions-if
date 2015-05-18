@@ -46,6 +46,8 @@ public abstract class AbstractMetadataResolver {
 	public AbstractMetadataResolver() {
 	}
 
+	// TODO Should public template locations be database keys?
+	// TODO Locator == fqName?
 	public List<String> getPublicTemplateLocations() {
 		return publicTemplateLocations;
 	}
@@ -66,21 +68,6 @@ public abstract class AbstractMetadataResolver {
 	}
 
 	/**
-	 * Used in combination with <code>listPublicTemplates</code>. Call this
-	 * first to add a directory to the public template locations.</p>
-	 * <p>
-	 * The directory should be fully-qualified. That is, if the template files
-	 * are actually stored in /foo/bar/.irods/metadataTemplates, the string for
-	 * this folder would be "/foo/bar/.irods/metadataTemplates", not just
-	 * "/foo/bar".
-	 * 
-	 * @param publicTemplateLocation
-	 */
-	public void appendToPublicTemplateLocations(String publicTemplateLocation) {
-		this.publicTemplateLocations.add(publicTemplateLocation);
-	}
-
-	/**
 	 * Discover any metadata templates that are bound to the given path. This
 	 * path is not where the templates are stored, this path is the irods object
 	 * that is having metadata applied to it.
@@ -92,24 +79,11 @@ public abstract class AbstractMetadataResolver {
 	 * @param absolutePath
 	 * @return
 	 */
+	// TODO maybe refactor name?
 	public abstract List<MetadataTemplate> listTemplatesInIrodsHierarchyAbovePath(
 			final String absolutePath) throws FileNotFoundException,
 			IOException, MetadataTemplateProcessingException,
 			MetadataTemplateParsingException;
-
-	/*
-	 * /** Discover any metadata templates that are stored in the user home
-	 * 
-	 * XXX TO BE REMOVED ENTIRELY?
-	 * 
-	 * 
-	 * @param userName
-	 * 
-	 * @return
-	 * 
-	 * public abstract List<MetadataTemplate> listTemplatesInUserHome( final
-	 * String userName) throws FileNotFoundException, IOException;
-	 */
 
 	/**
 	 * Given an abstract notion of a group, return metadata templates gathered
@@ -123,8 +97,6 @@ public abstract class AbstractMetadataResolver {
 	 */
 	public abstract List<MetadataTemplate> listPublicTemplates();
 
-	// XXX Was formerly a String userName parameter; not relevant if templates
-	// are not allowed from user home
 	public List<MetadataTemplate> listAllTemplates(final String path)
 			throws FileNotFoundException, IOException,
 			MetadataTemplateProcessingException,
@@ -177,6 +149,16 @@ public abstract class AbstractMetadataResolver {
 			MetadataTemplateProcessingException,
 			MetadataTemplateParsingException;
 
+	public abstract MetadataTemplate findTemplateByNameInDirectoryHierarchy(
+			String name, String activeDir) throws FileNotFoundException,
+			IOException, MetadataTemplateProcessingException,
+			MetadataTemplateParsingException;
+
+	public abstract MetadataTemplate findTemplateByNameInPublicTemplates(
+			String name) throws FileNotFoundException, IOException,
+			MetadataTemplateProcessingException,
+			MetadataTemplateParsingException;
+
 	public abstract MetadataTemplate findTemplateByFqName(String fqName)
 			throws FileNotFoundException, IOException,
 			MetadataTemplateProcessingException,
@@ -219,6 +201,12 @@ public abstract class AbstractMetadataResolver {
 		return this.renameTemplateByFqName(getFqNameForUUID(uuid), newFqName);
 	}
 
+	public boolean renameTemplateByUUID(String uuid, String newFqName)
+			throws FileNotFoundException, IOException {
+		return this.renameTemplateByFqName(
+				getFqNameForUUID(UUID.fromString(uuid)), newFqName);
+	}
+
 	public abstract boolean updateFormBasedTemplateByFqName(String uniqueName,
 			FormBasedMetadataTemplate metadataTemplate)
 			throws FileNotFoundException, IOException;
@@ -230,6 +218,13 @@ public abstract class AbstractMetadataResolver {
 				metadataTemplate);
 	}
 
+	public boolean updateFormBasedTemplateByUUID(String uuid,
+			FormBasedMetadataTemplate metadataTemplate)
+			throws FileNotFoundException, IOException {
+		return this.updateFormBasedTemplateByFqName(
+				getFqNameForUUID(UUID.fromString(uuid)), metadataTemplate);
+	}
+
 	public abstract boolean deleteTemplateByFqName(String uniqueName)
 			throws FileNotFoundException, IOException;
 
@@ -238,5 +233,15 @@ public abstract class AbstractMetadataResolver {
 		return this.deleteTemplateByFqName(getFqNameForUUID(uuid));
 	}
 
+	public boolean deleteTemplateByUUID(String uuid)
+			throws FileNotFoundException, IOException {
+		return this.deleteTemplateByFqName(getFqNameForUUID(UUID
+				.fromString(uuid)));
+	}
+
 	public abstract String getFqNameForUUID(UUID uuid);
+
+	public String getFqNameForUUID(String uuid) {
+		return this.getFqNameForUUID(UUID.fromString(uuid));
+	}
 }

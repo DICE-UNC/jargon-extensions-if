@@ -115,5 +115,16 @@ public class FormBasedMetadataTemplate extends MetadataTemplate {
 				authorStr, sourceStr, uuidStr, versionStr, requiredStr,
 				elementsStr);
 	}
+	
+	// TODO may not want to just compare toString?
+	// TODO especially with UUID in there
+	public boolean contentEquals(Object rhs) {
+		boolean equals = false;
+		if (rhs instanceof FormBasedMetadataTemplate) {
+			if (this.toString() == rhs.toString())
+				equals = true;
+		}
+		return equals;
+	}
 
 }

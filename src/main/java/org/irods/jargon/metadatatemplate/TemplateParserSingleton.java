@@ -57,12 +57,11 @@ public final class TemplateParserSingleton {
 		log.info("createMetadataTemplateFromJSON()");
 
 		FormBasedMetadataTemplate mt = new FormBasedMetadataTemplate();
-		mt.setName("NULL NAME - MAPPER DIDN'T DO ANYTHING");
-		log.info("createMetadataTemplateFromJSON");
+		//mt.setName("NULL NAME - MAPPER DIDN'T DO ANYTHING");
+		//log.info("createMetadataTemplateFromJSON");
 		log.info(s);
 
 		try {
-			// mt = mapper.readValue(jsonData, FormBasedMetadataTemplate.class);
 			mt = mapper.readValue(s, FormBasedMetadataTemplate.class);
 		} catch (JsonParseException | JsonMappingException je) {
 			log.error("Error in template JSON", je);

@@ -31,7 +31,8 @@ public abstract class MetadataTemplate {
 	 * UUID that uniquely identifies this metadata template. Helpful to
 	 * implement versioning and template linking.
 	 */
-	@JsonProperty("uuid")
+	// Not marked as "JsonProperty" because should not be serialized
+	// Will be handled in iRODS as AVU
 	private UUID uuid = new UUID(0, 0);
 
 	/**
@@ -71,14 +72,12 @@ public abstract class MetadataTemplate {
 	/**
 	 * When template was created
 	 */
-	//@JsonProperty("created")
-	//private Date created = new Date(0);
+	private Date created = new Date(0);
 
 	/**
 	 * When template was last modified
 	 */
-	//@JsonProperty("modified")
-	//private Date modified = new Date(0);
+	private Date modified = new Date(0);
 
 	/**
 	 * What version of the template
@@ -130,12 +129,14 @@ public abstract class MetadataTemplate {
 	 * resolver will find the closest template through the standard rule of 1)
 	 * nearest to the collection 2) user home dir 3) public viewable dirs
 	 */
+	// TODO Uncomment when ready to implement linked templates
 	//private List<String> linkedTemplates = new ArrayList<String>();
 
 	public UUID getUuid() {
 		return uuid;
 	}
 
+	// TODO Hide public setter?
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
@@ -171,11 +172,12 @@ public abstract class MetadataTemplate {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-/*
+	
 	public Date getCreated() {
 		return created;
 	}
-
+	
+	// TODO Hide public setter?
 	public void setCreated(Date created) {
 		this.created = created;
 	}
@@ -184,10 +186,11 @@ public abstract class MetadataTemplate {
 		return modified;
 	}
 
+	// TODO Hide public setter?
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-*/
+	
 	public String getVersion() {
 		return version;
 	}
@@ -203,7 +206,8 @@ public abstract class MetadataTemplate {
 	public void setSource(SourceEnum source) {
 		this.source = source;
 	}
-
+	
+	// TODO Uncomment when ready to implement multiple drivers
 /*
 	public MetadataDriver getDriver() {
 		return driver;
@@ -229,6 +233,8 @@ public abstract class MetadataTemplate {
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
+	
+	// TODO Uncomment when ready to implement linked templates
 /*
 	public List<String> getLinkedTemplates() {
 		return linkedTemplates;
