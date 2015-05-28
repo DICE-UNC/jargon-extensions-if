@@ -80,7 +80,7 @@ public abstract class AbstractMetadataResolver {
 	 * @return
 	 */
 	// TODO maybe refactor name?
-	public abstract List<MetadataTemplate> listTemplatesInIrodsHierarchyAbovePath(
+	public abstract List<MetadataTemplate> listTemplatesInDirectoryHierarchyAbovePath(
 			final String absolutePath) throws FileNotFoundException,
 			IOException, MetadataTemplateProcessingException,
 			MetadataTemplateParsingException;
@@ -102,29 +102,36 @@ public abstract class AbstractMetadataResolver {
 			MetadataTemplateProcessingException,
 			MetadataTemplateParsingException {
 
-		/*
-		 * This is backwards, also, should this be a list. We want the strongest
-		 * association to win, and there should only be one entry per metadata
-		 * template that 'wins'
-		 * 
-		 * so to all by group, then override by name with user, then override
-		 * again starting at top of tree down to collection the closest to the
-		 * collection wins for any 'aname'
-		 */
+		List<MetadataTemplate> allTemplates = new ArrayList<MetadataTemplate>();
+		List<MetadataTemplate> hierarchyTemplates;
+		List<MetadataTemplate> publicTemplates;
 
-		List<MetadataTemplate> allTemplates;
-		if (path == null || path.isEmpty()) {
-			allTemplates = new ArrayList<MetadataTemplate>();
-		} else {
-			allTemplates = this.listTemplatesInIrodsHierarchyAbovePath(path);
+		hierarchyTemplates = this
+				.listTemplatesInDirectoryHierarchyAbovePath(path);
+		publicTemplates = this.listPublicTemplates();
+
+		// Both the directory hierarchy list and the public list have already
+		// had duplicates accounted for. HOWEVER, there exists the possibility
+		// that there is a template name that appears both in the hierarchy and
+		// the public lists. This check accounts for that.
+		allTemplates.addAll(hierarchyTemplates);
+		if (!hierarchyTemplates.isEmpty() && !publicTemplates.isEmpty()) {
+			for (MetadataTemplate mtPublic : publicTemplates) {
+				boolean duplicate = false;
+				for (MetadataTemplate mtHierarchy : hierarchyTemplates) {
+					if (mtPublic.getName().equalsIgnoreCase(mtHierarchy.getName())) {
+						duplicate = true;
+						break;
+					}
+				}
+				
+				if (!duplicate) {
+					allTemplates.add(mtPublic);
+				}
+			}
 		}
-		/*
-		 * if (userName == null || userName.isEmpty()) { // ignore } else {
-		 * allTemplates.addAll(listTemplatesInUserHome(userName)); }
-		 */
-		allTemplates.addAll(this.listPublicTemplates());
-		return allTemplates;
 
+		return allTemplates;
 	}
 
 	public List<MetadataTemplate> listAllRequiredTemplates(final String path)
