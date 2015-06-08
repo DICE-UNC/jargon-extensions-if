@@ -56,4 +56,54 @@ public abstract class UserPreferencesStore {
 	abstract void deletePropertiesForApp(final String appName)
 			throws UserProfileException;
 
+	/**
+	 * Retrieve a property in the app namespace, or <code>null</code> if the
+	 * property does not exist
+	 * 
+	 * @param appName
+	 *            <code>String</code> for an 'app' or 'category' that serves as
+	 *            a namespace for the props
+	 * @param propertyName
+	 *            <code>String</code> with the property key
+	 * @return <code>String</code> with the property value
+	 * @throws UserProfileException
+	 */
+	abstract String retrievePropertyForApp(final String appName,
+			final String propertyName) throws UserProfileException;
+
+	/**
+	 * Idempotent method to add or update a property value for the given app
+	 * namespace
+	 * 
+	 * @param appName
+	 *            appName <code>String</code> for an 'app' or 'category' that
+	 *            serves as a namespace for the props
+	 * @param propertyName
+	 *            propertyName <code>String</code> with the name of the prop to
+	 *            update
+	 * @param propertyValue
+	 *            appName <code>String</code> with the value to store at the
+	 *            property
+	 * @throws UserProfileException
+	 */
+	abstract void updatePropertyForApp(final String appName,
+			final String propertyName, final String propertyValue)
+			throws UserProfileException;
+
+	/**
+	 * Idempotent method to remove a property. If the property does not exist,
+	 * it will silently ignore the delete
+	 * 
+	 * @param appName
+	 *            appName <code>String</code> for an 'app' or 'category' that
+	 *            serves as a namespace for the props
+	 * @param propertyName
+	 *            propertyName <code>String</code> with the name of the prop to
+	 *            remove
+	 * 
+	 * @throws UserProfileException
+	 */
+	abstract void deletePropertyForApp(final String appName,
+			final String propertyName) throws UserProfileException;
+
 }
