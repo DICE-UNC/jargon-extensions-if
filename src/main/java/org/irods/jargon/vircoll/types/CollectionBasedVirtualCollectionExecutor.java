@@ -5,7 +5,7 @@ package org.irods.jargon.vircoll.types;
 
 import org.irods.jargon.core.connection.IRODSAccount;
 import org.irods.jargon.core.exception.JargonException;
-import org.irods.jargon.core.pub.CollectionAndDataObjectListAndSearchAO;
+import org.irods.jargon.core.pub.CollectionPagerAO;
 import org.irods.jargon.core.pub.IRODSAccessObjectFactory;
 import org.irods.jargon.core.query.PagingAwareCollectionListing;
 import org.irods.jargon.vircoll.AbstractVirtualCollectionExecutor;
@@ -56,17 +56,18 @@ public class CollectionBasedVirtualCollectionExecutor extends
 	public PagingAwareCollectionListing queryAll(final int offset)
 			throws JargonException {
 
-		log.info("queryAll()");
+		log.info("queryAll() with offset");
 
 		log.info("offset:{}", offset);
 
 		log.info("collection parent:{}", getCollection().getRootPath());
+		CollectionPagerAO collectionPager = getIrodsAccessObjectFactory()
+				.getCollectionPagerAO(irodsAccount);
+		return collectionPager.retrieveFirstPageUnderParent(getCollection()
+				.getRootPath());
 
-		CollectionAndDataObjectListAndSearchAO collectionAndDataObjectListAndSearchAO = getIrodsAccessObjectFactory()
-				.getCollectionAndDataObjectListAndSearchAO(getIrodsAccount());
-		return collectionAndDataObjectListAndSearchAO
-				.listDataObjectsAndCollectionsUnderPathProducingPagingAwareCollectionListing(getCollection()
-						.getRootPath());
+		// FIXME: see https://github.com/DICE-UNC/jargon-extensions/issues/7
+
 	}
 
 	public String getCollectionParentAbsolutePath() {
@@ -82,7 +83,7 @@ public class CollectionBasedVirtualCollectionExecutor extends
 	@Override
 	public PagingAwareCollectionListing queryAll(String path, int offset)
 			throws JargonException {
-		log.info("queryAll()");
+		log.info("queryAll() with path and offset");
 
 		if (path == null) {
 			throw new IllegalArgumentException("null path");
@@ -103,10 +104,10 @@ public class CollectionBasedVirtualCollectionExecutor extends
 			myPath = path;
 		}
 
-		CollectionAndDataObjectListAndSearchAO collectionAndDataObjectListAndSearchAO = getIrodsAccessObjectFactory()
-				.getCollectionAndDataObjectListAndSearchAO(getIrodsAccount());
-		return collectionAndDataObjectListAndSearchAO
-				.listDataObjectsAndCollectionsUnderPathProducingPagingAwareCollectionListing(myPath);
-	}
+		log.info("using myPath:{}", myPath);
 
+		CollectionPagerAO collectionPager = getIrodsAccessObjectFactory()
+				.getCollectionPagerAO(irodsAccount);
+		return collectionPager.retrieveFirstPageUnderParent(myPath);
+	}
 }
