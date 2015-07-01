@@ -19,6 +19,7 @@ public class StarredFoldersVirtualCollection extends AbstractVirtualCollection {
 	public static final String NAME = "Starred Files";
 	public static final String NAME_KEY = "virtual.collection.name.starred";
 	public static final String ICON_KEY = "virtual.collection.icon.starred";
+	public static final String MY_TYPE = "STARRED";
 
 	/**
 	 * create an instance of a starred virtual collection
@@ -30,6 +31,7 @@ public class StarredFoldersVirtualCollection extends AbstractVirtualCollection {
 		setI18Description(DESCRIPTION_KEY);
 		setI18Name(NAME_KEY);
 		setPagingStyle(PagingStyle.CONTINUOUS);
+		this.setType(MY_TYPE);
 
 	}
 }

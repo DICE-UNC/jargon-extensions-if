@@ -18,6 +18,7 @@ public class CollectionBasedVirtualCollection extends AbstractVirtualCollection 
 	public static final String DESCRIPTION_KEY_HOME = "virtual.collection.description.home";
 	public static final String DESCRIPTION_KEY_ROOT = "virtual.collection.description.root";
 	public static final String DESCRIPTION = "iRODS Collection at a given path";
+	public static final String MY_TYPE = "COLLECTION";
 
 	/**
 	 * Represents the iRODS absolute path that is the parent of this virtual
@@ -46,6 +47,7 @@ public class CollectionBasedVirtualCollection extends AbstractVirtualCollection 
 		setDescription(DESCRIPTION);
 		setI18icon(DEFAULT_ICON_KEY);
 		setPagingStyle(PagingStyle.SPLIT_COLLECTIONS_AND_FILES);
+		this.setType(MY_TYPE);
 
 	}
 
