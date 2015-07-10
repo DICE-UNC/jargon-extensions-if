@@ -32,6 +32,6 @@ public class StarredFoldersVirtualCollection extends AbstractVirtualCollection {
 		setI18Name(NAME_KEY);
 		setPagingStyle(PagingStyle.CONTINUOUS);
 		this.setType(MY_TYPE);
-
+		this.setPathHintable(false);
 	}
 }

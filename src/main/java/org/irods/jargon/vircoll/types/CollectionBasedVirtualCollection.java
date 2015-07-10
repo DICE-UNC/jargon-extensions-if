@@ -48,6 +48,7 @@ public class CollectionBasedVirtualCollection extends AbstractVirtualCollection 
 		setI18icon(DEFAULT_ICON_KEY);
 		setPagingStyle(PagingStyle.SPLIT_COLLECTIONS_AND_FILES);
 		this.setType(MY_TYPE);
+		this.setPathHintable(true);
 
 	}
 

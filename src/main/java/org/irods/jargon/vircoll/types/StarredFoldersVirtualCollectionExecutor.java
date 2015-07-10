@@ -113,6 +113,7 @@ public class StarredFoldersVirtualCollectionExecutor extends
 			entry.setDataSize(0);
 			entry.setLastResult(coll.isLastResult());
 			entry.setObjectType(ObjectType.COLLECTION);
+			entry.setCreatedAt(coll.getCreatedAt());
 			CollectionAndPath collAndPath = MiscIRODSUtils
 					.separateCollectionAndPathFromGivenAbsolutePath(coll
 							.getDomainUniqueName());
@@ -141,13 +142,15 @@ public class StarredFoldersVirtualCollectionExecutor extends
 		for (IRODSStarredFileOrCollection coll : starred) {
 			entry = new CollectionAndDataObjectListingEntry();
 			entry.setCount(coll.getCount());
-			entry.setDataSize(0);
+			entry.setDataSize(coll.getDataSize());
 			entry.setLastResult(coll.isLastResult());
+			entry.setCreatedAt(coll.getCreatedAt());
 			entry.setObjectType(ObjectType.DATA_OBJECT);
 			CollectionAndPath collAndPath = MiscIRODSUtils
 					.separateCollectionAndPathFromGivenAbsolutePath(coll
 							.getDomainUniqueName());
 			entry.setParentPath(collAndPath.getCollectionParent());
+			entry.setPathOrName(collAndPath.getChildName());
 			entry.setDescription(collAndPath.getChildName());
 			entries.add(entry);
 		}

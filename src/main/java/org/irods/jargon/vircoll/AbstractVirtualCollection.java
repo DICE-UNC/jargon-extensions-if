@@ -66,6 +66,14 @@ public abstract class AbstractVirtualCollection {
 	 */
 	private String i18icon = DEFAULT_ICON_KEY;
 
+	/**
+	 * Boolean flag that indicates when <code>true</code> that the virtual
+	 * collection accepts and can process a path to produce specific listings.
+	 * Some virtual collections only exist at the top level, some may use a
+	 * provided path to generate more specific queries.ß
+	 */
+	private boolean pathHintable = false;
+
 	public String getUniqueName() {
 		return uniqueName;
 	}
@@ -182,7 +190,10 @@ public abstract class AbstractVirtualCollection {
 		if (i18icon != null) {
 			builder.append("i18icon=");
 			builder.append(i18icon);
+			builder.append(", ");
 		}
+		builder.append("pathHintable=");
+		builder.append(pathHintable);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -200,6 +211,21 @@ public abstract class AbstractVirtualCollection {
 		}
 		builder.append("]");
 		return builder.toString();
+	}
+
+	/**
+	 * @return the pathHintable
+	 */
+	public boolean isPathHintable() {
+		return pathHintable;
+	}
+
+	/**
+	 * @param pathHintable
+	 *            the pathHintable to set
+	 */
+	public void setPathHintable(boolean pathHintable) {
+		this.pathHintable = pathHintable;
 	}
 
 }
