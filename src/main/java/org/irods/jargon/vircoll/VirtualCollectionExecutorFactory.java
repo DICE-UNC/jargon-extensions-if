@@ -15,15 +15,27 @@ public interface VirtualCollectionExecutorFactory {
 	/**
 	 * Given some form of virtual collection, return the associated executor
 	 * 
-	 * @param virtualCollection
+	 * @param virtualCollectiono
 	 *            {@link AbstractVirtualCollection} subtype
 	 * @return associated {@link AbstractVirtualCollectionExecutor}
 	 * @throws DataNotFoundException
 	 * @throws JargonException
 	 */
-	@SuppressWarnings("rawtypes")
-	AbstractVirtualCollectionExecutor instanceExecutorBasedOnVirtualCollection(
+	AbstractVirtualCollectionExecutor<?> instanceExecutorBasedOnVirtualCollection(
 			final AbstractVirtualCollection virtualCollection)
 			throws DataNotFoundException, JargonException;
+
+	/**
+	 * For fallback in non-path-hintable virtual collections, get a reference to
+	 * the collection based virtual collection(normal iRODS file browsing). In
+	 * virtual collections where additional path information cannot be
+	 * processed, it will delegate those paths to this normal inquiry mode.
+	 * 
+	 * @return {@link AbstractVirtualCollectionExecutor} oriented towards the
+	 *         iRODS root path '/'.
+	 * @throws JargonException
+	 */
+	AbstractVirtualCollectionExecutor<?> instanceCollectionBasedVirtualCollectionExecutorAtRoot()
+			throws JargonException;
 
 }

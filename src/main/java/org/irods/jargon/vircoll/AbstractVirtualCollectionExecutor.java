@@ -52,6 +52,30 @@ public abstract class AbstractVirtualCollectionExecutor<T extends AbstractVirtua
 			throws JargonException;
 
 	/**
+	 * Given a path, process the query. Note that a virtual collection may be
+	 * able to take a path and query and query the external service with that
+	 * provided path as a 'hint'. That behavior is indicated by setting the
+	 * 'pathHintable' property of the virtual collection.
+	 * <p/>
+	 * The system is designed such that, for external indexes that cannot search
+	 * 'beneath' a given path, it will instead defer to a straight iRODS file
+	 * listing under the parent.
+	 * <p/>
+	 * If this default behavior is not desired, it must be overridden in the
+	 * child class.
+	 * 
+	 * @param path
+	 *            <code>String</code> with the iRODS absolute path of the parent
+	 *            for the query.
+	 * @param offset
+	 *            <code>int</code> with an offset into the result set
+	 * @return {@link PagingAwareCollectionListing} with the query results
+	 * @throws JargonException
+	 */
+	public abstract PagingAwareCollectionListing queryAll(String path,
+			int offset) throws JargonException;
+
+	/**
 	 * Get the abstract virtual collection associated with this executor
 	 * 
 	 * @return {@link AbstractVirtualCollection} subtype

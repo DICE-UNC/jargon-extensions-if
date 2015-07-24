@@ -70,7 +70,11 @@ public abstract class AbstractVirtualCollection {
 	 * Boolean flag that indicates when <code>true</code> that the virtual
 	 * collection accepts and can process a path to produce specific listings.
 	 * Some virtual collections only exist at the top level, some may use a
-	 * provided path to generate more specific queries.ß
+	 * provided path to generate more specific queries.
+	 * <p/>
+	 * For non 'path hintable' collections, a query path is simply passed on to
+	 * the normal iRODS 'collection based' virtual collection, and treated as a
+	 * normal file/folder navigation
 	 */
 	private boolean pathHintable = false;
 

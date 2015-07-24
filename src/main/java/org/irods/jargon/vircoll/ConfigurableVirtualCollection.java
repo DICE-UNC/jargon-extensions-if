@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.irods.jargon.vircoll.types;
+package org.irods.jargon.vircoll;
 
 import org.irods.jargon.vircoll.AbstractVirtualCollection;
 
