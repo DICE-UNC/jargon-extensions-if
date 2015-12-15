@@ -12,6 +12,10 @@ package org.irods.jargon.filetemplate;
 public class FileTemplate {
 
 	/**
+	 * Default file extension for the type
+	 */
+	private String defaultExtension = "";
+	/**
 	 * standard mime type of the file
 	 */
 	private String mimeType = "";
@@ -83,6 +87,10 @@ public class FileTemplate {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("FileTemplate [");
+		if (defaultExtension != null) {
+			builder.append("defaultExtension=").append(defaultExtension)
+					.append(", ");
+		}
 		if (mimeType != null) {
 			builder.append("mimeType=").append(mimeType).append(", ");
 		}
@@ -102,6 +110,14 @@ public class FileTemplate {
 		}
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public String getDefaultExtension() {
+		return defaultExtension;
+	}
+
+	public void setDefaultExtension(String defaultExtension) {
+		this.defaultExtension = defaultExtension;
 	}
 
 }

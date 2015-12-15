@@ -11,6 +11,8 @@ import org.irods.jargon.core.pub.IRODSAccessObjectFactory;
 import org.irods.jargon.core.service.AbstractJargonService;
 import org.irods.jargon.filetemplate.exception.FileTemplateException;
 import org.irods.jargon.filetemplate.exception.FileTemplateNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Basic abstract class that defines a file type service to manage 'templates'
@@ -21,6 +23,9 @@ import org.irods.jargon.filetemplate.exception.FileTemplateNotFoundException;
  *
  */
 public abstract class FileTemplateService extends AbstractJargonService {
+
+	public static final Logger log = LoggerFactory
+			.getLogger(FileTemplateService.class);
 
 	/**
 	 * Generate a list of available file templates for the logged in user. These
@@ -56,11 +61,71 @@ public abstract class FileTemplateService extends AbstractJargonService {
 	 * @throws FileTemplateException
 	 *             general exception
 	 */
-	public abstract TemplateCreatedFile createFileBasedOnTemplate(
-			final String parentPath, final String fileName,
-			final String templateUniqueIdentifier)
+
+	public TemplateCreatedFile createFileBasedOnTemplateUniqueIdentifier(
+			String parentPath, String fileName, String templateUniqueIdentifier)
 			throws DuplicateDataException, FileTemplateNotFoundException,
-			FileTemplateException;
+			FileTemplateException {
+
+		log.info("createFileBasedOnTemplate()");
+		if (parentPath == null || parentPath.isEmpty()) {
+			throw new IllegalArgumentException("parentPath is null or empty");
+		}
+
+		if (fileName == null || fileName.isEmpty()) {
+			throw new IllegalArgumentException("null or empty fileName");
+		}
+
+		if (templateUniqueIdentifier == null
+				|| templateUniqueIdentifier.isEmpty()) {
+			throw new IllegalArgumentException(
+					"templateUniqueIdentifier is null or empty");
+		}
+
+		log.info("parentPath:{}", parentPath);
+		log.info("fileName:{}", fileName);
+		log.info("templateUniqueIdentifier:{}", templateUniqueIdentifier);
+
+		FileTemplate fileTemplate = retrieveTemplateByUniqueName(templateUniqueIdentifier);
+		log.info("found fileTemplate:{}", fileTemplate);
+		TemplateCreatedFile templateCreatedFile = createFileBasedOnTemplate(
+				fileTemplate, parentPath, fileName);
+
+		return templateCreatedFile;
+	}
+
+	/**
+	 * Given a template, create an iRODS file based on the template. To be
+	 * implemented by the particular extension
+	 * 
+	 * @param fileTemplate
+	 *            {@link FileTemplate} that has been resolved
+	 * @param parentPath
+	 *            <code>String</code> with the absolute iRODS path to the parent
+	 *            collection that will contain the new file
+	 * @param fileName
+	 *            <code>String</code> with the file name + extension (file.txt)
+	 *            to be created. Whether the implementation checks the extension
+	 *            versus the MIME type of the file is implementation dependent,
+	 *            but the file contents will be determined by the template
+	 * @return {@link TemplateCreatedFile}
+	 * @throws DuplicateDataException
+	 * @throws FileTemplateException
+	 */
+	protected abstract TemplateCreatedFile createFileBasedOnTemplate(
+			FileTemplate fileTemplate, String parentPath, String fileName)
+			throws DuplicateDataException, FileTemplateException;
+
+	/**
+	 * 
+	 * @param templateUniqueIdentifier
+	 * @return
+	 * @throws FileTemplateNotFoundException
+	 * @throws FileTemplateException
+	 */
+	protected abstract FileTemplate retrieveTemplateByUniqueName(
+			String templateUniqueIdentifier)
+			throws FileTemplateNotFoundException, FileTemplateException;
 
 	/**
 	 * 
