@@ -3,7 +3,6 @@
  */
 package org.irods.jargon.vircoll;
 
-import org.irods.jargon.vircoll.AbstractVirtualCollection;
 
 /**
  * Virtual collection as stored in a JSON format
@@ -13,10 +12,20 @@ import org.irods.jargon.vircoll.AbstractVirtualCollection;
  */
 public class ConfigurableVirtualCollection extends AbstractVirtualCollection {
 
+	private String queryString = "";
+
 	/**
 	 * 
 	 */
 	public ConfigurableVirtualCollection() {
+	}
+
+	public String getQueryString() {
+		return queryString;
+	}
+
+	public void setQueryString(String queryString) {
+		this.queryString = queryString;
 	}
 
 }

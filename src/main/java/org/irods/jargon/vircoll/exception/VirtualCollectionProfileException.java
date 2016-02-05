@@ -3,7 +3,6 @@
  */
 package org.irods.jargon.vircoll.exception;
 
-import org.irods.jargon.core.exception.JargonException;
 
 /**
  * Exception generating or maintaining a user profile of virtual collections
@@ -11,7 +10,8 @@ import org.irods.jargon.core.exception.JargonException;
  * @author Mike Conway - DICE
  *
  */
-public class VirtualCollectionProfileException extends JargonException {
+public class VirtualCollectionProfileException extends
+		VirtualCollectionException {
 
 	/**
 	 * 
