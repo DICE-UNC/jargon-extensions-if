@@ -11,12 +11,34 @@ import org.irods.jargon.vircoll.AbstractVirtualCollection;
  * @author Mike Conway - DICE
  *
  */
-public class ConfigurableVirtualCollection extends AbstractVirtualCollection {
+public abstract class ConfigurableVirtualCollection extends AbstractVirtualCollection {
 
 	/**
 	 * 
 	 */
-	public ConfigurableVirtualCollection() {
+	private String queryString = "";	
+	
+	public String getQueryString() {
+		return queryString;
 	}
 
+	public void setQueryString(String queryString) {
+		this.queryString = queryString;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ConfigurableVirtualCollection [");
+		builder.append(super.toString());
+		builder.append(", queryString=");
+		builder.append(queryString);
+		builder.append("]");
+		return builder.toString();
+	}
 }
