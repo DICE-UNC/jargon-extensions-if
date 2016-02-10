@@ -99,4 +99,5 @@ public interface VirtualCollectionMaintenanceService {
 	public abstract void deleteVirtualCollection(final String collection,
 			final String uniqueName) throws FileNotFoundException,
 			VirtualCollectionException;
+
 }
