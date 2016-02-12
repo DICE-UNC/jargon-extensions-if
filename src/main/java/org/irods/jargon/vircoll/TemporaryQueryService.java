@@ -3,6 +3,8 @@
  */
 package org.irods.jargon.vircoll;
 
+import java.util.List;
+
 import org.irods.jargon.vircoll.exception.VirtualCollectionException;
 
 /**
@@ -38,6 +40,29 @@ public interface TemporaryQueryService {
 	 */
 	public String nameAndStoreTemporaryQuery(
 			ConfigurableVirtualCollection virtualCollection,
+			String userName,
+			VirtualCollectionMaintenanceService virtualCollectionMaintenanceService)
+			throws VirtualCollectionException;
+
+	/**
+	 * Return a list of the last N temporary queries, sorted newest to oldest,
+	 * for the given VirtualCollectionMaintenanceService
+	 * 
+	 * @param n
+	 *            <code>int</code> greater than 0, the size of list to attempt
+	 *            to return
+	 * @param userName
+	 *            <code>String</code> for storage, if not entered (null or
+	 *            blank) the current iRODS Account will provide the user name
+	 * @param virtualCollectionMaintenanceService
+	 *            {@link VirtualCollectionMaintenanceService} that handles this
+	 *            type of query
+	 * @return {@link List} of {@link ConfigurableVirtualCollection}. List will
+	 *         contain at most n elements.
+	 * @throws VirtualCollectionException
+	 */
+	public List<ConfigurableVirtualCollection> getLastNTemporaryQueries(
+			int n,
 			String userName,
 			VirtualCollectionMaintenanceService virtualCollectionMaintenanceService)
 			throws VirtualCollectionException;

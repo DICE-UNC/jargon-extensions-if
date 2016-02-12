@@ -1,5 +1,7 @@
 package org.irods.jargon.vircoll;
 
+import java.io.IOException;
+
 import org.irods.jargon.core.exception.DuplicateDataException;
 import org.irods.jargon.core.exception.FileNotFoundException;
 import org.irods.jargon.core.exception.JargonException;
