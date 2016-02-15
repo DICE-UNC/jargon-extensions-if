@@ -119,12 +119,13 @@ public abstract class AbstractMetadataResolver {
 			for (MetadataTemplate mtPublic : publicTemplates) {
 				boolean duplicate = false;
 				for (MetadataTemplate mtHierarchy : hierarchyTemplates) {
-					if (mtPublic.getName().equalsIgnoreCase(mtHierarchy.getName())) {
+					if (mtPublic.getName().equalsIgnoreCase(
+							mtHierarchy.getName())) {
 						duplicate = true;
 						break;
 					}
 				}
-				
+
 				if (!duplicate) {
 					allTemplates.add(mtPublic);
 				}
@@ -185,16 +186,6 @@ public abstract class AbstractMetadataResolver {
 		return findTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)));
 	}
 
-	/**
-	 * Add or update existing by unique name
-	 * 
-	 * @param metadataTemplate
-	 * 
-	 * @throws FileNotFoundException
-	 *             if <code>location</code> is not a valid save location
-	 * @throws IOException
-	 *             if save fails
-	 */
 	public abstract String saveFormBasedTemplateAsJSON(
 			FormBasedMetadataTemplate metadataTemplate, String location)
 			throws FileNotFoundException, IOException,
@@ -212,6 +203,31 @@ public abstract class AbstractMetadataResolver {
 			throws FileNotFoundException, IOException {
 		return this.renameTemplateByFqName(
 				getFqNameForUUID(UUID.fromString(uuid)), newFqName);
+	}
+
+	public abstract MetadataTemplate cloneTemplateByFqName(String fqName,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException;
+
+	public MetadataTemplate cloneTemplateByUUID(UUID uuid,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException {
+		return this.cloneTemplateByFqName(getFqNameForUUID(uuid),
+				newTemplateName, destDir);
+	}
+
+	public MetadataTemplate cloneTemplateByUUID(String uuid,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException {
+		return this.cloneTemplateByFqName(
+				getFqNameForUUID(UUID.fromString(uuid)), newTemplateName,
+				destDir);
 	}
 
 	public abstract boolean updateFormBasedTemplateByFqName(String uniqueName,

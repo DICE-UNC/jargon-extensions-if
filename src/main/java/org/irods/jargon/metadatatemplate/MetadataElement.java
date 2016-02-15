@@ -3,7 +3,6 @@
  */
 package org.irods.jargon.metadatatemplate;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

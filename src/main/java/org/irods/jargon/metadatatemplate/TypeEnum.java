@@ -15,6 +15,6 @@ package org.irods.jargon.metadatatemplate;
  */
 public enum TypeEnum {
 
-	STRING, INT, FLOAT, BOOLEAN, TEXT, DATE
+	STRING, INT, FLOAT, BOOLEAN, TEXT, DATE, URL
 
 }

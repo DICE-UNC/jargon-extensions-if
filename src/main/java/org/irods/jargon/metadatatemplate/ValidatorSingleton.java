@@ -103,6 +103,17 @@ public final class ValidatorSingleton {
 				 */
 				return ValidationReturnEnum.NOT_VALIDATED;
 			}
+			
+			if (me.getType() == TypeEnum.URL) {
+				/**
+				 * XXX Not yet implemented
+				 */
+				/*
+				 * if (value is a valid URL) return SUCCESS else return
+				 * BAD_TYPE
+				 */
+				return ValidationReturnEnum.NOT_VALIDATED;
+			}
 		}
 		
 		if (me.getValidationStyle() == ValidationStyleEnum.IS) {

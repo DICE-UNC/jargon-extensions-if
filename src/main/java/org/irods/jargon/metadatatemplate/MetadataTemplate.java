@@ -3,9 +3,7 @@
  */
 package org.irods.jargon.metadatatemplate;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 @JsonInclude(Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class MetadataTemplate {
 	/**
 	 * UUID that uniquely identifies this metadata template. Helpful to
@@ -72,16 +70,20 @@ public abstract class MetadataTemplate {
 	/**
 	 * When template was created
 	 */
+	// Not marked as "JsonProperty" because should not be serialized
+	// Will be handled in iRODS as AVU
 	private Date created = new Date(0);
 
 	/**
 	 * When template was last modified
 	 */
+	// Not marked as "JsonProperty" because should not be serialized
+	// Will be handled in iRODS as AVU
 	private Date modified = new Date(0);
 
 	/**
 	 * What version of the template
-	 */
+	 */	
 	@JsonProperty("version")
 	private String version = "";
 
@@ -101,9 +103,9 @@ public abstract class MetadataTemplate {
 	 * 
 	 * XXX NOT YET SUPPORTED
 	 */
-	//@JsonProperty("driver")
-	//private MetadataDriver driver = new MetadataDriver();
-	
+	// @JsonProperty("driver")
+	// private MetadataDriver driver = new MetadataDriver();
+
 	/**
 	 * Specifies the format in which metadata is finally stored.
 	 * 
@@ -121,6 +123,13 @@ public abstract class MetadataTemplate {
 	private boolean required = false;
 
 	/**
+	 * Indicates whether the given template is private. If true, the template
+	 * should not be usable or clonable by users other than its creator.
+	 */
+	@JsonProperty("private")
+	private boolean privateTemplate = false;
+
+	/**
 	 * List of optional templates that are linked by this template, such that a
 	 * non-required template could be bound by a resolver as required, or by
 	 * composition.
@@ -130,7 +139,7 @@ public abstract class MetadataTemplate {
 	 * nearest to the collection 2) user home dir 3) public viewable dirs
 	 */
 	// TODO Uncomment when ready to implement linked templates
-	//private List<String> linkedTemplates = new ArrayList<String>();
+	// private List<String> linkedTemplates = new ArrayList<String>();
 
 	public UUID getUuid() {
 		return uuid;
@@ -172,11 +181,11 @@ public abstract class MetadataTemplate {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
+
 	public Date getCreated() {
 		return created;
 	}
-	
+
 	// TODO Hide public setter?
 	public void setCreated(Date created) {
 		this.created = created;
@@ -190,7 +199,7 @@ public abstract class MetadataTemplate {
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-	
+
 	public String getVersion() {
 		return version;
 	}
@@ -206,18 +215,14 @@ public abstract class MetadataTemplate {
 	public void setSource(SourceEnum source) {
 		this.source = source;
 	}
-	
-	// TODO Uncomment when ready to implement multiple drivers
-/*
-	public MetadataDriver getDriver() {
-		return driver;
-	}
 
-	public void setDriver(MetadataDriver driver) {
-		this.driver = driver;
-	}
-*/
-	
+	// TODO Uncomment when ready to implement multiple drivers
+	/*
+	 * public MetadataDriver getDriver() { return driver; }
+	 * 
+	 * public void setDriver(MetadataDriver driver) { this.driver = driver; }
+	 */
+
 	public ExporterEnum getExporter() {
 		return exporter;
 	}
@@ -225,7 +230,7 @@ public abstract class MetadataTemplate {
 	public void setExporter(ExporterEnum exporter) {
 		this.exporter = exporter;
 	}
-	
+
 	public boolean isRequired() {
 		return required;
 	}
@@ -233,25 +238,22 @@ public abstract class MetadataTemplate {
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
-	
-	// TODO Uncomment when ready to implement linked templates
-/*
-	public List<String> getLinkedTemplates() {
-		return linkedTemplates;
-	}
 
-	public void setLinkedTemplates(List<String> linkedTemplates) {
-		this.linkedTemplates = linkedTemplates;
-	}
-*/
+	// TODO Uncomment when ready to implement linked templates
+	/*
+	 * public List<String> getLinkedTemplates() { return linkedTemplates; }
+	 * 
+	 * public void setLinkedTemplates(List<String> linkedTemplates) {
+	 * this.linkedTemplates = linkedTemplates; }
+	 */
 	/**
 	 * 
 	 */
 	public MetadataTemplate() {
 	}
-	
+
 	public abstract MetadataTemplate deepCopy();
-	
+
 	public MetadataTemplate(MetadataTemplate mt) {
 		this.setAuthor(mt.getAuthor());
 		this.setName(mt.getName());

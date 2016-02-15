@@ -14,22 +14,26 @@ import java.util.Properties;
  * @author Mike Conway and Rick Skarbez
  *
  */
+
 public class MetadataSourceLink {
 
 	/**
 	 * Public name for a metadata source
 	 */
+	@SuppressWarnings("unused")
 	private final String name = "";
 
 	/**
 	 * Optional qualifier for a metadata source, such as the location for a
 	 * particular HIVE
 	 */
+	@SuppressWarnings("unused")
 	private final String qualifier = "";
 
 	/**
 	 * Optional properties for a source
 	 */
+	@SuppressWarnings("unused")
 	private final Properties properties = new Properties();
 
 	/**
