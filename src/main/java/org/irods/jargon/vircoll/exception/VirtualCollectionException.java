@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.irods.jargon.vircoll;
+package org.irods.jargon.vircoll.exception;
 
 import org.irods.jargon.core.exception.JargonException;
 

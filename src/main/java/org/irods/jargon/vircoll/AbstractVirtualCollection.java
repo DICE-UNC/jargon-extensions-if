@@ -42,9 +42,9 @@ public abstract class AbstractVirtualCollection {
 	private String type = "unknown";
 
 	/**
-	 * Unique name for this virtual collection
+	 * Unique name for this virtual collection, must be set by subtype.
 	 */
-	private String uniqueName = "Collection";
+	private String uniqueName = "";
 
 	/**
 	 * Plain language descripton
