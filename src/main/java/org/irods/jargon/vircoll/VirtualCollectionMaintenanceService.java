@@ -16,19 +16,43 @@ import org.irods.jargon.core.exception.JargonException;
 public interface VirtualCollectionMaintenanceService {
 
 	/**
-	 * Add the given virtual collection, in a serialized form, to the user
-	 * collection, which is under the .irods folder in the user home directory
+	 * Add the given virtual collection, in a serialized form, to the specified
+	 * collection
 	 * 
 	 * @param configurableVirtualCollection
 	 *            {@link ConfigurableVirtualCollection} which is serializable
 	 *            for the user
+	 * @param collection
+	 *            <code>String</code> identifying the collection in which to
+	 *            save the VC
+	 * @param uniqueName
+	 *            <code>String</code> naming the virtual collection
 	 * @throws DuplicateDataException
 	 *             if the virtual collection already exists
 	 * @throws JargonException
 	 */
-	public abstract void addVirtualCollectionToUserCollection(
-			ConfigurableVirtualCollection configurableVirtualCollection)
+	public abstract void addVirtualCollection(
+			ConfigurableVirtualCollection configurableVirtualCollection,
+			String collection, String uniqueName)
 			throws DuplicateDataException, JargonException;
+
+	/**
+	 * Add the given virtual collection, in a serialized form, to the specified
+	 * collection
+	 * 
+	 * @param configurableVirtualCollection
+	 *            {@link ConfigurableVirtualCollection} which is serializable
+	 *            for the user
+	 * @param collection
+	 *            <code>String</code> identifying the collection in which to
+	 *            save the VC
+	 * @param uniqueName
+	 *            <code>String</code> naming the virtual collection
+	 * @throws JargonException
+	 */
+	public abstract void storeVirtualCollection(
+			ConfigurableVirtualCollection configurableVirtualCollection,
+			String collection, String uniqueName) throws JargonException;
 
 	/**
 	 * Convert the given virtual collection into a JSON format
@@ -45,22 +69,33 @@ public interface VirtualCollectionMaintenanceService {
 			throws VirtualCollectionException;
 
 	/**
-	 * Given an absolute path, retrieve the virtual collection from iRODS as an
-	 * object
+	 * Given a collection and a file name, retrieve the virtual collection from
+	 * iRODS as an object
 	 * 
-	 * @param virtualCollectionAbsolutePath
-	 *            <code>String</code> with the absolute path to the virtual
+	 * @param collection
+	 *            <code>String</code> with the absolute path to the parent
 	 *            collection
+	 * @param <code>String</code> with the name of the virtual collection file
 	 * @return {@link ConfigurableVirtualCollection} available at that location
 	 * @throws FileNotFoundException
 	 * @throws VirtualCollectionException
 	 */
-	public abstract ConfigurableVirtualCollection retrieveVirtualCollectionFromFile(
-			final String virtualCollectionAbsolutePath)
+	public abstract ConfigurableVirtualCollection retrieveVirtualCollection(
+			final String collection, final String uniqueName)
 			throws FileNotFoundException, VirtualCollectionException;
 
-	public abstract ConfigurableVirtualCollection retrieveVirtualCollectionFromUserCollection(
-			final String userName, final String virtualCollectionName)
-			throws FileNotFoundException, VirtualCollectionException;
-
+	/**
+	 * Given a collection and a file name, delete the virtual collection file
+	 * 
+	 * @param collection
+	 *            <code>String</code> with the absolute path to the parent
+	 *            collection
+	 * @param <code>String</code> with the name of the virtual collection file
+	 * @return {@link ConfigurableVirtualCollection} available at that location
+	 * @throws FileNotFoundException
+	 * @throws VirtualCollectionException
+	 */
+	public abstract void deleteVirtualCollection(final String collection,
+			final String uniqueName) throws FileNotFoundException,
+			VirtualCollectionException;
 }
