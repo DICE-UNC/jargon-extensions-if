@@ -66,4 +66,24 @@ public interface TemporaryQueryService {
 			String userName,
 			VirtualCollectionMaintenanceService virtualCollectionMaintenanceService)
 			throws VirtualCollectionException;
+
+	/**
+	 * Retrieve the temporary query given the uniqueName. Note that
+	 * <code>null</code> will be returned if it is not found.
+	 * 
+	 * @param userName
+	 *            <code>String</code> userName with the name of the user
+	 * @param virtualCollectionMaintenanceService
+	 *            {@link VirtualCollectionMaintenanceService} that handles this
+	 *            type of query
+	 * @param uniqueName
+	 *            <code>String</code> with the uniqueName of the query
+	 * @return {@link ConfigurableVirtualCollection} or <code>null</code> if not
+	 *         found.
+	 * @throws VirtualCollectionException
+	 */
+	public ConfigurableVirtualCollection getTemporaryQueryByUniqueName(
+			final String userName,
+			final VirtualCollectionMaintenanceService virtualCollectionMaintenanceService,
+			final String uniqueName) throws VirtualCollectionException;
 }

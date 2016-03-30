@@ -73,17 +73,14 @@ public interface VirtualCollectionMaintenanceService {
 	 * Given a collection and a file name, retrieve the virtual collection from
 	 * iRODS as an object
 	 * 
-	 * @param collection
-	 *            <code>String</code> with the absolute path to the parent
-	 *            collection
 	 * @param <code>String</code> with the name of the virtual collection file
 	 * @return {@link ConfigurableVirtualCollection} available at that location
 	 * @throws FileNotFoundException
 	 * @throws VirtualCollectionException
 	 */
-	public abstract ConfigurableVirtualCollection retrieveVirtualCollection(
-			final String collection, final String uniqueName)
-			throws FileNotFoundException, VirtualCollectionException;
+	public abstract ConfigurableVirtualCollection retrieveVirtualCollectionGivenUniqueName(
+			final String uniqueName) throws FileNotFoundException,
+			VirtualCollectionException;
 
 	/**
 	 * Given a collection and a file name, delete the virtual collection file
@@ -99,4 +96,5 @@ public interface VirtualCollectionMaintenanceService {
 	public abstract void deleteVirtualCollection(final String collection,
 			final String uniqueName) throws FileNotFoundException,
 			VirtualCollectionException;
+
 }
