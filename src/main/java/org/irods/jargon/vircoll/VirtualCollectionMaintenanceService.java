@@ -24,8 +24,8 @@ public interface VirtualCollectionMaintenanceService {
 	 *            {@link ConfigurableVirtualCollection} which is serializable
 	 *            for the user
 	 * @param collection
-	 *            <code>String</code> identifying the collection in which to
-	 *            save the VC
+	 *            {@link CollectionTypes} enum identifying the collection in
+	 *            which to save the VC
 	 * @param uniqueName
 	 *            <code>String</code> naming the virtual collection
 	 * @throws DuplicateDataException
@@ -34,26 +34,8 @@ public interface VirtualCollectionMaintenanceService {
 	 */
 	public abstract void addVirtualCollection(
 			ConfigurableVirtualCollection configurableVirtualCollection,
-			String collection, String uniqueName)
+			CollectionTypes collection, String uniqueName)
 			throws DuplicateDataException, JargonException;
-
-	/**
-	 * Add the given virtual collection, in a serialized form, to the specified
-	 * collection
-	 * 
-	 * @param configurableVirtualCollection
-	 *            {@link ConfigurableVirtualCollection} which is serializable
-	 *            for the user
-	 * @param collection
-	 *            <code>String</code> identifying the collection in which to
-	 *            save the VC
-	 * @param uniqueName
-	 *            <code>String</code> naming the virtual collection
-	 * @throws JargonException
-	 */
-	public abstract void storeVirtualCollection(
-			ConfigurableVirtualCollection configurableVirtualCollection,
-			String collection, String uniqueName) throws JargonException;
 
 	/**
 	 * Convert the given virtual collection into a JSON format
@@ -86,15 +68,29 @@ public interface VirtualCollectionMaintenanceService {
 	 * Given a collection and a file name, delete the virtual collection file
 	 * 
 	 * @param collection
-	 *            <code>String</code> with the absolute path to the parent
-	 *            collection
+	 *            {@link CollectoinTypes} with the type of virtual collection
 	 * @param <code>String</code> with the name of the virtual collection file
 	 * @return {@link ConfigurableVirtualCollection} available at that location
 	 * @throws FileNotFoundException
 	 * @throws VirtualCollectionException
 	 */
-	public abstract void deleteVirtualCollection(final String collection,
-			final String uniqueName) throws FileNotFoundException,
-			VirtualCollectionException;
+	public abstract void deleteVirtualCollection(
+			final CollectionTypes collection, final String uniqueName)
+			throws FileNotFoundException, VirtualCollectionException;
+
+	/**
+	 * Update the contents of the virtual collection in-place
+	 * 
+	 * @param configurableVirtualCollection
+	 *            {@link ConfigurableVirtualCollection} which is serializable
+	 *            for the user
+	 * @param collection
+	 *            {@link CollectionTypes} identifying the collection in which to
+	 *            save the VC
+	 * @throws VirtualCollectionException
+	 */
+	void updateVirtualCollection(
+			ConfigurableVirtualCollection configurableVirtualCollection,
+			CollectionTypes collection) throws VirtualCollectionException;
 
 }

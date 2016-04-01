@@ -38,7 +38,7 @@ public interface TemporaryQueryService {
 	 * @return <code>String</code> with the name of the virtual collection
 	 * @throws VirtualCollectionException
 	 */
-	public String nameAndStoreTemporaryQuery(
+	public String addOrUpdateTemporaryQuery(
 			ConfigurableVirtualCollection virtualCollection,
 			String userName,
 			VirtualCollectionMaintenanceService virtualCollectionMaintenanceService)
