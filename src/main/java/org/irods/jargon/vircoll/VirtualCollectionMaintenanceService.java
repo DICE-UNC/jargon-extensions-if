@@ -81,15 +81,12 @@ public interface VirtualCollectionMaintenanceService {
 	/**
 	 * Given a collection and a file name, delete the virtual collection file
 	 * 
-	 * @param collection
-	 *            {@link CollectionTypes} with the type of virtual collection
 	 * @param <code>String</code> with the name of the virtual collection file
 	 * @return {@link ConfigurableVirtualCollection} available at that location
 	 * @throws FileNotFoundException
 	 * @throws VirtualCollectionException
 	 */
-	public abstract void deleteVirtualCollection(
-			final CollectionTypes collection, final String uniqueName)
+	public abstract void deleteVirtualCollection(final String uniqueName)
 			throws FileNotFoundException, VirtualCollectionException;
 
 	/**
@@ -98,13 +95,11 @@ public interface VirtualCollectionMaintenanceService {
 	 * @param configurableVirtualCollection
 	 *            {@link ConfigurableVirtualCollection} which is serializable
 	 *            for the user
-	 * @param collection
-	 *            {@link CollectionTypes} identifying the collection in which to
-	 *            save the VC
 	 * @throws VirtualCollectionException
+	 * @throws FileNotFoundException
 	 */
 	void updateVirtualCollection(
-			ConfigurableVirtualCollection configurableVirtualCollection,
-			CollectionTypes collection) throws VirtualCollectionException;
+			ConfigurableVirtualCollection configurableVirtualCollection)
+			throws VirtualCollectionException, FileNotFoundException;
 
 }
