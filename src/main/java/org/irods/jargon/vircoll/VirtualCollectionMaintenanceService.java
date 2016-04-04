@@ -38,6 +38,27 @@ public interface VirtualCollectionMaintenanceService {
 			throws DuplicateDataException, JargonException;
 
 	/**
+	 * Method will discriminate between an existing virtual collection or a new
+	 * one and properly add or update in place. This is an alternative to the
+	 * direct add and update methods
+	 * 
+	 * @param configurableVirtualCollection
+	 *            {@link ConfigurableVirtualCollection} which is serializable
+	 *            for the user
+	 * @param collection
+	 *            {@link CollectionTypes} enum identifying the collection in
+	 *            which to save the VC
+	 * @param uniqueName
+	 *            <code>String</code> naming the virtual collection
+	 * 
+	 * @throws JargonException
+	 */
+	public abstract void addOrUpdateVirtualCollection(
+			ConfigurableVirtualCollection configurableVirtualCollection,
+			CollectionTypes collection, String uniqueName)
+			throws JargonException;
+
+	/**
 	 * Move a virtual collection from one category to another (e.g. user home
 	 * collection, temp collection)
 	 * 
