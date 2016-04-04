@@ -38,6 +38,20 @@ public interface VirtualCollectionMaintenanceService {
 			throws DuplicateDataException, JargonException;
 
 	/**
+	 * Move a virtual collection from one category to another (e.g. user home
+	 * collection, temp collection)
+	 * 
+	 * @param collection
+	 *            {@link CollectionTypes} with the type of virtual collection
+	 * @param <code>String</code> with the name of the virtual collection file
+	 * @throws FileNotFoundException
+	 * @throws VirtualCollectionException
+	 */
+	public abstract void reclassifyVirtualCollection(
+			final CollectionTypes collection, final String uniqueName)
+			throws FileNotFoundException, VirtualCollectionException;
+
+	/**
 	 * Convert the given virtual collection into a JSON format
 	 * 
 	 * @param configurableVirtualCollection
@@ -68,7 +82,7 @@ public interface VirtualCollectionMaintenanceService {
 	 * Given a collection and a file name, delete the virtual collection file
 	 * 
 	 * @param collection
-	 *            {@link CollectoinTypes} with the type of virtual collection
+	 *            {@link CollectionTypes} with the type of virtual collection
 	 * @param <code>String</code> with the name of the virtual collection file
 	 * @return {@link ConfigurableVirtualCollection} available at that location
 	 * @throws FileNotFoundException
