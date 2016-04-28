@@ -12,8 +12,10 @@ public interface VirtualCollectionDiscoveryService {
 	 * configured virtual collections in the user home directory
 	 *
 	 * @return
+	 * @throws VirtualCollectionProfileException
 	 */
-	public List<AbstractVirtualCollection> listDefaultUserCollections();
+	public List<AbstractVirtualCollection> listDefaultUserCollections()
+			throws VirtualCollectionProfileException;
 
 	/**
 	 * Create a list of the virtual collections that are temporary collections
