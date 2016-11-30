@@ -11,6 +11,7 @@ import org.irods.jargon.core.pub.IRODSAccessObjectFactory;
 import org.irods.jargon.core.query.CollectionAndDataObjectListingEntry;
 import org.irods.jargon.core.query.PagingAwareCollectionListing;
 import org.irods.jargon.core.service.AbstractJargonService;
+import org.irods.jargon.vircoll.exception.VirtualCollectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,10 +71,10 @@ public abstract class AbstractVirtualCollectionExecutor<T extends AbstractVirtua
 	 * @param offset
 	 *            <code>int</code> with an offset into the result set
 	 * @return {@link PagingAwareCollectionListing} with the query results
-	 * @throws JargonException
+	 * @throws VirtualCollectionException
 	 */
 	public abstract PagingAwareCollectionListing queryAll(String path,
-			int offset) throws JargonException;
+			int offset) throws VirtualCollectionException;
 
 	/**
 	 * Get the abstract virtual collection associated with this executor

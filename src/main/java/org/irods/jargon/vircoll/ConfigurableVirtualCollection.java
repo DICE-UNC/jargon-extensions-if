@@ -3,20 +3,26 @@
  */
 package org.irods.jargon.vircoll;
 
-import org.irods.jargon.vircoll.AbstractVirtualCollection;
-
 /**
  * Virtual collection as stored in a JSON format
  * 
  * @author Mike Conway - DICE
  *
  */
-public class ConfigurableVirtualCollection extends AbstractVirtualCollection {
+public abstract class ConfigurableVirtualCollection extends
+		AbstractVirtualCollection {
 
 	/**
 	 * 
 	 */
-	public ConfigurableVirtualCollection() {
+	private String queryString = "";
+
+	public String getQueryString() {
+		return queryString;
+	}
+
+	public void setQueryString(String queryString) {
+		this.queryString = queryString;
 	}
 
 }
