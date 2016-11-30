@@ -5,14 +5,14 @@
 	<groupId>org.irods.jargon</groupId>
 	<artifactId>jargon-extensions-if</artifactId>
 	<packaging>jar</packaging>
-	<version>4.0.3.1-SNAPSHOT</version>
+	<version>4.2.1.0-SNAPSHOT</version>
 	<name>jargon-extensions-if</name>
 	<description></description>
 	<url>https://github.com/DICE-UNC/jargon-extensions-if</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jargon.version>4.0.3.1-SNAPSHOT</jargon.version>
-		<java.version>1.7</java.version>
+		<jargon.version>4.2.1.0-SNAPSHOT</jargon.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<issueManagement>
 		<system>GitHub</system>
