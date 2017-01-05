@@ -251,4 +251,13 @@ public abstract class AbstractMetadataResolver {
 	public String getFqNameForUUID(String uuid) {
 		return this.getFqNameForUUID(UUID.fromString(uuid));
 	}
+
+	public MetadataTemplate cloneTemplateByFqName(String fqName,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
