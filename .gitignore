@@ -21,7 +21,7 @@ nbactions.xml
 testing.properties
 */test-output
 JargonVersion.java
-
+*.swp
 
 
 
