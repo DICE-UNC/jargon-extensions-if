@@ -64,7 +64,7 @@ public class MetadataElement {
 	 * The type of data for the element, useful for validation and creation of
 	 * user elements
 	 */
-	private TypeEnum type = TypeEnum.STRING;
+	private TypeEnum type = TypeEnum.RAW_STRING;
 
 	/**
 	 * If options are specified, then entry will not be free form, and interface
