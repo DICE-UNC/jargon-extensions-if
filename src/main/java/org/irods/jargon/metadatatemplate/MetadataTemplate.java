@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Basic domain object for a metadata template
  * 
  * @author Mike Conway and Rick Skarbez
- *
  */
 
 /*
@@ -84,6 +83,14 @@ public abstract class MetadataTemplate {
 	 */
 	@JsonProperty("version")
 	private String version = "";
+	
+	/**
+	 * Specifies the subtype of MetadataTemplate.
+	 * 
+	 * XXX ONLY FORM_BASED MODE IS CURRENTLY SUPPORTED
+	 */
+	@JsonProperty("type")
+	private TemplateTypeEnum type = TemplateTypeEnum.FORM_BASED;
 
 	/**
 	 * Specifies the source of data that will populate the metadata template.
@@ -198,6 +205,14 @@ public abstract class MetadataTemplate {
 	public void setVersion(String version) {
 		this.version = version;
 	}
+	
+	public TemplateTypeEnum getType() {
+		return type;
+	}
+
+	public void setType(TemplateTypeEnum type) {
+		this.type = type;
+	}
 
 	public SourceEnum getSource() {
 		return source;
@@ -253,6 +268,7 @@ public abstract class MetadataTemplate {
 	public abstract MetadataTemplate deepCopy();
 	
 	public MetadataTemplate(MetadataTemplate mt) {
+		this.setType(mt.getType());
 		this.setAuthor(mt.getAuthor());
 		this.setName(mt.getName());
 		this.setFqName(mt.getFqName());

@@ -1,5 +1,9 @@
 package org.irods.jargon.metadatatemplate;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -47,19 +51,19 @@ public final class ValidatorSingleton {
 
 		// Default behavior is to validate type only
 		if (me.getValidationStyle() == ValidationStyleEnum.DEFAULT) {
-			if (me.getType() == TypeEnum.RAW_STRING
-					|| me.getType() == TypeEnum.RAW_TEXT
-					|| me.getType() == TypeEnum.RAW_URL
-					|| me.getType() == TypeEnum.REF_IRODS_CATALOG
-					|| me.getType() == TypeEnum.REF_IRODS_GENQUERY
-					|| me.getType() == TypeEnum.REF_HTTP
-					|| me.getType() == TypeEnum.REF_HTTPS
-					|| me.getType() == TypeEnum.REF_FTP
-					|| me.getType() == TypeEnum.REF_SFTP) {
+			if (me.getType() == ElementTypeEnum.RAW_STRING
+					|| me.getType() == ElementTypeEnum.RAW_TEXT
+					|| me.getType() == ElementTypeEnum.RAW_URL
+					|| me.getType() == ElementTypeEnum.REF_IRODS_CATALOG
+					|| me.getType() == ElementTypeEnum.REF_IRODS_GENQUERY
+					|| me.getType() == ElementTypeEnum.REF_HTTP
+					|| me.getType() == ElementTypeEnum.REF_HTTPS
+					|| me.getType() == ElementTypeEnum.REF_FTP
+					|| me.getType() == ElementTypeEnum.REF_SFTP) {
 				return ValidationReturnEnum.SUCCESS;
 			}
 
-			if (me.getType() == TypeEnum.RAW_INT) {
+			if (me.getType() == ElementTypeEnum.RAW_INT) {
 				try {
 					Integer.parseInt(me.getCurrentValue());
 				} catch (NumberFormatException e) {
@@ -69,7 +73,7 @@ public final class ValidatorSingleton {
 				return ValidationReturnEnum.SUCCESS;
 			}
 
-			if (me.getType() == TypeEnum.RAW_FLOAT) {
+			if (me.getType() == ElementTypeEnum.RAW_FLOAT) {
 				try {
 					Float.parseFloat(me.getCurrentValue());
 				} catch (NumberFormatException e) {
@@ -79,7 +83,7 @@ public final class ValidatorSingleton {
 				return ValidationReturnEnum.SUCCESS;
 			}
 
-			if (me.getType() == TypeEnum.RAW_BOOLEAN) {
+			if (me.getType() == ElementTypeEnum.RAW_BOOLEAN) {
 				if (me.getCurrentValue().equalsIgnoreCase("true")
 						|| me.getCurrentValue().equalsIgnoreCase("false")
 						|| me.getCurrentValue().equalsIgnoreCase("0")
@@ -90,37 +94,37 @@ public final class ValidatorSingleton {
 				}
 			}
 
-			if (me.getType() == TypeEnum.RAW_DATE) {
-				/**
-				 * XXX Not yet implemented
-				 */
-				/*
-				 * if (value is convertible to date) return SUCCESS else return
-				 * BAD_TYPE
-				 */
-				return ValidationReturnEnum.NOT_VALIDATED;
+			if (me.getType() == ElementTypeEnum.RAW_DATE) {
+				try {
+					LocalDate parsedDate = LocalDate
+							.parse(me.getCurrentValue());
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.BAD_TYPE;
+				}
+
+				return ValidationReturnEnum.SUCCESS;
 			}
 
-			if (me.getType() == TypeEnum.RAW_TIME) {
-				/**
-				 * XXX Not yet implemented
-				 */
-				/*
-				 * if (value is convertible to time) return SUCCESS else return
-				 * BAD_TYPE
-				 */
-				return ValidationReturnEnum.NOT_VALIDATED;
+			if (me.getType() == ElementTypeEnum.RAW_TIME) {
+				try {
+					LocalTime parsedTime = LocalTime
+							.parse(me.getCurrentValue());
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.BAD_TYPE;
+				}
+
+				return ValidationReturnEnum.SUCCESS;
 			}
 
-			if (me.getType() == TypeEnum.RAW_DATETIME) {
-				/**
-				 * XXX Not yet implemented
-				 */
-				/*
-				 * if (value is convertible to datetime) return SUCCESS else
-				 * return BAD_TYPE
-				 */
-				return ValidationReturnEnum.NOT_VALIDATED;
+			if (me.getType() == ElementTypeEnum.RAW_DATETIME) {
+				try {
+					LocalDateTime parsedDateTime = LocalDateTime.parse(me
+							.getCurrentValue());
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.BAD_TYPE;
+				}
+
+				return ValidationReturnEnum.SUCCESS;
 			}
 		}
 
@@ -164,7 +168,7 @@ public final class ValidatorSingleton {
 			 * validating.
 			 */
 
-			if (me.getType() == TypeEnum.RAW_INT) {
+			if (me.getType() == ElementTypeEnum.RAW_INT) {
 				int curVal;
 				try {
 					curVal = Integer.parseInt(me.getCurrentValue());
@@ -210,7 +214,7 @@ public final class ValidatorSingleton {
 				}
 			}
 
-			if (me.getType() == TypeEnum.RAW_FLOAT) {
+			if (me.getType() == ElementTypeEnum.RAW_FLOAT) {
 				float curVal;
 				try {
 					curVal = Float.parseFloat(me.getCurrentValue());
@@ -256,25 +260,134 @@ public final class ValidatorSingleton {
 				}
 			}
 
-			if (me.getType() == TypeEnum.RAW_DATE) {
-				/**
-				 * XXX Not yet implemented
-				 */
-				return ValidationReturnEnum.NOT_VALIDATED;
+			if (me.getType() == ElementTypeEnum.RAW_DATE) {
+				LocalDate curDate;
+				try {
+					curDate = LocalDate.parse(me.getCurrentValue());
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.BAD_TYPE;
+				}
+
+				LocalDate minDate;
+				try {
+					minDate = LocalDate.parse(me.getValidationOptions().get(0));
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.NOT_VALIDATED;
+				}
+
+				LocalDate maxDate;
+				try {
+					maxDate = LocalDate.parse(me.getValidationOptions().get(1));
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.NOT_VALIDATED;
+				}
+
+				// Be lenient with the order
+				if (minDate.isAfter(maxDate)) {
+					LocalDate temp = minDate;
+					minDate = maxDate;
+					maxDate = temp;
+				}
+
+				if (me.getValidationStyle() == ValidationStyleEnum.IN_RANGE) {
+					if ((curDate.isAfter(minDate) || curDate.isEqual(minDate))
+							&& (curDate.isBefore(maxDate) || curDate
+									.isEqual(maxDate))) {
+						return ValidationReturnEnum.SUCCESS;
+					} else {
+						return ValidationReturnEnum.VALUE_NOT_IN_RANGE;
+					}
+				} else {
+					// Already checked style was either IN_RANGE or
+					// IN_RANGE_EXCLUSIVE
+					if (curDate.isAfter(minDate) && curDate.isBefore(maxDate)) {
+						return ValidationReturnEnum.SUCCESS;
+					} else {
+						return ValidationReturnEnum.VALUE_NOT_IN_RANGE;
+					}
+				}
 			}
 
-			if (me.getType() == TypeEnum.RAW_TIME) {
-				/**
-				 * XXX Not yet implemented
-				 */
-				return ValidationReturnEnum.NOT_VALIDATED;
+			if (me.getType() == ElementTypeEnum.RAW_TIME) {
+				LocalTime curTime;
+				try {
+					curTime = LocalTime.parse(me.getCurrentValue());
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.BAD_TYPE;
+				}
+
+				LocalTime minTime;
+				try {
+					minTime = LocalTime.parse(me.getValidationOptions().get(0));
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.NOT_VALIDATED;
+				}
+
+				LocalTime maxTime;
+				try {
+					maxTime = LocalTime.parse(me.getValidationOptions().get(1));
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.NOT_VALIDATED;
+				}
+
+				// Be lenient with the order
+				if (minTime.isAfter(maxTime)) {
+					LocalTime temp = minTime;
+					minTime = maxTime;
+					maxTime = temp;
+				}
+
+				// LocalTime objects do no have an isEqual operation;
+				// therefore, IN_RANGE and IN_RANGE_EXCLUSIVE have the same
+				// functionality.
+				if (curTime.isAfter(minTime)
+						&& curTime.isBefore(maxTime)) {
+					return ValidationReturnEnum.SUCCESS;
+				} else {
+					return ValidationReturnEnum.VALUE_NOT_IN_RANGE;
+				}
 			}
 
-			if (me.getType() == TypeEnum.RAW_DATETIME) {
-				/**
-				 * XXX Not yet implemented
-				 */
-				return ValidationReturnEnum.NOT_VALIDATED;
+			if (me.getType() == ElementTypeEnum.RAW_DATETIME) {
+				LocalDateTime curDateTime;
+				try {
+					curDateTime = LocalDateTime.parse(me.getCurrentValue());
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.BAD_TYPE;
+				}
+
+				LocalDateTime minDateTime;
+				try {
+					minDateTime = LocalDateTime.parse(me.getValidationOptions()
+							.get(0));
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.NOT_VALIDATED;
+				}
+
+				LocalDateTime maxDateTime;
+				try {
+					maxDateTime = LocalDateTime.parse(me.getValidationOptions()
+							.get(1));
+				} catch (DateTimeParseException e) {
+					return ValidationReturnEnum.NOT_VALIDATED;
+				}
+
+				// Be lenient with the order
+				if (minDateTime.isAfter(maxDateTime)) {
+					LocalDateTime temp = minDateTime;
+					minDateTime = maxDateTime;
+					maxDateTime = temp;
+				}
+
+				// LocalDateTime objects do no have an isEqual operation;
+				// therefore, IN_RANGE and IN_RANGE_EXCLUSIVE have the same
+				// functionality.
+				if (curDateTime.isAfter(minDateTime)
+						&& curDateTime.isBefore(maxDateTime)) {
+					return ValidationReturnEnum.SUCCESS;
+				} else {
+					return ValidationReturnEnum.VALUE_NOT_IN_RANGE;
+				}
 			}
 
 			// All other types, IN_RANGE is ill-defined.
@@ -304,7 +417,7 @@ public final class ValidatorSingleton {
 		}
 
 		if (me.getValidationStyle() == ValidationStyleEnum.FOLLOW_REF) {
-			if (me.getType() == TypeEnum.REF_IRODS_GENQUERY) {
+			if (me.getType() == ElementTypeEnum.REF_IRODS_GENQUERY) {
 				/*
 				 * XXX Not implemented
 				 * 
@@ -313,7 +426,7 @@ public final class ValidatorSingleton {
 				 */
 
 				return ValidationReturnEnum.NOT_VALIDATED;
-			} else if (me.getType() == TypeEnum.REF_IRODS_CATALOG) {
+			} else if (me.getType() == ElementTypeEnum.REF_IRODS_CATALOG) {
 				/*
 				 * XXX Not implemented
 				 * 
@@ -322,10 +435,10 @@ public final class ValidatorSingleton {
 				 */
 
 				return ValidationReturnEnum.NOT_VALIDATED;
-			} else if (me.getType() == TypeEnum.REF_HTTP
-					|| me.getType() == TypeEnum.REF_HTTPS
-					|| me.getType() == TypeEnum.REF_FTP
-					|| me.getType() == TypeEnum.REF_SFTP) {
+			} else if (me.getType() == ElementTypeEnum.REF_HTTP
+					|| me.getType() == ElementTypeEnum.REF_HTTPS
+					|| me.getType() == ElementTypeEnum.REF_FTP
+					|| me.getType() == ElementTypeEnum.REF_SFTP) {
 				/*
 				 * XXX Not implemented
 				 * 
