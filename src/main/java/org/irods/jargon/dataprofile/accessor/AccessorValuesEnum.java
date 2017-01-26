@@ -13,7 +13,8 @@ import org.irods.jargon.dataprofile.accessor.exception.ObjectNotFoundException;
  */
 public enum AccessorValuesEnum {
 
-	DATA_SIZE("data.size", From.DATA_OBJECT);
+	DATA_SIZE("data.size", From.DATA_OBJECT), DATA_METADATA("data.metadata",
+			From.DATA_OBJECT);
 
 	public enum From {
 		DATA_OBJECT, COLLECTION, USER
