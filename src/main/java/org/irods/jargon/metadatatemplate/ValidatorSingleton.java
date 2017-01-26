@@ -1,5 +1,9 @@
 package org.irods.jargon.metadatatemplate;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+
+import org.irods.jargon.core.connection.IRODSAccount;
+import org.irods.jargon.core.exception.JargonException;
+import org.irods.jargon.core.pub.IRODSAccessObjectFactory;
+import org.irods.jargon.core.pub.io.IRODSFile;
 
 /**
  * 
@@ -40,7 +49,9 @@ public final class ValidatorSingleton {
 	 *            {@link MetadataElement} to be validated
 	 * @return {@link ValidationReturnEnum} reporting validation result
 	 */
-	public ValidationReturnEnum validate(MetadataElement me) {
+	public ValidationReturnEnum validate(IRODSAccount irodsAccount,
+			IRODSAccessObjectFactory irodsAccessObjectFactory,
+			MetadataElement me) {
 		if (me.isRequired() == true & me.getCurrentValue().isEmpty()) {
 			return ValidationReturnEnum.VALUE_IS_REQUIRED;
 		}
@@ -55,11 +66,8 @@ public final class ValidatorSingleton {
 					|| me.getType() == ElementTypeEnum.RAW_TEXT
 					|| me.getType() == ElementTypeEnum.RAW_URL
 					|| me.getType() == ElementTypeEnum.REF_IRODS_CATALOG
-					|| me.getType() == ElementTypeEnum.REF_IRODS_GENQUERY
-					|| me.getType() == ElementTypeEnum.REF_HTTP
-					|| me.getType() == ElementTypeEnum.REF_HTTPS
-					|| me.getType() == ElementTypeEnum.REF_FTP
-					|| me.getType() == ElementTypeEnum.REF_SFTP) {
+					|| me.getType() == ElementTypeEnum.REF_IRODS_QUERY
+					|| me.getType() == ElementTypeEnum.REF_URL) {
 				return ValidationReturnEnum.SUCCESS;
 			}
 
@@ -340,8 +348,7 @@ public final class ValidatorSingleton {
 				// LocalTime objects do no have an isEqual operation;
 				// therefore, IN_RANGE and IN_RANGE_EXCLUSIVE have the same
 				// functionality.
-				if (curTime.isAfter(minTime)
-						&& curTime.isBefore(maxTime)) {
+				if (curTime.isAfter(minTime) && curTime.isBefore(maxTime)) {
 					return ValidationReturnEnum.SUCCESS;
 				} else {
 					return ValidationReturnEnum.VALUE_NOT_IN_RANGE;
@@ -417,7 +424,7 @@ public final class ValidatorSingleton {
 		}
 
 		if (me.getValidationStyle() == ValidationStyleEnum.FOLLOW_REF) {
-			if (me.getType() == ElementTypeEnum.REF_IRODS_GENQUERY) {
+			if (me.getType() == ElementTypeEnum.REF_IRODS_QUERY) {
 				/*
 				 * XXX Not implemented
 				 * 
@@ -427,26 +434,30 @@ public final class ValidatorSingleton {
 
 				return ValidationReturnEnum.NOT_VALIDATED;
 			} else if (me.getType() == ElementTypeEnum.REF_IRODS_CATALOG) {
-				/*
-				 * XXX Not implemented
-				 * 
-				 * Attempt to access catalog; if error return BAD_REF, else
-				 * return SUCCESS
-				 */
+				try {
+					IRODSFile retFile = irodsAccessObjectFactory
+							.getIRODSFileFactory(irodsAccount)
+							.instanceIRODSFile(me.getCurrentValue());
 
-				return ValidationReturnEnum.NOT_VALIDATED;
-			} else if (me.getType() == ElementTypeEnum.REF_HTTP
-					|| me.getType() == ElementTypeEnum.REF_HTTPS
-					|| me.getType() == ElementTypeEnum.REF_FTP
-					|| me.getType() == ElementTypeEnum.REF_SFTP) {
-				/*
-				 * XXX Not implemented
-				 * 
-				 * Attempt to follow hyperlink; if error return BAD_REF, else
-				 * return SUCCESS
-				 */
+					if (retFile.exists()) {
+						return ValidationReturnEnum.SUCCESS;
+					} else {
+						return ValidationReturnEnum.BAD_REF;
+					}
+				} catch (JargonException je) {
+					// File not found
+					return ValidationReturnEnum.BAD_REF;
+				}
+			} else if (me.getType() == ElementTypeEnum.REF_URL) {
+				try {
+					URL url = new URL(me.getCurrentValue());
+					URLConnection connection = url.openConnection();
+					connection.getInputStream();
+				} catch (Exception e) {
+					return ValidationReturnEnum.BAD_REF;
+				}
 
-				return ValidationReturnEnum.NOT_VALIDATED;
+				return ValidationReturnEnum.SUCCESS;
 			} else {
 				/*
 				 * FOLLOW_REF is only applicable for reference-type
@@ -470,10 +481,13 @@ public final class ValidatorSingleton {
 	 * @return List<{@link ValidationReturnEnum}> reporting validation results
 	 */
 
-	public List<ValidationReturnEnum> validate(FormBasedMetadataTemplate mt) {
+	public List<ValidationReturnEnum> validate(IRODSAccount irodsAccount,
+			IRODSAccessObjectFactory irodsAccessObjectFactory,
+			FormBasedMetadataTemplate mt) {
 		List<ValidationReturnEnum> returnList = new ArrayList<ValidationReturnEnum>();
 		for (MetadataElement me : mt.getElements()) {
-			returnList.add(validate(me));
+			returnList
+					.add(validate(irodsAccount, irodsAccessObjectFactory, me));
 		}
 
 		return returnList;
