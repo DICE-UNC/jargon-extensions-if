@@ -21,9 +21,10 @@ import org.irods.jargon.dataprofile.accessor.exception.ObjectNotFoundException;
  * @author Mike Conway - DICE
  *
  */
+ 
 public interface DataProfileAccessorService {
 
-	public String retriveValueFromKey(final String accessorTextValue)
+	public String retrieveValueFromKey(final String accessorTextValue)
 			throws ObjectNotFoundException, JargonException;
 
 }
