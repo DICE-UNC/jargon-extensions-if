@@ -17,6 +17,8 @@ import org.irods.jargon.core.connection.IRODSAccount;
 import org.irods.jargon.core.exception.JargonException;
 import org.irods.jargon.core.pub.IRODSAccessObjectFactory;
 import org.irods.jargon.core.pub.io.IRODSFile;
+import org.irods.jargon.dataprofile.accessor.AccessorValuesEnum;
+import org.irods.jargon.dataprofile.accessor.exception.ObjectNotFoundException;
 
 /**
  * 
@@ -425,14 +427,12 @@ public final class ValidatorSingleton {
 
 		if (me.getValidationStyle() == ValidationStyleEnum.FOLLOW_REF) {
 			if (me.getType() == ElementTypeEnum.REF_IRODS_QUERY) {
-				/*
-				 * XXX Not implemented
-				 * 
-				 * Attempt to run genquery; if error return BAD_REF, else return
-				 * SUCCESS
-				 */
-
-				return ValidationReturnEnum.NOT_VALIDATED;
+				try {
+					AccessorValuesEnum tempEnum = AccessorValuesEnum
+							.enumFromText(me.getCurrentValue());
+				} catch (ObjectNotFoundException e) {
+					return ValidationReturnEnum.BAD_REF;
+				}
 			} else if (me.getType() == ElementTypeEnum.REF_IRODS_CATALOG) {
 				try {
 					IRODSFile retFile = irodsAccessObjectFactory

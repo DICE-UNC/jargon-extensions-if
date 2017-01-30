@@ -1992,6 +1992,46 @@ public class JargonMetadataValidatorTest {
 		Assert.assertTrue("FOLLOW_REF validation should fail; URL is not valid",
 				retVal == ValidationReturnEnum.BAD_REF);
 	}
-
 	
+	@Test
+	public void testFollowRefIrodsQueryWithValidRef() throws Exception {
+		IRODSAccount irodsAccount = testingPropertiesHelper
+				.buildIRODSAccountFromTestProperties(testingProperties);
+
+		IRODSAccessObjectFactory accessObjectFactory = irodsFileSystem
+				.getIRODSAccessObjectFactory();
+		
+		MetadataElement me = new MetadataElement();
+		me.setElementName("testFollowRefIrodsQuery");
+		me.setType(ElementTypeEnum.REF_IRODS_QUERY);
+		me.setCurrentValue("data.size");
+		me.setValidationStyle(ValidationStyleEnum.FOLLOW_REF);
+
+		ValidationReturnEnum retVal = ValidatorSingleton.VALIDATOR.validate(
+				irodsAccount, accessObjectFactory, me);
+
+		Assert.assertTrue("FOLLOW_REF validation should succeed; iRODS query is valid",
+				retVal == ValidationReturnEnum.SUCCESS);
+	}
+	
+	@Test
+	public void testFollowRefIrodsQueryWithInvalidRef() throws Exception {	
+		IRODSAccount irodsAccount = testingPropertiesHelper
+				.buildIRODSAccountFromTestProperties(testingProperties);
+
+		IRODSAccessObjectFactory accessObjectFactory = irodsFileSystem
+				.getIRODSAccessObjectFactory();
+
+		MetadataElement me = new MetadataElement();
+		me.setElementName("testFollowRefIrodsQuery");
+		me.setType(ElementTypeEnum.REF_IRODS_QUERY);
+		me.setCurrentValue("data.not_a_valid_data_object_attribute");
+		me.setValidationStyle(ValidationStyleEnum.FOLLOW_REF);
+
+		ValidationReturnEnum retVal = ValidatorSingleton.VALIDATOR.validate(
+				irodsAccount, accessObjectFactory, me);
+
+		Assert.assertTrue("FOLLOW_REF validation should fail; iRODS query is not valid",
+				retVal == ValidationReturnEnum.BAD_REF);
+	}
 }
