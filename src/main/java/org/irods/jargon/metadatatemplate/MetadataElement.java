@@ -99,6 +99,13 @@ public class MetadataElement {
 	private String currentValue = "";
 
 	/**
+	 * Contains the DISPLAY value of this element. For example, an element of
+	 * type REF_IRODS_QUERY may have a current value of "data.size", but a
+	 * display value of "18375".
+	 */
+	private String displayValue = "";
+
+	/**
 	 * Provides hints to the interface builder about how to display this
 	 * element. Note that these are not guaranteed to be supported by every user
 	 * interface in every situation.
@@ -106,7 +113,7 @@ public class MetadataElement {
 	 * XXX NOT YET DESIGNED OR IMPLEMENTED
 	 */
 	private List<String> renderingOptions = new ArrayList<String>();
-	
+
 	/**
 	 * Specifies the source of data that will populate the metadata element.
 	 * 
@@ -206,6 +213,14 @@ public class MetadataElement {
 	public void setCurrentValue(String currentValue) {
 		this.currentValue = currentValue;
 	}
+	
+	public String getDisplayValue() {
+		return displayValue;
+	}
+
+	public void setDisplayValue(String displayValue) {
+		this.displayValue = displayValue;
+	}
 
 	public List<String> getRenderingOptions() {
 		return renderingOptions;
@@ -214,7 +229,7 @@ public class MetadataElement {
 	public void setRenderingOptions(List<String> renderingOptions) {
 		this.renderingOptions = renderingOptions;
 	}
-	
+
 	public SourceEnum getSource() {
 		return source;
 	}
@@ -243,7 +258,7 @@ public class MetadataElement {
 
 		toReturn = String
 				.format("%s [%s]: %s %s %s\n", this.getName(), this.getType(),
-						this.getCurrentValue(), defaultStr, requiredStr);
+						this.getDisplayValue(), defaultStr, requiredStr);
 
 		return toReturn;
 	}

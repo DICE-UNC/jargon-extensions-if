@@ -4,7 +4,9 @@
 package org.irods.jargon.dataprofile.accessor;
 
 import org.irods.jargon.core.exception.JargonException;
+import org.irods.jargon.dataprofile.accessor.exception.AttributeNotFoundException;
 import org.irods.jargon.dataprofile.accessor.exception.ObjectNotFoundException;
+import org.irods.jargon.dataprofile.accessor.exception.WrongDataProfileTypeException;
 
 /**
  * Service to obtain data from iRODS to answer template requests from a little
@@ -25,6 +27,6 @@ import org.irods.jargon.dataprofile.accessor.exception.ObjectNotFoundException;
 public interface DataProfileAccessorService {
 
 	public String retrieveValueFromKey(final String accessorTextValue)
-			throws ObjectNotFoundException, JargonException;
+			throws ObjectNotFoundException, WrongDataProfileTypeException, AttributeNotFoundException;
 
 }

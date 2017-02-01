@@ -88,9 +88,19 @@ public enum AccessorValuesEnum {
 
 		AccessorValuesEnum foundValue = null;
 		for (AccessorValuesEnum val : AccessorValuesEnum.values()) {
-			if (textValue.startsWith(val.getTextValue())) {
+			if (textValue.equalsIgnoreCase(val.getTextValue())) {
 				foundValue = val;
 				break;
+			}
+		}
+
+		if (foundValue == null) {
+			// Only check for prefix match if there was not a full-term match
+			for (AccessorValuesEnum val : AccessorValuesEnum.values()) {
+				if (textValue.startsWith(val.getTextValue())) {
+					foundValue = val;
+					break;
+				}
 			}
 		}
 

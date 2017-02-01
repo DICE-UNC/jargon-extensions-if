@@ -27,18 +27,23 @@ public class DataProfileAccessorServiceImpl implements
 	@SuppressWarnings("rawtypes")
 	DataProfile dataProfile;
 	User userProfile;
+	
+	String irodsUserName;
+	String irodsAbsolutePath;
 
 	public DataProfileAccessorServiceImpl(IRODSAccount irodsAccount,
 			IRODSAccessObjectFactory irodsAccessObjectFactory,
 			String irodsAbsolutePath) throws FileNotFoundException,
 			JargonException {
 		UserAO userAO = irodsAccessObjectFactory.getUserAO(irodsAccount);
-		userProfile = userAO.findById(irodsAccount.getUserName());
+		userProfile = userAO.findByName(irodsAccount.getUserName());
+		this.setIrodsUserName(irodsAccount.getUserName());
 		
 		DataProfileService dataProfileService = new DataProfileServiceFactoryImpl(
 				irodsAccessObjectFactory, irodsAccount)
 				.instanceDataProfileService();
 		dataProfile = dataProfileService.retrieveDataProfile(irodsAbsolutePath);
+		this.setIrodsAbsolutePath(irodsAbsolutePath);
 	}
 
 	@Override
@@ -435,5 +440,21 @@ public class DataProfileAccessorServiceImpl implements
 		return DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX")
                 .withZone(ZoneId.systemDefault())
                 .format(inDate.toInstant());
+	}
+
+	public String getIrodsUserName() {
+		return irodsUserName;
+	}
+
+	private void setIrodsUserName(String irodsUserName) {
+		this.irodsUserName = irodsUserName;
+	}
+
+	public String getIrodsAbsolutePath() {
+		return irodsAbsolutePath;
+	}
+
+	private void setIrodsAbsolutePath(String irodsAbsolutePath) {
+		this.irodsAbsolutePath = irodsAbsolutePath;
 	}
 }
