@@ -17,6 +17,6 @@ package org.irods.jargon.metadatatemplate;
  *
  */
 
-public enum ExporterEnum {
+public enum DestinationEnum {
 	IRODS
 }
