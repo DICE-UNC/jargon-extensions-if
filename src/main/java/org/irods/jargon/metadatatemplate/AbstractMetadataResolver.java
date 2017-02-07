@@ -119,12 +119,13 @@ public abstract class AbstractMetadataResolver {
 			for (MetadataTemplate mtPublic : publicTemplates) {
 				boolean duplicate = false;
 				for (MetadataTemplate mtHierarchy : hierarchyTemplates) {
-					if (mtPublic.getName().equalsIgnoreCase(mtHierarchy.getName())) {
+					if (mtPublic.getName().equalsIgnoreCase(
+							mtHierarchy.getName())) {
 						duplicate = true;
 						break;
 					}
 				}
-				
+
 				if (!duplicate) {
 					allTemplates.add(mtPublic);
 				}
@@ -252,12 +253,28 @@ public abstract class AbstractMetadataResolver {
 		return this.getFqNameForUUID(UUID.fromString(uuid));
 	}
 
-	public MetadataTemplate cloneTemplateByFqName(String fqName,
+	public abstract MetadataTemplate cloneTemplateByFqName(String fqName,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException;
+
+	public MetadataTemplate cloneTemplateByUUID(UUID uuid,
 			String newTemplateName, String destDir)
 			throws FileNotFoundException, IOException,
 			MetadataTemplateParsingException,
 			MetadataTemplateProcessingException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cloneTemplateByFqName(getFqNameForUUID(uuid),
+				newTemplateName, destDir);
+	}
+
+	public MetadataTemplate cloneTemplateByUUID(String uuid,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException {
+		return this.cloneTemplateByFqName(
+				getFqNameForUUID(UUID.fromString(uuid)), newTemplateName,
+				destDir);
 	}
 }
