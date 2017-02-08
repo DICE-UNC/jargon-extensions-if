@@ -40,7 +40,7 @@ public abstract class MetadataTemplate {
 	 * representations.
 	 * 
 	 * By convention, the template name is the same as the filename, for
-	 * example, a template named DC would be stored as a file named DC.json.
+	 * example, a template named DC would be stored as a file named DC.mdtemplate.
 	 */
 	@JsonProperty("name")
 	private String name = "";
@@ -53,7 +53,6 @@ public abstract class MetadataTemplate {
 	 * By convention, the fully-qualified identifier location/name.json must be
 	 * unique.
 	 */
-	@JsonProperty("fqName")
 	private String fqName = "";
 
 	/**

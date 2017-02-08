@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.irods.jargon.core.exception.JargonException;
+
 /**
  * Abstract superclass for a metadata resolver that can locate and perform CRUD
  * operations on metadata templates.
@@ -247,12 +249,6 @@ public abstract class AbstractMetadataResolver {
 				.fromString(uuid)));
 	}
 
-	public abstract String getFqNameForUUID(UUID uuid);
-
-	public String getFqNameForUUID(String uuid) {
-		return this.getFqNameForUUID(UUID.fromString(uuid));
-	}
-
 	public abstract MetadataTemplate cloneTemplateByFqName(String fqName,
 			String newTemplateName, String destDir)
 			throws FileNotFoundException, IOException,
@@ -277,4 +273,14 @@ public abstract class AbstractMetadataResolver {
 				getFqNameForUUID(UUID.fromString(uuid)), newTemplateName,
 				destDir);
 	}
+
+	public abstract String getFqNameForUUID(UUID uuid);
+
+	public String getFqNameForUUID(String uuid) {
+		return this.getFqNameForUUID(UUID.fromString(uuid));
+	}
+
+	public abstract void saveTemplateToSystemMetadataOnObject(
+			MetadataTemplate metadataTemplate, String pathToObject)
+			throws FileNotFoundException, JargonException;
 }

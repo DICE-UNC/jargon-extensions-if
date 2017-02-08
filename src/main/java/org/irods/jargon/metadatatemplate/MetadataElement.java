@@ -43,7 +43,7 @@ public class MetadataElement {
 	 * <p/>
 	 * XXX NOT YET SUPPORTED
 	 */
-	private List<String> aliases = new ArrayList<String>();
+//	private List<String> aliases = new ArrayList<String>();
 
 	/**
 	 * Cue or help text
@@ -80,7 +80,7 @@ public class MetadataElement {
 	/**
 	 * Enum indicates the kind of validation to do (by type, or in combination
 	 * with the <code>validationOptions</code> to derive a range between two
-	 * values or a list that the entry must be part of
+	 * values or a list that the entry must be part of)
 	 */
 	private ValidationStyleEnum validationStyle = ValidationStyleEnum.DEFAULT;
 
@@ -112,7 +112,7 @@ public class MetadataElement {
 	 * <p/>
 	 * XXX NOT YET DESIGNED OR IMPLEMENTED
 	 */
-	private List<String> renderingOptions = new ArrayList<String>();
+//	private List<String> renderingOptions = new ArrayList<String>();
 
 	/**
 	 * Specifies the source of data that will populate the metadata element.
@@ -141,7 +141,7 @@ public class MetadataElement {
 	public void setI18nName(String i18nElementName) {
 		this.i18nName = i18nElementName;
 	}
-
+/*
 	public List<String> getAliases() {
 		return aliases;
 	}
@@ -149,7 +149,7 @@ public class MetadataElement {
 	public void setAliases(List<String> aliases) {
 		this.aliases = aliases;
 	}
-
+*/
 	public String getDescription() {
 		return description;
 	}
@@ -221,7 +221,7 @@ public class MetadataElement {
 	public void setDisplayValue(String displayValue) {
 		this.displayValue = displayValue;
 	}
-
+/*
 	public List<String> getRenderingOptions() {
 		return renderingOptions;
 	}
@@ -229,7 +229,7 @@ public class MetadataElement {
 	public void setRenderingOptions(List<String> renderingOptions) {
 		this.renderingOptions = renderingOptions;
 	}
-
+*/
 	public SourceEnum getSource() {
 		return source;
 	}
