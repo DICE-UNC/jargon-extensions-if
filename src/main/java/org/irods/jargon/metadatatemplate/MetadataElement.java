@@ -43,7 +43,7 @@ public class MetadataElement {
 	 * <p/>
 	 * XXX NOT YET SUPPORTED
 	 */
-//	private List<String> aliases = new ArrayList<String>();
+	// private List<String> aliases = new ArrayList<String>();
 
 	/**
 	 * Cue or help text
@@ -91,19 +91,19 @@ public class MetadataElement {
 	 * provided at compile time. If the specified value fails validation, this
 	 * will only be detected at runtime.
 	 */
-	private String defaultValue = "";
+	private List<String> defaultValue = new ArrayList<String>();
 
 	/**
 	 * Contains the CURRENT value of this element.
 	 */
-	private String currentValue = "";
+	private List<String> currentValue = new ArrayList<String>();
 
 	/**
 	 * Contains the DISPLAY value of this element. For example, an element of
 	 * type REF_IRODS_QUERY may have a current value of "data.size", but a
 	 * display value of "18375".
 	 */
-	private String displayValue = "";
+	private List<String> displayValue = new ArrayList<String>();
 
 	/**
 	 * Provides hints to the interface builder about how to display this
@@ -112,7 +112,7 @@ public class MetadataElement {
 	 * <p/>
 	 * XXX NOT YET DESIGNED OR IMPLEMENTED
 	 */
-//	private List<String> renderingOptions = new ArrayList<String>();
+	// private List<String> renderingOptions = new ArrayList<String>();
 
 	/**
 	 * Specifies the source of data that will populate the metadata element.
@@ -141,15 +141,12 @@ public class MetadataElement {
 	public void setI18nName(String i18nElementName) {
 		this.i18nName = i18nElementName;
 	}
-/*
-	public List<String> getAliases() {
-		return aliases;
-	}
 
-	public void setAliases(List<String> aliases) {
-		this.aliases = aliases;
-	}
-*/
+	/*
+	 * public List<String> getAliases() { return aliases; }
+	 * 
+	 * public void setAliases(List<String> aliases) { this.aliases = aliases; }
+	 */
 	public String getDescription() {
 		return description;
 	}
@@ -198,38 +195,36 @@ public class MetadataElement {
 		this.validationStyle = validationStyle;
 	}
 
-	public String getDefaultValue() {
+	public List<String> getDefaultValue() {
 		return defaultValue;
 	}
 
-	public void setDefaultValue(String defaultValue) {
+	public void setDefaultValue(List<String> defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 
-	public String getCurrentValue() {
+	public List<String> getCurrentValue() {
 		return currentValue;
 	}
 
-	public void setCurrentValue(String currentValue) {
+	public void setCurrentValue(List<String> currentValue) {
 		this.currentValue = currentValue;
 	}
-	
-	public String getDisplayValue() {
+
+	public List<String> getDisplayValue() {
 		return displayValue;
 	}
 
-	public void setDisplayValue(String displayValue) {
+	public void setDisplayValue(List<String> displayValue) {
 		this.displayValue = displayValue;
 	}
-/*
-	public List<String> getRenderingOptions() {
-		return renderingOptions;
-	}
 
-	public void setRenderingOptions(List<String> renderingOptions) {
-		this.renderingOptions = renderingOptions;
-	}
-*/
+	/*
+	 * public List<String> getRenderingOptions() { return renderingOptions; }
+	 * 
+	 * public void setRenderingOptions(List<String> renderingOptions) {
+	 * this.renderingOptions = renderingOptions; }
+	 */
 	public SourceEnum getSource() {
 		return source;
 	}
@@ -246,10 +241,53 @@ public class MetadataElement {
 		String toReturn = "";
 		String defaultStr = "";
 		String requiredStr = "";
+		String defaultValue = "";
+		String displayValue = "";
+
+		StringBuilder sb = new StringBuilder();
+		
+		if (!this.getDefaultValue().isEmpty()) {
+			if (this.getType() == ElementTypeEnum.LIST_STRING
+					|| this.getType() == ElementTypeEnum.LIST_INT
+					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
+				sb.append("[");
+				for (String s : this.getDefaultValue()) {
+					sb.append(s);
+					sb.append(", ");
+				}
+				int lastComma = sb.lastIndexOf(",");
+				sb.delete(lastComma, sb.length());
+				sb.append("]");
+			} else {
+				sb.append(this.getDefaultValue().get(0));
+			}
+			
+			defaultValue = sb.toString();
+		}
+		
+		if (!this.getDisplayValue().isEmpty()) {
+			sb.delete(0, sb.length());
+			if (this.getType() == ElementTypeEnum.LIST_STRING
+					|| this.getType() == ElementTypeEnum.LIST_INT
+					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
+				sb.append("[");
+				for (String s : this.getDisplayValue()) {
+					sb.append(s);
+					sb.append(", ");
+				}
+				int lastComma = sb.lastIndexOf(",");
+				sb.delete(lastComma, sb.length());
+				sb.append("]");
+			} else {
+				sb.append(this.getDisplayValue().get(0));
+			}
+			
+			displayValue = sb.toString();
+		}
 
 		if (!this.getDefaultValue().isEmpty()) {
 			defaultStr = String
-					.format("(default = %s)", this.getDefaultValue());
+					.format("(default = %s)", defaultValue);
 		}
 
 		if (this.isRequired()) {
@@ -258,7 +296,7 @@ public class MetadataElement {
 
 		toReturn = String
 				.format("%s [%s]: %s %s %s\n", this.getName(), this.getType(),
-						this.getDisplayValue(), defaultStr, requiredStr);
+						displayValue, defaultStr, requiredStr);
 
 		return toReturn;
 	}

@@ -154,7 +154,7 @@ public final class TemplateParserSingleton {
 	 * <p>
 	 * If saveCurrentValuesAsDefaults is set to true, the current values of the
 	 * MetadataElements will be saved as default values in the template. Default
-	 * values that are already set will NOT be overwritten.
+	 * values that are already set will NOT be overwritten.</p>
 	 * 
 	 * @params {@link MetadataTemplate} containing a populated metadata template
 	 *         boolean indicating whether current values should be stored as
