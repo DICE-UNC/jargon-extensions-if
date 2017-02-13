@@ -38,10 +38,10 @@ public class JargonMetadataValidatorTest {
 		testingProperties = testingPropertiesLoader.getTestProperties();
 		irodsFileSystem = IRODSFileSystem.instance();
 		irodsTestSetupUtilities = new org.irods.jargon.testutils.IRODSTestSetupUtilities();
-		// irodsTestSetupUtilities.clearIrodsScratchDirectory();
-		// irodsTestSetupUtilities.initializeIrodsScratchDirectory();
-		// irodsTestSetupUtilities
-		// .initializeDirectoryForTest(IRODS_TEST_SUBDIR_PATH);
+		irodsTestSetupUtilities.clearIrodsScratchDirectory();
+		irodsTestSetupUtilities.initializeIrodsScratchDirectory();
+		irodsTestSetupUtilities
+			.initializeDirectoryForTest(IRODS_TEST_SUBDIR_PATH);
 	}
 
 	@After
