@@ -70,7 +70,7 @@ public final class TemplateParserSingleton {
 
 		// FormBasedMetadataTemplate mt = new FormBasedMetadataTemplate();
 		MetadataTemplate mt;
-		String metadataTemplateType;
+//		String metadataTemplateType;
 
 		log.info(s);
 
@@ -83,7 +83,7 @@ public final class TemplateParserSingleton {
 			// } else {
 			mt = new FormBasedMetadataTemplate();
 			mt = mapper.readValue(s, FormBasedMetadataTemplate.class);
-			metadataTemplateType = "FormBasedMetadataTemplate";
+//			metadataTemplateType = "FormBasedMetadataTemplate";
 			// }
 		} catch (JsonParseException | JsonMappingException je) {
 			log.error("Error in template JSON", je);
@@ -100,15 +100,16 @@ public final class TemplateParserSingleton {
 
 		log.info(mt.toString());
 
-		if (metadataTemplateType == "FormBasedMetadataTemplate") {
+//		if (metadataTemplateType == "FormBasedMetadataTemplate") {
+		if (mt.getType() == TemplateTypeEnum.FORM_BASED) {
 			FormBasedMetadataTemplate temp = (FormBasedMetadataTemplate) mt;
 			// If default values are defined, copy into current value
 			for (MetadataElement me : temp.getElements()) {
 				if (!me.getDefaultValue().isEmpty())
 					me.setCurrentValue(me.getDefaultValue());
 			}
-		} else if (metadataTemplateType == "SchemaReferenceMetadataTemplate") {
-
+//		} else if (metadataTemplateType == "SchemaReferenceMetadataTemplate") {
+//		} else if (mt.getType() == TemplateTypeEnum.SCHEMA_REFERENCE) {
 			/*
 			 * SchemaReferenceMetadataTemplate temp =
 			 * (SchemaReferenceMetadataTemplate) mt; String rdfTranslatorURI =

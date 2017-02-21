@@ -6,6 +6,7 @@ package org.irods.jargon.metadatatemplate;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +23,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MetadataElement {
+	/**
+	 * UUID that uniquely identifies the metadata template this element belongs
+	 * to. Helpful to implement versioning and template linking.
+	 */
+	private UUID templateUuid = new UUID(0, 0);
 
 	/**
 	 * Descriptive display name for metadata element, e.g. Author
@@ -121,6 +127,14 @@ public class MetadataElement {
 	 */
 	@JsonProperty("source")
 	private SourceEnum source = SourceEnum.USER;
+
+	public UUID getTemplateUuid() {
+		return templateUuid;
+	}
+
+	public void setTemplateUuid(UUID uuid) {
+		this.templateUuid = uuid;
+	}
 
 	/**
 	 * 
@@ -245,7 +259,7 @@ public class MetadataElement {
 		String displayValue = "";
 
 		StringBuilder sb = new StringBuilder();
-		
+
 		if (!this.getDefaultValue().isEmpty()) {
 			if (this.getType() == ElementTypeEnum.LIST_STRING
 					|| this.getType() == ElementTypeEnum.LIST_INT
@@ -261,10 +275,10 @@ public class MetadataElement {
 			} else {
 				sb.append(this.getDefaultValue().get(0));
 			}
-			
+
 			defaultValue = sb.toString();
 		}
-		
+
 		if (!this.getDisplayValue().isEmpty()) {
 			sb.delete(0, sb.length());
 			if (this.getType() == ElementTypeEnum.LIST_STRING
@@ -281,22 +295,20 @@ public class MetadataElement {
 			} else {
 				sb.append(this.getDisplayValue().get(0));
 			}
-			
+
 			displayValue = sb.toString();
 		}
 
 		if (!this.getDefaultValue().isEmpty()) {
-			defaultStr = String
-					.format("(default = %s)", defaultValue);
+			defaultStr = String.format("(default = %s)", defaultValue);
 		}
 
 		if (this.isRequired()) {
 			requiredStr = "*** REQUIRED ***";
 		}
 
-		toReturn = String
-				.format("%s [%s]: %s %s %s\n", this.getName(), this.getType(),
-						displayValue, defaultStr, requiredStr);
+		toReturn = String.format("%s [%s]: %s %s %s\n", this.getName(),
+				this.getType(), displayValue, defaultStr, requiredStr);
 
 		return toReturn;
 	}

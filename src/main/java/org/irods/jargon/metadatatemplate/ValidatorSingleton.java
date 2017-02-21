@@ -1,7 +1,5 @@
 package org.irods.jargon.metadatatemplate;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDate;
@@ -145,6 +143,7 @@ public final class ValidatorSingleton {
 				}
 
 				try {
+					@SuppressWarnings("unused")
 					LocalDate parsedDate = LocalDate.parse(me.getCurrentValue()
 							.get(0));
 				} catch (DateTimeParseException e) {
@@ -160,6 +159,7 @@ public final class ValidatorSingleton {
 				}
 
 				try {
+					@SuppressWarnings("unused")
 					LocalTime parsedTime = LocalTime.parse(me.getCurrentValue()
 							.get(0));
 				} catch (DateTimeParseException e) {
@@ -175,6 +175,7 @@ public final class ValidatorSingleton {
 				}
 
 				try {
+					@SuppressWarnings("unused")
 					LocalDateTime parsedDateTime = LocalDateTime.parse(me
 							.getCurrentValue().get(0));
 				} catch (DateTimeParseException e) {
@@ -529,6 +530,7 @@ public final class ValidatorSingleton {
 
 			if (me.getType() == ElementTypeEnum.REF_IRODS_QUERY) {
 				try {
+					@SuppressWarnings("unused")
 					AccessorValuesEnum tempEnum = AccessorValuesEnum
 							.enumFromText(me.getCurrentValue().get(0));
 				} catch (ObjectNotFoundException e) {

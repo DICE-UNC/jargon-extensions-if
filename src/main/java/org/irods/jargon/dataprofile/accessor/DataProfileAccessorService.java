@@ -3,7 +3,6 @@
  */
 package org.irods.jargon.dataprofile.accessor;
 
-import org.irods.jargon.core.exception.JargonException;
 import org.irods.jargon.dataprofile.accessor.exception.AttributeNotFoundException;
 import org.irods.jargon.dataprofile.accessor.exception.ObjectNotFoundException;
 import org.irods.jargon.dataprofile.accessor.exception.WrongDataProfileTypeException;

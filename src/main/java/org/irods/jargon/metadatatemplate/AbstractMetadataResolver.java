@@ -279,8 +279,10 @@ public abstract class AbstractMetadataResolver {
 	public String getFqNameForUUID(String uuid) {
 		return this.getFqNameForUUID(UUID.fromString(uuid));
 	}
-
-	public abstract void saveTemplateToSystemMetadataOnObject(
+	
+/*	
+ 	public abstract void saveTemplateToSystemMetadataOnObject(
 			MetadataTemplate metadataTemplate, String pathToObject)
 			throws FileNotFoundException, JargonException;
+*/
 }
