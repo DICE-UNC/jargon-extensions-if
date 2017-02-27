@@ -27,7 +27,7 @@ public class DataProfileAccessorServiceImpl implements
 	@SuppressWarnings("rawtypes")
 	DataProfile dataProfile;
 	User userProfile;
-	
+
 	String irodsUserName;
 	String irodsAbsolutePath;
 
@@ -38,7 +38,7 @@ public class DataProfileAccessorServiceImpl implements
 		UserAO userAO = irodsAccessObjectFactory.getUserAO(irodsAccount);
 		userProfile = userAO.findByName(irodsAccount.getUserName());
 		this.setIrodsUserName(irodsAccount.getUserName());
-		
+
 		DataProfileService dataProfileService = new DataProfileServiceFactoryImpl(
 				irodsAccessObjectFactory, irodsAccount)
 				.instanceDataProfileService();
@@ -48,167 +48,214 @@ public class DataProfileAccessorServiceImpl implements
 
 	@Override
 	public String retrieveValueFromKey(String accessorTextValue)
-			throws ObjectNotFoundException, WrongDataProfileTypeException, AttributeNotFoundException {
+			throws ObjectNotFoundException, WrongDataProfileTypeException,
+			AttributeNotFoundException {
 		// AccessorValuesEnum.enumFromText throws ObjectNotFoundException
-		AccessorValuesEnum enumValue = AccessorValuesEnum.enumFromText(accessorTextValue);
-		
+		AccessorValuesEnum enumValue = AccessorValuesEnum
+				.enumFromText(accessorTextValue);
+
 		String returnValue = null;
-		
+
 		switch (enumValue) {
 		case DATA_ID:
 			if (dataProfile.isFile())
-				returnValue = Integer.toString(((DataObject) dataProfile.getDomainObject()).getId());
+				returnValue = Integer.toString(((DataObject) dataProfile
+						.getDomainObject()).getId());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_ID, DataProfile contains Collection");
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_ID, DataProfile contains Collection");
 			break;
 		case DATA_COLL_ID:
 			if (dataProfile.isFile())
-				returnValue = Integer.toString(((DataObject) dataProfile.getDomainObject()).getCollectionId());
+				returnValue = Integer.toString(((DataObject) dataProfile
+						.getDomainObject()).getCollectionId());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_COLL_ID, DataProfile contains Collection");
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_COLL_ID, DataProfile contains Collection");
 			break;
 		case DATA_NAME:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getDataName();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getDataName();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_NAME, DataProfile contains Collection");
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_NAME, DataProfile contains Collection");
 			break;
 		case DATA_COLL_NAME:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getCollectionName();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getCollectionName();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_COLL_NAME, DataProfile contains Collection");
-			break;		
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_COLL_NAME, DataProfile contains Collection");
+			break;
 		case DATA_REPL_NUM:
 			if (dataProfile.isFile())
-				returnValue = Integer.toString(((DataObject) dataProfile.getDomainObject()).getDataReplicationNumber());
+				returnValue = Integer.toString(((DataObject) dataProfile
+						.getDomainObject()).getDataReplicationNumber());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_REPL_NUM, DataProfile contains Collection");
-			break;		
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_REPL_NUM, DataProfile contains Collection");
+			break;
 		case DATA_VERSION:
 			if (dataProfile.isFile())
-				returnValue = Integer.toString(((DataObject) dataProfile.getDomainObject()).getDataVersion());
+				returnValue = Integer.toString(((DataObject) dataProfile
+						.getDomainObject()).getDataVersion());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_VERSION, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_VERSION, DataProfile contains Collection");
+			break;
 		case DATA_TYPE:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getDataTypeName();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getDataTypeName();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_TYPE, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_TYPE, DataProfile contains Collection");
+			break;
 		case DATA_SIZE:
 			if (dataProfile.isFile())
-				returnValue = Long.toString(((DataObject) dataProfile.getDomainObject()).getDataSize());
+				returnValue = Long.toString(((DataObject) dataProfile
+						.getDomainObject()).getDataSize());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_SIZE, DataProfile contains Collection");
-			break;		
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_SIZE, DataProfile contains Collection");
+			break;
 		case DATA_RESC_GROUP_NAME:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getResourceGroupName();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getResourceGroupName();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_RESC_GROUP_NAME, DataProfile contains Collection");
-			break;		
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_RESC_GROUP_NAME, DataProfile contains Collection");
+			break;
 		case DATA_RESC_NAME:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getResourceName();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getResourceName();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_RESC_NAME, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_RESC_NAME, DataProfile contains Collection");
+			break;
 		case DATA_PHYSICAL_PATH:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getDataPath();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getDataPath();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_PHYSICAL_PATH, DataProfile contains Collection");
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_PHYSICAL_PATH, DataProfile contains Collection");
 			break;
 		case DATA_OWNER_NAME:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getDataOwnerName();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getDataOwnerName();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_OWNER_NAME, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_OWNER_NAME, DataProfile contains Collection");
+			break;
 		case DATA_OWNER_ZONE:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getDataOwnerZone();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getDataOwnerZone();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_OWNER_ZONE, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_OWNER_ZONE, DataProfile contains Collection");
+			break;
 		case DATA_REPL_STATUS:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getReplicationStatus();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getReplicationStatus();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_REPL_STATUS, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_REPL_STATUS, DataProfile contains Collection");
+			break;
 		case DATA_STATUS:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getDataStatus();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getDataStatus();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_STATUS, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_STATUS, DataProfile contains Collection");
+			break;
 		case DATA_CHECKSUM:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getChecksum();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getChecksum();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_OWNER_NAME, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_OWNER_NAME, DataProfile contains Collection");
+			break;
 		case DATA_EXPIRY:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getExpiry();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getExpiry();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_EXPIRY, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_EXPIRY, DataProfile contains Collection");
+			break;
 		case DATA_MAP_ID:
 			if (dataProfile.isFile())
-				returnValue = Integer.toString(((DataObject) dataProfile.getDomainObject()).getDataMapId());
+				returnValue = Integer.toString(((DataObject) dataProfile
+						.getDomainObject()).getDataMapId());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_MAP_ID, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_MAP_ID, DataProfile contains Collection");
+			break;
 		case DATA_COMMENTS:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getComments();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getComments();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_COMMENTS, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_COMMENTS, DataProfile contains Collection");
+			break;
 		case DATA_TIME_CREATED:
 			if (dataProfile.isFile())
-				returnValue =  convertDateToISO8601String(((DataObject) dataProfile.getDomainObject()).getCreatedAt());
+				returnValue = convertDateToISO8601String(((DataObject) dataProfile
+						.getDomainObject()).getCreatedAt());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_TIME_CREATED, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_TIME_CREATED, DataProfile contains Collection");
+			break;
 		case DATA_TIME_UPDATED:
 			if (dataProfile.isFile())
-				returnValue =  convertDateToISO8601String(((DataObject) dataProfile.getDomainObject()).getUpdatedAt());
+				returnValue = convertDateToISO8601String(((DataObject) dataProfile
+						.getDomainObject()).getUpdatedAt());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_TIME_UPDATED, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_TIME_UPDATED, DataProfile contains Collection");
+			break;
 		case DATA_SPEC_COLL_TYPE:
 			if (dataProfile.isFile()) {
-				SpecColType coll_type = ((DataObject) dataProfile.getDomainObject()).getSpecColType();
+				SpecColType coll_type = ((DataObject) dataProfile
+						.getDomainObject()).getSpecColType();
 				switch (coll_type) {
-					case NORMAL:
-						returnValue = "NORMAL";
-						break;
-					case STRUCT_FILE_COLL:
-						returnValue = "STRUCT_FILE_COLL";
-						break;
-					case MOUNTED_COLL:
-						returnValue = "MOUNTED_COLL";
-						break;
-					case LINKED_COLL:
-						returnValue = "LINKED_COLL";
-						break;
-					default:
-						break;
+				case NORMAL:
+					returnValue = "NORMAL";
+					break;
+				case STRUCT_FILE_COLL:
+					returnValue = "STRUCT_FILE_COLL";
+					break;
+				case MOUNTED_COLL:
+					returnValue = "MOUNTED_COLL";
+					break;
+				case LINKED_COLL:
+					returnValue = "LINKED_COLL";
+					break;
+				default:
+					break;
 				}
-			}
-			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_SPEC_COLL_TYPE, DataProfile contains Collection");
-			break;	
+			} else
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_SPEC_COLL_TYPE, DataProfile contains Collection");
+			break;
 		case DATA_OBJECT_PATH:
 			if (dataProfile.isFile())
-				returnValue = ((DataObject) dataProfile.getDomainObject()).getAbsolutePath();
+				returnValue = ((DataObject) dataProfile.getDomainObject())
+						.getAbsolutePath();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_OBJECT_PATH, DataProfile contains Collection");
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_OBJECT_PATH, DataProfile contains Collection");
 			break;
 		case DATA_AVU:
 			if (dataProfile.isFile()) {
@@ -220,140 +267,170 @@ public class DataProfileAccessorServiceImpl implements
 						returnValue = mdd.getAvuValue();
 					}
 				}
-				
+
 				if (returnValue == null) {
-					throw new AttributeNotFoundException("Attribute " + attributeName + " was not found in the data object's metadata");
+					throw new AttributeNotFoundException("Attribute "
+							+ attributeName
+							+ " was not found in the data object's metadata");
 				}
-			} 
-			else 
-				throw new WrongDataProfileTypeException("Tried to access DATA_AVU, DataProfile contains Collection");
+			} else
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_AVU, DataProfile contains Collection");
 			break;
 		case DATA_ACL:
 			if (dataProfile.isFile()) {
 				// TODO
-			} 
-			else 
-				throw new WrongDataProfileTypeException("Tried to access DATA_ACL, DataProfile contains Collection");
+			} else
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_ACL, DataProfile contains Collection");
 			break;
 		case DATA_STARRED:
 			if (dataProfile.isFile())
 				returnValue = Boolean.toString(dataProfile.isStarred());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_STARRED, DataProfile contains Collection");
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_STARRED, DataProfile contains Collection");
 			break;
 		case DATA_SHARED:
 			if (dataProfile.isFile())
 				returnValue = Boolean.toString(dataProfile.isShared());
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_SHARED, DataProfile contains Collection");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_SHARED, DataProfile contains Collection");
+			break;
 		case DATA_MIME_TYPE:
 			if (dataProfile.isFile())
 				returnValue = dataProfile.getMimeType();
 			else
-				throw new WrongDataProfileTypeException("Tried to access DATA_MIME_TYPE, DataProfile contains Collection");
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_MIME_TYPE, DataProfile contains Collection");
 			break;
 		case DATA_TAG:
 			if (dataProfile.isFile()) {
 				// TODO
-			} 
-			else 
-				throw new WrongDataProfileTypeException("Tried to access DATA_TAG, DataProfile contains Collection");
-			break;	
+			} else
+				throw new WrongDataProfileTypeException(
+						"Tried to access DATA_TAG, DataProfile contains Collection");
+			break;
 		case COLL_ID:
 			if (!dataProfile.isFile())
-				returnValue = Integer.toString(((Collection) dataProfile.getDomainObject()).getCollectionId());
+				returnValue = Integer.toString(((Collection) dataProfile
+						.getDomainObject()).getCollectionId());
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_ID, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_ID, DataProfile contains DataObject");
 			break;
 		case COLL_PATH:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getAbsolutePath();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getAbsolutePath();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_PATH, DataProfile contains DataObject");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_PATH, DataProfile contains DataObject");
+			break;
 		case COLL_PARENT_PATH:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getCollectionParentName();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getCollectionParentName();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_PARENT_PATH, DataProfile contains DataObject");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_PARENT_PATH, DataProfile contains DataObject");
+			break;
 		case COLL_OWNER:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getCollectionOwnerName();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getCollectionOwnerName();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_OWNER, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_OWNER, DataProfile contains DataObject");
 			break;
 		case COLL_OWNER_ZONE:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getCollectionOwnerZone();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getCollectionOwnerZone();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_OWNER_ZONE, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_OWNER_ZONE, DataProfile contains DataObject");
 			break;
 		case COLL_MAP_ID:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getCollectionMapId();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getCollectionMapId();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_OWNER, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_OWNER, DataProfile contains DataObject");
 			break;
 		case COLL_INHERITANCE:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getCollectionInheritance();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getCollectionInheritance();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_INHERITANCE, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_INHERITANCE, DataProfile contains DataObject");
 			break;
 		case COLL_COMMENTS:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getComments();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getComments();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_COMMENTS, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_COMMENTS, DataProfile contains DataObject");
 			break;
 		case COLL_INFO1:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getInfo1();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getInfo1();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_INFO1, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_INFO1, DataProfile contains DataObject");
 			break;
 		case COLL_INFO2:
 			if (!dataProfile.isFile())
-				returnValue = ((Collection) dataProfile.getDomainObject()).getInfo2();
+				returnValue = ((Collection) dataProfile.getDomainObject())
+						.getInfo2();
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_INFO2, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_INFO2, DataProfile contains DataObject");
 			break;
 		case COLL_TIME_CREATED:
 			if (!dataProfile.isFile())
-				returnValue =  convertDateToISO8601String(((Collection) dataProfile.getDomainObject()).getCreatedAt());
+				returnValue = convertDateToISO8601String(((Collection) dataProfile
+						.getDomainObject()).getCreatedAt());
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_TIME_CREATED, DataProfile contains DataObject");
-			break;	
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_TIME_CREATED, DataProfile contains DataObject");
+			break;
 		case COLL_TIME_MODIFIED:
 			if (!dataProfile.isFile())
-				returnValue =  convertDateToISO8601String(((Collection) dataProfile.getDomainObject()).getModifiedAt());
+				returnValue = convertDateToISO8601String(((Collection) dataProfile
+						.getDomainObject()).getModifiedAt());
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_TIME_MODIFIED, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_TIME_MODIFIED, DataProfile contains DataObject");
 			break;
 		case COLL_SPEC_COLL_TYPE:
 			if (!dataProfile.isFile()) {
-				SpecColType coll_type = ((Collection) dataProfile.getDomainObject()).getSpecColType();
+				SpecColType coll_type = ((Collection) dataProfile
+						.getDomainObject()).getSpecColType();
 				switch (coll_type) {
-					case NORMAL:
-						returnValue = "NORMAL";
-						break;
-					case STRUCT_FILE_COLL:
-						returnValue = "STRUCT_FILE_COLL";
-						break;
-					case MOUNTED_COLL:
-						returnValue = "MOUNTED_COLL";
-						break;
-					case LINKED_COLL:
-						returnValue = "LINKED_COLL";
-						break;
-					default:
-						break;
+				case NORMAL:
+					returnValue = "NORMAL";
+					break;
+				case STRUCT_FILE_COLL:
+					returnValue = "STRUCT_FILE_COLL";
+					break;
+				case MOUNTED_COLL:
+					returnValue = "MOUNTED_COLL";
+					break;
+				case LINKED_COLL:
+					returnValue = "LINKED_COLL";
+					break;
+				default:
+					break;
 				}
-			}
-			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_SPEC_COLL_TYPE, DataProfile contains DataObject");
+			} else
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_SPEC_COLL_TYPE, DataProfile contains DataObject");
 			break;
 		case COLL_AVU:
 			if (!dataProfile.isFile()) {
@@ -365,39 +442,43 @@ public class DataProfileAccessorServiceImpl implements
 						returnValue = mdd.getAvuValue();
 					}
 				}
-				
+
 				if (returnValue == null) {
-					throw new AttributeNotFoundException("Attribute " + attributeName + " was not found in the collection's metadata");
+					throw new AttributeNotFoundException("Attribute "
+							+ attributeName
+							+ " was not found in the collection's metadata");
 				}
-			} 
-			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_AVU, DataProfile contains DataObject");
+			} else
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_AVU, DataProfile contains DataObject");
 			break;
 		case COLL_ACL:
 			if (!dataProfile.isFile()) {
 				// TODO
-			}
-			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_ACL, DataProfile contains DataObject");
+			} else
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_ACL, DataProfile contains DataObject");
 			break;
 		case COLL_STARRED:
 			if (!dataProfile.isFile())
 				returnValue = Boolean.toString(dataProfile.isStarred());
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_STARRED, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_STARRED, DataProfile contains DataObject");
 			break;
 		case COLL_SHARED:
 			if (!dataProfile.isFile())
 				returnValue = Boolean.toString(dataProfile.isShared());
 			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_SHARED, DataProfile contains DataObject");
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_SHARED, DataProfile contains DataObject");
 			break;
 		case COLL_TAG:
 			if (!dataProfile.isFile()) {
 				// TODO
-			}
-			else
-				throw new WrongDataProfileTypeException("Tried to access COLL_TAG, DataProfile contains DataObject");
+			} else
+				throw new WrongDataProfileTypeException(
+						"Tried to access COLL_TAG, DataProfile contains DataObject");
 			break;
 		case USER_NAME:
 			returnValue = userProfile.getName();
@@ -415,10 +496,12 @@ public class DataProfileAccessorServiceImpl implements
 			returnValue = userProfile.getComment();
 			break;
 		case USER_TIME_CREATED:
-			returnValue = convertDateToISO8601String(userProfile.getCreateTime());
+			returnValue = convertDateToISO8601String(userProfile
+					.getCreateTime());
 			break;
 		case USER_TIME_MODIFIED:
-			returnValue = convertDateToISO8601String(userProfile.getModifyTime());
+			returnValue = convertDateToISO8601String(userProfile
+					.getModifyTime());
 			break;
 		case USER_TYPE:
 			returnValue = userProfile.getUserType().getTextValue();
@@ -432,14 +515,13 @@ public class DataProfileAccessorServiceImpl implements
 		default:
 			break;
 		}
-		
+
 		return returnValue;
 	}
 
 	private String convertDateToISO8601String(Date inDate) {
 		return DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX")
-                .withZone(ZoneId.systemDefault())
-                .format(inDate.toInstant());
+				.withZone(ZoneId.systemDefault()).format(inDate.toInstant());
 	}
 
 	public String getIrodsUserName() {
