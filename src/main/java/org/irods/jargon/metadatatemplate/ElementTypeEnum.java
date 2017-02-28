@@ -14,8 +14,6 @@ package org.irods.jargon.metadatatemplate;
  * is retrieved by dereferencing the value according to its type.
  */
 public enum ElementTypeEnum {
-
 	RAW_STRING, RAW_TEXT, RAW_URL, RAW_INT, RAW_FLOAT, RAW_BOOLEAN, RAW_DATE, RAW_TIME, RAW_DATETIME,
-	REF_IRODS_QUERY, REF_IRODS_CATALOG, REF_URL
-
+	REF_IRODS_QUERY, REF_IRODS_CATALOG, REF_URL, LIST_STRING, LIST_INT, LIST_FLOAT
 }

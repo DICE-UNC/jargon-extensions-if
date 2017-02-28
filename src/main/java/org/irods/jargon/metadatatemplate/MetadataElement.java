@@ -6,6 +6,7 @@ package org.irods.jargon.metadatatemplate;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,6 +23,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MetadataElement {
+	/**
+	 * UUID that uniquely identifies the metadata template this element belongs
+	 * to. Helpful to implement versioning and template linking.
+	 */
+	private UUID templateUuid = new UUID(0, 0);
 
 	/**
 	 * Descriptive display name for metadata element, e.g. Author
@@ -43,7 +49,7 @@ public class MetadataElement {
 	 * <p/>
 	 * XXX NOT YET SUPPORTED
 	 */
-	private List<String> aliases = new ArrayList<String>();
+	// private List<String> aliases = new ArrayList<String>();
 
 	/**
 	 * Cue or help text
@@ -80,7 +86,7 @@ public class MetadataElement {
 	/**
 	 * Enum indicates the kind of validation to do (by type, or in combination
 	 * with the <code>validationOptions</code> to derive a range between two
-	 * values or a list that the entry must be part of
+	 * values or a list that the entry must be part of)
 	 */
 	private ValidationStyleEnum validationStyle = ValidationStyleEnum.DEFAULT;
 
@@ -91,12 +97,19 @@ public class MetadataElement {
 	 * provided at compile time. If the specified value fails validation, this
 	 * will only be detected at runtime.
 	 */
-	private String defaultValue = "";
+	private List<String> defaultValue = new ArrayList<String>();
 
 	/**
 	 * Contains the CURRENT value of this element.
 	 */
-	private String currentValue = "";
+	private List<String> currentValue = new ArrayList<String>();
+
+	/**
+	 * Contains the DISPLAY value of this element. For example, an element of
+	 * type REF_IRODS_QUERY may have a current value of "data.size", but a
+	 * display value of "18375".
+	 */
+	private List<String> displayValue = new ArrayList<String>();
 
 	/**
 	 * Provides hints to the interface builder about how to display this
@@ -105,8 +118,8 @@ public class MetadataElement {
 	 * <p/>
 	 * XXX NOT YET DESIGNED OR IMPLEMENTED
 	 */
-	private List<String> renderingOptions = new ArrayList<String>();
-	
+	// private List<String> renderingOptions = new ArrayList<String>();
+
 	/**
 	 * Specifies the source of data that will populate the metadata element.
 	 * 
@@ -114,6 +127,14 @@ public class MetadataElement {
 	 */
 	@JsonProperty("source")
 	private SourceEnum source = SourceEnum.USER;
+
+	public UUID getTemplateUuid() {
+		return templateUuid;
+	}
+
+	public void setTemplateUuid(UUID uuid) {
+		this.templateUuid = uuid;
+	}
 
 	/**
 	 * 
@@ -135,14 +156,11 @@ public class MetadataElement {
 		this.i18nName = i18nElementName;
 	}
 
-	public List<String> getAliases() {
-		return aliases;
-	}
-
-	public void setAliases(List<String> aliases) {
-		this.aliases = aliases;
-	}
-
+	/*
+	 * public List<String> getAliases() { return aliases; }
+	 * 
+	 * public void setAliases(List<String> aliases) { this.aliases = aliases; }
+	 */
 	public String getDescription() {
 		return description;
 	}
@@ -191,30 +209,36 @@ public class MetadataElement {
 		this.validationStyle = validationStyle;
 	}
 
-	public String getDefaultValue() {
+	public List<String> getDefaultValue() {
 		return defaultValue;
 	}
 
-	public void setDefaultValue(String defaultValue) {
+	public void setDefaultValue(List<String> defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 
-	public String getCurrentValue() {
+	public List<String> getCurrentValue() {
 		return currentValue;
 	}
 
-	public void setCurrentValue(String currentValue) {
+	public void setCurrentValue(List<String> currentValue) {
 		this.currentValue = currentValue;
 	}
 
-	public List<String> getRenderingOptions() {
-		return renderingOptions;
+	public List<String> getDisplayValue() {
+		return displayValue;
 	}
 
-	public void setRenderingOptions(List<String> renderingOptions) {
-		this.renderingOptions = renderingOptions;
+	public void setDisplayValue(List<String> displayValue) {
+		this.displayValue = displayValue;
 	}
-	
+
+	/*
+	 * public List<String> getRenderingOptions() { return renderingOptions; }
+	 * 
+	 * public void setRenderingOptions(List<String> renderingOptions) {
+	 * this.renderingOptions = renderingOptions; }
+	 */
 	public SourceEnum getSource() {
 		return source;
 	}
@@ -231,19 +255,60 @@ public class MetadataElement {
 		String toReturn = "";
 		String defaultStr = "";
 		String requiredStr = "";
+		String defaultValue = "";
+		String displayValue = "";
+
+		StringBuilder sb = new StringBuilder();
 
 		if (!this.getDefaultValue().isEmpty()) {
-			defaultStr = String
-					.format("(default = %s)", this.getDefaultValue());
+			if (this.getType() == ElementTypeEnum.LIST_STRING
+					|| this.getType() == ElementTypeEnum.LIST_INT
+					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
+				sb.append("[");
+				for (String s : this.getDefaultValue()) {
+					sb.append(s);
+					sb.append(", ");
+				}
+				int lastComma = sb.lastIndexOf(",");
+				sb.delete(lastComma, sb.length());
+				sb.append("]");
+			} else {
+				sb.append(this.getDefaultValue().get(0));
+			}
+
+			defaultValue = sb.toString();
+		}
+
+		if (!this.getDisplayValue().isEmpty()) {
+			sb.delete(0, sb.length());
+			if (this.getType() == ElementTypeEnum.LIST_STRING
+					|| this.getType() == ElementTypeEnum.LIST_INT
+					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
+				sb.append("[");
+				for (String s : this.getDisplayValue()) {
+					sb.append(s);
+					sb.append(", ");
+				}
+				int lastComma = sb.lastIndexOf(",");
+				sb.delete(lastComma, sb.length());
+				sb.append("]");
+			} else {
+				sb.append(this.getDisplayValue().get(0));
+			}
+
+			displayValue = sb.toString();
+		}
+
+		if (!this.getDefaultValue().isEmpty()) {
+			defaultStr = String.format("(default = %s)", defaultValue);
 		}
 
 		if (this.isRequired()) {
 			requiredStr = "*** REQUIRED ***";
 		}
 
-		toReturn = String
-				.format("%s [%s]: %s %s %s\n", this.getName(), this.getType(),
-						this.getCurrentValue(), defaultStr, requiredStr);
+		toReturn = String.format("%s [%s]: %s %s %s\n", this.getName(),
+				this.getType(), displayValue, defaultStr, requiredStr);
 
 		return toReturn;
 	}
