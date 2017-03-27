@@ -40,7 +40,7 @@ public abstract class MetadataTemplate {
 	 * representations.
 	 * 
 	 * By convention, the template name is the same as the filename, for
-	 * example, a template named DC would be stored as a file named DC.json.
+	 * example, a template named DC would be stored as a file named DC.mdtemplate.
 	 */
 	@JsonProperty("name")
 	private String name = "";
@@ -53,7 +53,6 @@ public abstract class MetadataTemplate {
 	 * By convention, the fully-qualified identifier location/name.json must be
 	 * unique.
 	 */
-	@JsonProperty("fqName")
 	private String fqName = "";
 
 	/**
@@ -116,8 +115,8 @@ public abstract class MetadataTemplate {
 	 * 
 	 * XXX ONLY IRODS MODE IS CURRENTLY SUPPORTED
 	 */
-	@JsonProperty("exporter")
-	private ExporterEnum exporter = ExporterEnum.IRODS;
+	@JsonProperty("destination")
+	private DestinationEnum destination = DestinationEnum.IRODS;
 
 	/**
 	 * Indicates whether the given template is required. If true, the validator
@@ -233,12 +232,12 @@ public abstract class MetadataTemplate {
 	}
 */
 	
-	public ExporterEnum getExporter() {
-		return exporter;
+	public DestinationEnum getExporter() {
+		return destination;
 	}
 
-	public void setExporter(ExporterEnum exporter) {
-		this.exporter = exporter;
+	public void setExporter(DestinationEnum destination) {
+		this.destination = destination;
 	}
 	
 	public boolean isRequired() {

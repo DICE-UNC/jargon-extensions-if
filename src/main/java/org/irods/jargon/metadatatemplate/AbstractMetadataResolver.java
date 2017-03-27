@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.irods.jargon.core.exception.JargonException;
+
 /**
  * Abstract superclass for a metadata resolver that can locate and perform CRUD
  * operations on metadata templates.
@@ -119,12 +121,13 @@ public abstract class AbstractMetadataResolver {
 			for (MetadataTemplate mtPublic : publicTemplates) {
 				boolean duplicate = false;
 				for (MetadataTemplate mtHierarchy : hierarchyTemplates) {
-					if (mtPublic.getName().equalsIgnoreCase(mtHierarchy.getName())) {
+					if (mtPublic.getName().equalsIgnoreCase(
+							mtHierarchy.getName())) {
 						duplicate = true;
 						break;
 					}
 				}
-				
+
 				if (!duplicate) {
 					allTemplates.add(mtPublic);
 				}
@@ -246,18 +249,40 @@ public abstract class AbstractMetadataResolver {
 				.fromString(uuid)));
 	}
 
+	public abstract MetadataTemplate cloneTemplateByFqName(String fqName,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException;
+
+	public MetadataTemplate cloneTemplateByUUID(UUID uuid,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException {
+		return this.cloneTemplateByFqName(getFqNameForUUID(uuid),
+				newTemplateName, destDir);
+	}
+
+	public MetadataTemplate cloneTemplateByUUID(String uuid,
+			String newTemplateName, String destDir)
+			throws FileNotFoundException, IOException,
+			MetadataTemplateParsingException,
+			MetadataTemplateProcessingException {
+		return this.cloneTemplateByFqName(
+				getFqNameForUUID(UUID.fromString(uuid)), newTemplateName,
+				destDir);
+	}
+
 	public abstract String getFqNameForUUID(UUID uuid);
 
 	public String getFqNameForUUID(String uuid) {
 		return this.getFqNameForUUID(UUID.fromString(uuid));
 	}
-
-	public MetadataTemplate cloneTemplateByFqName(String fqName,
-			String newTemplateName, String destDir)
-			throws FileNotFoundException, IOException,
-			MetadataTemplateParsingException,
-			MetadataTemplateProcessingException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+/*	
+ 	public abstract void saveTemplateToSystemMetadataOnObject(
+			MetadataTemplate metadataTemplate, String pathToObject)
+			throws FileNotFoundException, JargonException;
+*/
 }
