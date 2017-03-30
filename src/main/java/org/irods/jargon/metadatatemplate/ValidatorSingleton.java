@@ -49,8 +49,7 @@ public final class ValidatorSingleton {
 	 *            {@link MetadataElement} to be validated
 	 * @return {@link ValidationReturnEnum} reporting validation result
 	 */
-	public ValidationReturnEnum validate(IRODSAccount irodsAccount,
-			IRODSAccessObjectFactory irodsAccessObjectFactory,
+	public ValidationReturnEnum validate(IRODSAccount irodsAccount, IRODSAccessObjectFactory irodsAccessObjectFactory,
 			MetadataElement me) {
 		if (me.getCurrentValue().isEmpty()) {
 			if (me.isRequired()) {
@@ -80,12 +79,9 @@ public final class ValidatorSingleton {
 
 		// Default behavior is to validate type only
 		if (me.getValidationStyle() == ValidationStyleEnum.DEFAULT) {
-			if (me.getType() == ElementTypeEnum.RAW_STRING
-					|| me.getType() == ElementTypeEnum.RAW_TEXT
-					|| me.getType() == ElementTypeEnum.RAW_URL
-					|| me.getType() == ElementTypeEnum.REF_IRODS_CATALOG
-					|| me.getType() == ElementTypeEnum.REF_IRODS_QUERY
-					|| me.getType() == ElementTypeEnum.REF_URL) {
+			if (me.getType() == ElementTypeEnum.RAW_STRING || me.getType() == ElementTypeEnum.RAW_TEXT
+					|| me.getType() == ElementTypeEnum.RAW_URL || me.getType() == ElementTypeEnum.REF_IRODS_CATALOG
+					|| me.getType() == ElementTypeEnum.REF_IRODS_QUERY || me.getType() == ElementTypeEnum.REF_URL) {
 				if (me.getCurrentValue().size() > 1) {
 					return ValidationReturnEnum.SINGLE_VALUE_LIST_PROVIDED;
 				}
@@ -127,8 +123,7 @@ public final class ValidatorSingleton {
 				}
 
 				if (me.getCurrentValue().get(0).equalsIgnoreCase("true")
-						|| me.getCurrentValue().get(0)
-								.equalsIgnoreCase("false")
+						|| me.getCurrentValue().get(0).equalsIgnoreCase("false")
 						|| me.getCurrentValue().get(0).equalsIgnoreCase("0")
 						|| me.getCurrentValue().get(0).equalsIgnoreCase("1")) {
 					return ValidationReturnEnum.SUCCESS;
@@ -144,8 +139,7 @@ public final class ValidatorSingleton {
 
 				try {
 					@SuppressWarnings("unused")
-					LocalDate parsedDate = LocalDate.parse(me.getCurrentValue()
-							.get(0));
+					LocalDate parsedDate = LocalDate.parse(me.getCurrentValue().get(0));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.BAD_TYPE;
 				}
@@ -160,8 +154,7 @@ public final class ValidatorSingleton {
 
 				try {
 					@SuppressWarnings("unused")
-					LocalTime parsedTime = LocalTime.parse(me.getCurrentValue()
-							.get(0));
+					LocalTime parsedTime = LocalTime.parse(me.getCurrentValue().get(0));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.BAD_TYPE;
 				}
@@ -176,8 +169,7 @@ public final class ValidatorSingleton {
 
 				try {
 					@SuppressWarnings("unused")
-					LocalDateTime parsedDateTime = LocalDateTime.parse(me
-							.getCurrentValue().get(0));
+					LocalDateTime parsedDateTime = LocalDateTime.parse(me.getCurrentValue().get(0));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.BAD_TYPE;
 				}
@@ -219,10 +211,9 @@ public final class ValidatorSingleton {
 				if (me.getValidationOptions().size() != me.getCurrentValue().size()) {
 					return ValidationReturnEnum.VALUE_NOT_EQUAL;
 				}
-				
+
 				for (int i = 0; i < me.getValidationOptions().size(); ++i) {
-					if (!me.getValidationOptions().get(i)
-							.equalsIgnoreCase(me.getCurrentValue().get(i))) {
+					if (!me.getValidationOptions().get(i).equalsIgnoreCase(me.getCurrentValue().get(i))) {
 						return ValidationReturnEnum.VALUE_NOT_EQUAL;
 					}
 				}
@@ -394,8 +385,7 @@ public final class ValidatorSingleton {
 
 				if (me.getValidationStyle() == ValidationStyleEnum.IN_RANGE) {
 					if ((curDate.isAfter(minDate) || curDate.isEqual(minDate))
-							&& (curDate.isBefore(maxDate) || curDate
-									.isEqual(maxDate))) {
+							&& (curDate.isBefore(maxDate) || curDate.isEqual(maxDate))) {
 						return ValidationReturnEnum.SUCCESS;
 					} else {
 						return ValidationReturnEnum.VALUE_NOT_IN_RANGE;
@@ -453,24 +443,21 @@ public final class ValidatorSingleton {
 			if (me.getType() == ElementTypeEnum.RAW_DATETIME) {
 				LocalDateTime curDateTime;
 				try {
-					curDateTime = LocalDateTime.parse(me.getCurrentValue().get(
-							0));
+					curDateTime = LocalDateTime.parse(me.getCurrentValue().get(0));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.BAD_TYPE;
 				}
 
 				LocalDateTime minDateTime;
 				try {
-					minDateTime = LocalDateTime.parse(me.getValidationOptions()
-							.get(0));
+					minDateTime = LocalDateTime.parse(me.getValidationOptions().get(0));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.NOT_VALIDATED;
 				}
 
 				LocalDateTime maxDateTime;
 				try {
-					maxDateTime = LocalDateTime.parse(me.getValidationOptions()
-							.get(1));
+					maxDateTime = LocalDateTime.parse(me.getValidationOptions().get(1));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.NOT_VALIDATED;
 				}
@@ -485,8 +472,7 @@ public final class ValidatorSingleton {
 				// LocalDateTime objects do no have an isEqual operation;
 				// therefore, IN_RANGE and IN_RANGE_EXCLUSIVE have the same
 				// functionality.
-				if (curDateTime.isAfter(minDateTime)
-						&& curDateTime.isBefore(maxDateTime)) {
+				if (curDateTime.isAfter(minDateTime) && curDateTime.isBefore(maxDateTime)) {
 					return ValidationReturnEnum.SUCCESS;
 				} else {
 					return ValidationReturnEnum.VALUE_NOT_IN_RANGE;
@@ -531,17 +517,15 @@ public final class ValidatorSingleton {
 			if (me.getType() == ElementTypeEnum.REF_IRODS_QUERY) {
 				try {
 					@SuppressWarnings("unused")
-					AccessorValuesEnum tempEnum = AccessorValuesEnum
-							.enumFromText(me.getCurrentValue().get(0));
+					AccessorValuesEnum tempEnum = AccessorValuesEnum.enumFromText(me.getCurrentValue().get(0));
 				} catch (ObjectNotFoundException e) {
 					return ValidationReturnEnum.BAD_REF;
 				}
-				
+
 				return ValidationReturnEnum.SUCCESS;
 			} else if (me.getType() == ElementTypeEnum.REF_IRODS_CATALOG) {
 				try {
-					IRODSFile retFile = irodsAccessObjectFactory
-							.getIRODSFileFactory(irodsAccount)
+					IRODSFile retFile = irodsAccessObjectFactory.getIRODSFileFactory(irodsAccount)
 							.instanceIRODSFile(me.getCurrentValue().get(0));
 
 					if (retFile.exists()) {
@@ -586,12 +570,10 @@ public final class ValidatorSingleton {
 	 */
 
 	public List<ValidationReturnEnum> validate(IRODSAccount irodsAccount,
-			IRODSAccessObjectFactory irodsAccessObjectFactory,
-			FormBasedMetadataTemplate mt) {
+			IRODSAccessObjectFactory irodsAccessObjectFactory, MetadataTemplate mt) {
 		List<ValidationReturnEnum> returnList = new ArrayList<ValidationReturnEnum>();
 		for (MetadataElement me : mt.getElements()) {
-			returnList
-					.add(validate(irodsAccount, irodsAccessObjectFactory, me));
+			returnList.add(validate(irodsAccount, irodsAccessObjectFactory, me));
 		}
 
 		return returnList;

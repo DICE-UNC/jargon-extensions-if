@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 @JsonInclude(Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
-public abstract class MetadataTemplate {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MetadataTemplate {
 	/**
 	 * UUID that uniquely identifies this metadata template. Helpful to
 	 * implement versioning and template linking.
@@ -40,7 +40,8 @@ public abstract class MetadataTemplate {
 	 * representations.
 	 * 
 	 * By convention, the template name is the same as the filename, for
-	 * example, a template named DC would be stored as a file named DC.mdtemplate.
+	 * example, a template named DC would be stored as a file named
+	 * DC.mdtemplate.
 	 */
 	@JsonProperty("name")
 	private String name = "";
@@ -82,7 +83,7 @@ public abstract class MetadataTemplate {
 	 */
 	@JsonProperty("version")
 	private String version = "";
-	
+
 	/**
 	 * Specifies the subtype of MetadataTemplate.
 	 * 
@@ -107,9 +108,9 @@ public abstract class MetadataTemplate {
 	 * 
 	 * XXX NOT YET SUPPORTED
 	 */
-	//@JsonProperty("driver")
-	//private MetadataDriver driver = new MetadataDriver();
-	
+	// @JsonProperty("driver")
+	// private MetadataDriver driver = new MetadataDriver();
+
 	/**
 	 * Specifies the format in which metadata is finally stored.
 	 * 
@@ -136,7 +137,18 @@ public abstract class MetadataTemplate {
 	 * nearest to the collection 2) user home dir 3) public viewable dirs
 	 */
 	// TODO Uncomment when ready to implement linked templates
-	//private List<String> linkedTemplates = new ArrayList<String>();
+	// private List<String> linkedTemplates = new ArrayList<String>();
+
+	/**
+	 * Describes the list of elements in the metadata template
+	 */
+	// TODO Should probably end up as a hashmap, not a list
+	@JsonProperty("elements")
+	private List<MetadataElement> elements = new ArrayList<MetadataElement>();
+
+	public List<MetadataElement> getElements() {
+		return elements;
+	}
 
 	public UUID getUuid() {
 		return uuid;
@@ -178,12 +190,11 @@ public abstract class MetadataTemplate {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
+
 	public Date getCreated() {
 		return created;
 	}
-	
-	// TODO Hide public setter?
+
 	public void setCreated(Date created) {
 		this.created = created;
 	}
@@ -192,11 +203,10 @@ public abstract class MetadataTemplate {
 		return modified;
 	}
 
-	// TODO Hide public setter?
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-	
+
 	public String getVersion() {
 		return version;
 	}
@@ -204,7 +214,7 @@ public abstract class MetadataTemplate {
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	
+
 	public TemplateTypeEnum getType() {
 		return type;
 	}
@@ -220,18 +230,14 @@ public abstract class MetadataTemplate {
 	public void setSource(SourceEnum source) {
 		this.source = source;
 	}
-	
-	// TODO Uncomment when ready to implement multiple drivers
-/*
-	public MetadataDriver getDriver() {
-		return driver;
-	}
 
-	public void setDriver(MetadataDriver driver) {
-		this.driver = driver;
-	}
-*/
-	
+	// TODO Uncomment when ready to implement multiple drivers
+	/*
+	 * public MetadataDriver getDriver() { return driver; }
+	 * 
+	 * public void setDriver(MetadataDriver driver) { this.driver = driver; }
+	 */
+
 	public DestinationEnum getExporter() {
 		return destination;
 	}
@@ -239,7 +245,7 @@ public abstract class MetadataTemplate {
 	public void setExporter(DestinationEnum destination) {
 		this.destination = destination;
 	}
-	
+
 	public boolean isRequired() {
 		return required;
 	}
@@ -247,25 +253,20 @@ public abstract class MetadataTemplate {
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
-	
-	// TODO Uncomment when ready to implement linked templates
-/*
-	public List<String> getLinkedTemplates() {
-		return linkedTemplates;
-	}
 
-	public void setLinkedTemplates(List<String> linkedTemplates) {
-		this.linkedTemplates = linkedTemplates;
-	}
-*/
+	// TODO Uncomment when ready to implement linked templates
+	/*
+	 * public List<String> getLinkedTemplates() { return linkedTemplates; }
+	 * 
+	 * public void setLinkedTemplates(List<String> linkedTemplates) {
+	 * this.linkedTemplates = linkedTemplates; }
+	 */
 	/**
 	 * 
 	 */
 	public MetadataTemplate() {
 	}
-	
-	public abstract MetadataTemplate deepCopy();
-	
+
 	public MetadataTemplate(MetadataTemplate mt) {
 		this.setType(mt.getType());
 		this.setAuthor(mt.getAuthor());

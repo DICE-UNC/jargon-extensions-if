@@ -30,7 +30,7 @@ public class SourceBasedMetadataTemplate extends MetadataTemplate {
 	 */
 	public SourceBasedMetadataTemplate() {
 	}
-	
+
 	public SourceBasedMetadataTemplate(SourceBasedMetadataTemplate mt) {
 		this.setAuthor(mt.getAuthor());
 		this.setName(mt.getName());
@@ -41,11 +41,6 @@ public class SourceBasedMetadataTemplate extends MetadataTemplate {
 		this.setUuid(mt.getUuid());
 		this.setVersion(mt.getVersion());
 		this.setMetadataSourceLink(mt.getMetadataSourceLink());
-	}
-	
-	@Override
-	public SourceBasedMetadataTemplate deepCopy() {
-		return new SourceBasedMetadataTemplate(this);
 	}
 
 }
