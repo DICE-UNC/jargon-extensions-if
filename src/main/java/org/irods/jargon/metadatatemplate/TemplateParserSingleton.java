@@ -64,13 +64,12 @@ public final class TemplateParserSingleton {
 	 */
 	// public FormBasedMetadataTemplate createMetadataTemplateFromJSON(String s)
 	public MetadataTemplate createMetadataTemplateFromJSON(String s)
-			throws MetadataTemplateParsingException,
-			MetadataTemplateProcessingException {
+			throws MetadataTemplateParsingException, MetadataTemplateProcessingException {
 		log.info("createMetadataTemplateFromJSON()");
 
 		// FormBasedMetadataTemplate mt = new FormBasedMetadataTemplate();
 		MetadataTemplate mt;
-//		String metadataTemplateType;
+		// String metadataTemplateType;
 
 		log.info(s);
 
@@ -81,17 +80,16 @@ public final class TemplateParserSingleton {
 			// mt = mapper.readValue(s, SchemaReferenceMetadataTemplate.class);
 			// metadataTemplateType = "SchemaReferenceMetadataTemplate";
 			// } else {
-			mt = new FormBasedMetadataTemplate();
-			mt = mapper.readValue(s, FormBasedMetadataTemplate.class);
-//			metadataTemplateType = "FormBasedMetadataTemplate";
+			mt = new MetadataTemplate();
+			mt = mapper.readValue(s, MetadataTemplate.class);
+			// metadataTemplateType = "FormBasedMetadataTemplate";
 			// }
 		} catch (JsonParseException | JsonMappingException je) {
 			log.error("Error in template JSON", je);
 			throw new MetadataTemplateParsingException("Error in templateJSON");
 		} catch (IOException ioe) {
 			log.error("Error in template file read", ioe);
-			throw new MetadataTemplateProcessingException(
-					"Error in template file read");
+			throw new MetadataTemplateProcessingException("Error in template file read");
 		}
 
 		if (mt == null) {
@@ -100,16 +98,17 @@ public final class TemplateParserSingleton {
 
 		log.info(mt.toString());
 
-//		if (metadataTemplateType == "FormBasedMetadataTemplate") {
+		// if (metadataTemplateType == "FormBasedMetadataTemplate") {
 		if (mt.getType() == TemplateTypeEnum.FORM_BASED) {
-			FormBasedMetadataTemplate temp = (FormBasedMetadataTemplate) mt;
+			MetadataTemplate temp = mt;
 			// If default values are defined, copy into current value
 			for (MetadataElement me : temp.getElements()) {
 				if (!me.getDefaultValue().isEmpty())
 					me.setCurrentValue(me.getDefaultValue());
 			}
-//		} else if (metadataTemplateType == "SchemaReferenceMetadataTemplate") {
-//		} else if (mt.getType() == TemplateTypeEnum.SCHEMA_REFERENCE) {
+			// } else if (metadataTemplateType ==
+			// "SchemaReferenceMetadataTemplate") {
+			// } else if (mt.getType() == TemplateTypeEnum.SCHEMA_REFERENCE) {
 			/*
 			 * SchemaReferenceMetadataTemplate temp =
 			 * (SchemaReferenceMetadataTemplate) mt; String rdfTranslatorURI =
@@ -151,47 +150,34 @@ public final class TemplateParserSingleton {
 
 	/**
 	 * Returns a String containing a JSON representation of the MetadataTemplate
-	 * parameter.</p>
+	 * parameter.
+	 * </p>
 	 * <p>
 	 * If saveCurrentValuesAsDefaults is set to true, the current values of the
 	 * MetadataElements will be saved as default values in the template. Default
-	 * values that are already set will NOT be overwritten.</p>
+	 * values that are already set will NOT be overwritten.
+	 * </p>
 	 * 
 	 * @params {@link MetadataTemplate} containing a populated metadata template
 	 *         boolean indicating whether current values should be stored as
 	 *         default values
 	 * @return {@link String}
 	 */
-	public String createJSONFromMetadataTemplate(
-			FormBasedMetadataTemplate template,
-			boolean saveCurrentValuesAsDefaults)
+	public String createJSONFromMetadataTemplate(MetadataTemplate template, boolean saveCurrentValuesAsDefaults)
 			throws MetadataTemplateProcessingException {
-		FormBasedMetadataTemplate mt = template.deepCopy();
-
-		if (saveCurrentValuesAsDefaults) {
-			for (MetadataElement me : mt.getElements()) {
-				if (!me.getDefaultValue().isEmpty())
-					me.setDefaultValue(me.getCurrentValue());
-			}
-		}
 
 		String json = "";
 		try {
-			json = mapper.writeValueAsString(mt);
+			json = mapper.writeValueAsString(template);
 		} catch (JsonProcessingException jpe) {
-			log.error(
-					"JsonProcessingException when writing template to String",
-					jpe);
-			throw new MetadataTemplateProcessingException(
-					"Unable to generate String representation of template");
+			log.error("JsonProcessingException when writing template to String", jpe);
+			throw new MetadataTemplateProcessingException("Unable to generate String representation of template");
 		}
 
 		return json;
 	}
-	
-	public String createJSONFromMetadataTemplate(
-			FormBasedMetadataTemplate template)
-			throws MetadataTemplateProcessingException {
+
+	public String createJSONFromMetadataTemplate(MetadataTemplate template) throws MetadataTemplateProcessingException {
 		return createJSONFromMetadataTemplate(template, true);
 	}
 }
