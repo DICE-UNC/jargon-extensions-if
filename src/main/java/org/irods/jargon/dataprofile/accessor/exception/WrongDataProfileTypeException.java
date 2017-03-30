@@ -1,26 +1,26 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.dataprofile.accessor.exception;
 
 /**
  * Error caused by use of DATA_ accessors on a Collection or COLL_ accessors on
  * a DataObject
- * 
+ *
  * @author rskarbez
  *
  */
 public class WrongDataProfileTypeException extends DataProfileAccessorException {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 9110290645200720447L;
 
 	/**
 	 * @param message
 	 */
-	public WrongDataProfileTypeException(String message) {
+	public WrongDataProfileTypeException(final String message) {
 		super(message);
 	}
 
@@ -28,14 +28,14 @@ public class WrongDataProfileTypeException extends DataProfileAccessorException 
 	 * @param message
 	 * @param cause
 	 */
-	public WrongDataProfileTypeException(String message, Throwable cause) {
+	public WrongDataProfileTypeException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
 	 * @param cause
 	 */
-	public WrongDataProfileTypeException(Throwable cause) {
+	public WrongDataProfileTypeException(final Throwable cause) {
 		super(cause);
 	}
 
@@ -44,8 +44,8 @@ public class WrongDataProfileTypeException extends DataProfileAccessorException 
 	 * @param cause
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public WrongDataProfileTypeException(String message, Throwable cause,
-			int underlyingIRODSExceptionCode) {
+	public WrongDataProfileTypeException(final String message, final Throwable cause,
+			final int underlyingIRODSExceptionCode) {
 		super(message, cause, underlyingIRODSExceptionCode);
 	}
 
@@ -53,8 +53,7 @@ public class WrongDataProfileTypeException extends DataProfileAccessorException 
 	 * @param cause
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public WrongDataProfileTypeException(Throwable cause,
-			int underlyingIRODSExceptionCode) {
+	public WrongDataProfileTypeException(final Throwable cause, final int underlyingIRODSExceptionCode) {
 		super(cause, underlyingIRODSExceptionCode);
 	}
 
@@ -62,8 +61,7 @@ public class WrongDataProfileTypeException extends DataProfileAccessorException 
 	 * @param message
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public WrongDataProfileTypeException(String message,
-			int underlyingIRODSExceptionCode) {
+	public WrongDataProfileTypeException(final String message, final int underlyingIRODSExceptionCode) {
 		super(message, underlyingIRODSExceptionCode);
 	}
 

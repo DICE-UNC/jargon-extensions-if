@@ -1,9 +1,9 @@
 /**
- * 
+ *
  */
 /**
  * Exceptions from accessor library
- * 
+ *
  * @author Mike Conway - DICE
  *
  */

@@ -16,17 +16,17 @@ import org.irods.jargon.core.query.PagingAwareCollectionListing.PagingStyle;
  * <p/>
  * The function of a virtual collection is to break away from reliance on a
  * hierarchical file tree as the sole arrangement of collections.
- * 
+ *
  * @author Mike Conway - DICE
- * 
+ *
  */
 public abstract class AbstractVirtualCollection {
 
 	/**
 	 * The style of paging for this collection
-	 * 
+	 *
 	 * @author Mike Conway - DICE
-	 * 
+	 *
 	 */
 
 	public static final String DEFAULT_ICON_KEY = "virtual.collection.default.icon";
@@ -122,7 +122,7 @@ public abstract class AbstractVirtualCollection {
 		return pagingStyle;
 	}
 
-	public void setPagingStyle(PagingStyle pagingStyle) {
+	public void setPagingStyle(final PagingStyle pagingStyle) {
 		this.pagingStyle = pagingStyle;
 	}
 
@@ -130,7 +130,7 @@ public abstract class AbstractVirtualCollection {
 		return parameters;
 	}
 
-	public void setParameters(Map<String, String> parameters) {
+	public void setParameters(final Map<String, String> parameters) {
 		this.parameters = parameters;
 	}
 
@@ -142,13 +142,13 @@ public abstract class AbstractVirtualCollection {
 	 * @param type
 	 *            the type to set
 	 */
-	public void setType(String type) {
+	public void setType(final String type) {
 		this.type = type;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -202,12 +202,11 @@ public abstract class AbstractVirtualCollection {
 		return builder.toString();
 	}
 
-	private String toString(Collection<?> collection, int maxLen) {
+	private String toString(final Collection<?> collection, final int maxLen) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("[");
 		int i = 0;
-		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext()
-				&& i < maxLen; i++) {
+		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
 			if (i > 0) {
 				builder.append(", ");
 			}
@@ -228,7 +227,7 @@ public abstract class AbstractVirtualCollection {
 	 * @param pathHintable
 	 *            the pathHintable to set
 	 */
-	public void setPathHintable(boolean pathHintable) {
+	public void setPathHintable(final boolean pathHintable) {
 		this.pathHintable = pathHintable;
 	}
 

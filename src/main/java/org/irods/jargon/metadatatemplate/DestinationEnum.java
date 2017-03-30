@@ -6,7 +6,7 @@ package org.irods.jargon.metadatatemplate;
  */
 
 /**
- * 
+ *
  * ONLY iRODS AVUS currently supported
  * <p/>
  * Will specify format that "ground truth" metadata is stored in

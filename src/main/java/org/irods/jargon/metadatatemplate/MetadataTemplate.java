@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.metadatatemplate;
 
@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Basic domain object for a metadata template
- * 
+ *
  * @author Mike Conway and Rick Skarbez
  */
 
@@ -38,7 +38,7 @@ public class MetadataTemplate {
 	 * Public name for a metadata template, represents a generic template of a
 	 * type (e.g. Dublin Core) of which there may be multiple unique
 	 * representations.
-	 * 
+	 *
 	 * By convention, the template name is the same as the filename, for
 	 * example, a template named DC would be stored as a file named
 	 * DC.mdtemplate.
@@ -50,7 +50,7 @@ public class MetadataTemplate {
 	 * A resource locator that specifies where the template can be found. For
 	 * example, in iRODS, this would be the fully qualified logical name of the
 	 * iRODS directory that contains the template file.
-	 * 
+	 *
 	 * By convention, the fully-qualified identifier location/name.json must be
 	 * unique.
 	 */
@@ -86,7 +86,7 @@ public class MetadataTemplate {
 
 	/**
 	 * Specifies the subtype of MetadataTemplate.
-	 * 
+	 *
 	 * XXX ONLY FORM_BASED MODE IS CURRENTLY SUPPORTED
 	 */
 	@JsonProperty("type")
@@ -94,7 +94,7 @@ public class MetadataTemplate {
 
 	/**
 	 * Specifies the source of data that will populate the metadata template.
-	 * 
+	 *
 	 * XXX ONLY USER MODE IS CURRENTLY SUPPORTED
 	 */
 	@JsonProperty("source")
@@ -105,7 +105,7 @@ public class MetadataTemplate {
 	 * computation that will be run to generate data for <code>DRIVER</code> or
 	 * <code>MIXED</code> modes. <code>driver</code> is not used if
 	 * <code>source=USER</code>.
-	 * 
+	 *
 	 * XXX NOT YET SUPPORTED
 	 */
 	// @JsonProperty("driver")
@@ -113,7 +113,7 @@ public class MetadataTemplate {
 
 	/**
 	 * Specifies the format in which metadata is finally stored.
-	 * 
+	 *
 	 * XXX ONLY IRODS MODE IS CURRENTLY SUPPORTED
 	 */
 	@JsonProperty("destination")
@@ -155,7 +155,7 @@ public class MetadataTemplate {
 	}
 
 	// TODO Hide public setter?
-	public void setUuid(UUID uuid) {
+	public void setUuid(final UUID uuid) {
 		this.uuid = uuid;
 	}
 
@@ -163,7 +163,7 @@ public class MetadataTemplate {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -171,7 +171,7 @@ public class MetadataTemplate {
 		return fqName;
 	}
 
-	public void setFqName(String fqName) {
+	public void setFqName(final String fqName) {
 		this.fqName = fqName;
 	}
 
@@ -179,7 +179,7 @@ public class MetadataTemplate {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -187,7 +187,7 @@ public class MetadataTemplate {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(final String author) {
 		this.author = author;
 	}
 
@@ -195,7 +195,7 @@ public class MetadataTemplate {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(final Date created) {
 		this.created = created;
 	}
 
@@ -203,7 +203,7 @@ public class MetadataTemplate {
 		return modified;
 	}
 
-	public void setModified(Date modified) {
+	public void setModified(final Date modified) {
 		this.modified = modified;
 	}
 
@@ -211,7 +211,7 @@ public class MetadataTemplate {
 		return version;
 	}
 
-	public void setVersion(String version) {
+	public void setVersion(final String version) {
 		this.version = version;
 	}
 
@@ -219,7 +219,7 @@ public class MetadataTemplate {
 		return type;
 	}
 
-	public void setType(TemplateTypeEnum type) {
+	public void setType(final TemplateTypeEnum type) {
 		this.type = type;
 	}
 
@@ -227,14 +227,14 @@ public class MetadataTemplate {
 		return source;
 	}
 
-	public void setSource(SourceEnum source) {
+	public void setSource(final SourceEnum source) {
 		this.source = source;
 	}
 
 	// TODO Uncomment when ready to implement multiple drivers
 	/*
 	 * public MetadataDriver getDriver() { return driver; }
-	 * 
+	 *
 	 * public void setDriver(MetadataDriver driver) { this.driver = driver; }
 	 */
 
@@ -242,7 +242,7 @@ public class MetadataTemplate {
 		return destination;
 	}
 
-	public void setExporter(DestinationEnum destination) {
+	public void setExporter(final DestinationEnum destination) {
 		this.destination = destination;
 	}
 
@@ -250,33 +250,33 @@ public class MetadataTemplate {
 		return required;
 	}
 
-	public void setRequired(boolean required) {
+	public void setRequired(final boolean required) {
 		this.required = required;
 	}
 
 	// TODO Uncomment when ready to implement linked templates
 	/*
 	 * public List<String> getLinkedTemplates() { return linkedTemplates; }
-	 * 
+	 *
 	 * public void setLinkedTemplates(List<String> linkedTemplates) {
 	 * this.linkedTemplates = linkedTemplates; }
 	 */
 	/**
-	 * 
+	 *
 	 */
 	public MetadataTemplate() {
 	}
 
-	public MetadataTemplate(MetadataTemplate mt) {
-		this.setType(mt.getType());
-		this.setAuthor(mt.getAuthor());
-		this.setName(mt.getName());
-		this.setFqName(mt.getFqName());
-		this.setDescription(mt.getDescription());
-		this.setRequired(mt.isRequired());
-		this.setSource(mt.getSource());
-		this.setUuid(mt.getUuid());
-		this.setVersion(mt.getVersion());
+	public MetadataTemplate(final MetadataTemplate mt) {
+		setType(mt.getType());
+		setAuthor(mt.getAuthor());
+		setName(mt.getName());
+		setFqName(mt.getFqName());
+		setDescription(mt.getDescription());
+		setRequired(mt.isRequired());
+		setSource(mt.getSource());
+		setUuid(mt.getUuid());
+		setVersion(mt.getVersion());
 	}
 
 }

@@ -3,7 +3,7 @@ package org.irods.jargon.formbot;
 /**
  * Wrapper for FormBotValidationEnum that enables the validator to pass a
  * message back to the front end.
- * 
+ *
  * @author rskarbez
  *
  */
@@ -16,7 +16,7 @@ public class FormBotValidationResult {
 		return code;
 	}
 
-	public void setCode(FormBotValidationEnum code) {
+	public void setCode(final FormBotValidationEnum code) {
 		this.code = code;
 	}
 
@@ -24,15 +24,15 @@ public class FormBotValidationResult {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	public void setMessage(final String message) {
 		this.message = message;
 	}
-	
+
 	public FormBotValidationResult() {
 	}
 
-	public FormBotValidationResult(FormBotValidationEnum c, String m) {
-		this.code = c;
-		this.message = m;
+	public FormBotValidationResult(final FormBotValidationEnum c, final String m) {
+		code = c;
+		message = m;
 	}
 }

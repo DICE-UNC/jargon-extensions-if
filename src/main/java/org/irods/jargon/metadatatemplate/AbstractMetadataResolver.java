@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.metadatatemplate;
 
@@ -24,8 +24,8 @@ import java.util.UUID;
  * grandparent, etc</li>
  * <li>In public directories</li>
  * </ul>
- * 
- * 
+ *
+ *
  * @author Mike Conway and Rick Skarbez
  *
  */
@@ -41,7 +41,7 @@ public abstract class AbstractMetadataResolver {
 	private List<String> publicTemplateLocations = new ArrayList<String>();
 
 	/**
-	 * 
+	 *
 	 */
 	public AbstractMetadataResolver() {
 	}
@@ -60,10 +60,10 @@ public abstract class AbstractMetadataResolver {
 	 * Directories should be fully-qualified. That is, if the template files are
 	 * actually stored in /foo/bar/.irods/metadataTemplates, the string for this
 	 * folder would be "/foo/bar/.irods/metadataTemplates", not just "/foo/bar".
-	 * 
+	 *
 	 * @param publicTemplateLocations
 	 */
-	public void setPublicTemplateLocations(List<String> publicTemplateLocations) {
+	public void setPublicTemplateLocations(final List<String> publicTemplateLocations) {
 		this.publicTemplateLocations = publicTemplateLocations;
 	}
 
@@ -75,7 +75,7 @@ public abstract class AbstractMetadataResolver {
 	 * This is equivalent to saying, I want to put metadata on this file, what
 	 * templates are in this collection or any parent collections that I should
 	 * use or require.
-	 * 
+	 *
 	 * @param absolutePath
 	 * @return
 	 */
@@ -90,7 +90,7 @@ public abstract class AbstractMetadataResolver {
 	 * groups are really just iRODS paths to directories that can contain
 	 * metadata templates, you can implement this differently, or just leave as
 	 * is and it returns an empty list.
-	 * 
+	 *
 	 * @param templateGropus
 	 * @return
 	 */
@@ -103,8 +103,8 @@ public abstract class AbstractMetadataResolver {
 		List<MetadataTemplate> hierarchyTemplates;
 		List<MetadataTemplate> publicTemplates;
 
-		hierarchyTemplates = this.listTemplatesInDirectoryHierarchyAbovePath(path);
-		publicTemplates = this.listPublicTemplates();
+		hierarchyTemplates = listTemplatesInDirectoryHierarchyAbovePath(path);
+		publicTemplates = listPublicTemplates();
 
 		// Both the directory hierarchy list and the public list have already
 		// had duplicates accounted for. HOWEVER, there exists the possibility
@@ -134,7 +134,7 @@ public abstract class AbstractMetadataResolver {
 			MetadataTemplateProcessingException, MetadataTemplateParsingException {
 		List<MetadataTemplate> requiredTemplates = new ArrayList<MetadataTemplate>();
 
-		List<MetadataTemplate> allTemplates = this.listAllTemplates(path);
+		List<MetadataTemplate> allTemplates = listAllTemplates(path);
 
 		for (MetadataTemplate t : allTemplates) {
 			if (t.isRequired()) {
@@ -158,21 +158,21 @@ public abstract class AbstractMetadataResolver {
 	public abstract MetadataTemplate findTemplateByFqName(String fqName) throws FileNotFoundException, IOException,
 			MetadataTemplateProcessingException, MetadataTemplateParsingException;
 
-	public MetadataTemplate findTemplateByUUID(UUID uuid) throws FileNotFoundException, IOException,
+	public MetadataTemplate findTemplateByUUID(final UUID uuid) throws FileNotFoundException, IOException,
 			MetadataTemplateProcessingException, MetadataTemplateParsingException {
 		return findTemplateByFqName(getFqNameForUUID(uuid));
 	}
 
-	public MetadataTemplate findTemplateByUUID(String uuid) throws FileNotFoundException, IOException,
+	public MetadataTemplate findTemplateByUUID(final String uuid) throws FileNotFoundException, IOException,
 			MetadataTemplateProcessingException, MetadataTemplateParsingException {
 		return findTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)));
 	}
 
 	/**
 	 * Add or update existing by unique name
-	 * 
+	 *
 	 * @param metadataTemplate
-	 * 
+	 *
 	 * @throws FileNotFoundException
 	 *             if <code>location</code> is not a valid save location
 	 * @throws IOException
@@ -184,56 +184,58 @@ public abstract class AbstractMetadataResolver {
 	public abstract boolean renameTemplateByFqName(String uniqueName, String newName)
 			throws FileNotFoundException, IOException;
 
-	public boolean renameTemplateByUUID(UUID uuid, String newFqName) throws FileNotFoundException, IOException {
-		return this.renameTemplateByFqName(getFqNameForUUID(uuid), newFqName);
+	public boolean renameTemplateByUUID(final UUID uuid, final String newFqName)
+			throws FileNotFoundException, IOException {
+		return renameTemplateByFqName(getFqNameForUUID(uuid), newFqName);
 	}
 
-	public boolean renameTemplateByUUID(String uuid, String newFqName) throws FileNotFoundException, IOException {
-		return this.renameTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), newFqName);
+	public boolean renameTemplateByUUID(final String uuid, final String newFqName)
+			throws FileNotFoundException, IOException {
+		return renameTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), newFqName);
 	}
 
 	public abstract boolean updateFormBasedTemplateByFqName(String uniqueName, MetadataTemplate metadataTemplate)
 			throws FileNotFoundException, IOException;
 
-	public boolean updateFormBasedTemplateByUUID(UUID uuid, MetadataTemplate metadataTemplate)
+	public boolean updateFormBasedTemplateByUUID(final UUID uuid, final MetadataTemplate metadataTemplate)
 			throws FileNotFoundException, IOException {
-		return this.updateFormBasedTemplateByFqName(getFqNameForUUID(uuid), metadataTemplate);
+		return updateFormBasedTemplateByFqName(getFqNameForUUID(uuid), metadataTemplate);
 	}
 
-	public boolean updateFormBasedTemplateByUUID(String uuid, MetadataTemplate metadataTemplate)
+	public boolean updateFormBasedTemplateByUUID(final String uuid, final MetadataTemplate metadataTemplate)
 			throws FileNotFoundException, IOException {
-		return this.updateFormBasedTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), metadataTemplate);
+		return updateFormBasedTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), metadataTemplate);
 	}
 
 	public abstract boolean deleteTemplateByFqName(String uniqueName) throws FileNotFoundException, IOException;
 
-	public boolean deleteTemplateByUUID(UUID uuid) throws FileNotFoundException, IOException {
-		return this.deleteTemplateByFqName(getFqNameForUUID(uuid));
+	public boolean deleteTemplateByUUID(final UUID uuid) throws FileNotFoundException, IOException {
+		return deleteTemplateByFqName(getFqNameForUUID(uuid));
 	}
 
-	public boolean deleteTemplateByUUID(String uuid) throws FileNotFoundException, IOException {
-		return this.deleteTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)));
+	public boolean deleteTemplateByUUID(final String uuid) throws FileNotFoundException, IOException {
+		return deleteTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)));
 	}
 
 	public abstract MetadataTemplate cloneTemplateByFqName(String fqName, String newTemplateName, String destDir)
 			throws FileNotFoundException, IOException, MetadataTemplateParsingException,
 			MetadataTemplateProcessingException;
 
-	public MetadataTemplate cloneTemplateByUUID(UUID uuid, String newTemplateName, String destDir)
+	public MetadataTemplate cloneTemplateByUUID(final UUID uuid, final String newTemplateName, final String destDir)
 			throws FileNotFoundException, IOException, MetadataTemplateParsingException,
 			MetadataTemplateProcessingException {
-		return this.cloneTemplateByFqName(getFqNameForUUID(uuid), newTemplateName, destDir);
+		return cloneTemplateByFqName(getFqNameForUUID(uuid), newTemplateName, destDir);
 	}
 
-	public MetadataTemplate cloneTemplateByUUID(String uuid, String newTemplateName, String destDir)
+	public MetadataTemplate cloneTemplateByUUID(final String uuid, final String newTemplateName, final String destDir)
 			throws FileNotFoundException, IOException, MetadataTemplateParsingException,
 			MetadataTemplateProcessingException {
-		return this.cloneTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), newTemplateName, destDir);
+		return cloneTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), newTemplateName, destDir);
 	}
 
 	public abstract String getFqNameForUUID(UUID uuid);
 
-	public String getFqNameForUUID(String uuid) {
+	public String getFqNameForUUID(final String uuid) {
 		return this.getFqNameForUUID(UUID.fromString(uuid));
 	}
 

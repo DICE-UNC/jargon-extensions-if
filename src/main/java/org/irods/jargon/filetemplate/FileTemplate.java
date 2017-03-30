@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.filetemplate;
 
 /**
  * Describes a template that can be used to create a file
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
@@ -47,7 +47,7 @@ public class FileTemplate {
 		return mimeType;
 	}
 
-	public void setMimeType(String mimeType) {
+	public void setMimeType(final String mimeType) {
 		this.mimeType = mimeType;
 	}
 
@@ -55,7 +55,7 @@ public class FileTemplate {
 		return infoType;
 	}
 
-	public void setInfoType(String infoType) {
+	public void setInfoType(final String infoType) {
 		this.infoType = infoType;
 	}
 
@@ -63,7 +63,7 @@ public class FileTemplate {
 		return templateName;
 	}
 
-	public void setTemplateName(String templateName) {
+	public void setTemplateName(final String templateName) {
 		this.templateName = templateName;
 	}
 
@@ -71,7 +71,7 @@ public class FileTemplate {
 		return i18nTemplateName;
 	}
 
-	public void setI18nTemplateName(String i18nTemplateName) {
+	public void setI18nTemplateName(final String i18nTemplateName) {
 		this.i18nTemplateName = i18nTemplateName;
 	}
 
@@ -79,7 +79,7 @@ public class FileTemplate {
 		return templateUniqueIdentifier;
 	}
 
-	public void setTemplateUniqueIdentifier(String templateUniqueIdentifier) {
+	public void setTemplateUniqueIdentifier(final String templateUniqueIdentifier) {
 		this.templateUniqueIdentifier = templateUniqueIdentifier;
 	}
 
@@ -88,8 +88,7 @@ public class FileTemplate {
 		StringBuilder builder = new StringBuilder();
 		builder.append("FileTemplate [");
 		if (defaultExtension != null) {
-			builder.append("defaultExtension=").append(defaultExtension)
-					.append(", ");
+			builder.append("defaultExtension=").append(defaultExtension).append(", ");
 		}
 		if (mimeType != null) {
 			builder.append("mimeType=").append(mimeType).append(", ");
@@ -101,12 +100,10 @@ public class FileTemplate {
 			builder.append("templateName=").append(templateName).append(", ");
 		}
 		if (i18nTemplateName != null) {
-			builder.append("i18nTemplateName=").append(i18nTemplateName)
-					.append(", ");
+			builder.append("i18nTemplateName=").append(i18nTemplateName).append(", ");
 		}
 		if (templateUniqueIdentifier != null) {
-			builder.append("templateUniqueIdentifier=").append(
-					templateUniqueIdentifier);
+			builder.append("templateUniqueIdentifier=").append(templateUniqueIdentifier);
 		}
 		builder.append("]");
 		return builder.toString();
@@ -116,7 +113,7 @@ public class FileTemplate {
 		return defaultExtension;
 	}
 
-	public void setDefaultExtension(String defaultExtension) {
+	public void setDefaultExtension(final String defaultExtension) {
 		this.defaultExtension = defaultExtension;
 	}
 

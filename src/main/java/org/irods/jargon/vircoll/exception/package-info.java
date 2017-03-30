@@ -1,5 +1,6 @@
 /**
  * Exceptions in virtual collection processing
+ * 
  * @author Mike Conway - DICE
  *
  */

@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.metadatatemplate;
 
 /**
  * Metadata template that links a source (such as an ontology)
- * 
+ *
  * @author Mike Conway and Rick Skarbez
  *
  */
@@ -21,26 +21,26 @@ public class SourceBasedMetadataTemplate extends MetadataTemplate {
 		return metadataSourceLink;
 	}
 
-	public void setMetadataSourceLink(MetadataSourceLink metadataSourceLink) {
+	public void setMetadataSourceLink(final MetadataSourceLink metadataSourceLink) {
 		this.metadataSourceLink = metadataSourceLink;
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public SourceBasedMetadataTemplate() {
 	}
 
-	public SourceBasedMetadataTemplate(SourceBasedMetadataTemplate mt) {
-		this.setAuthor(mt.getAuthor());
-		this.setName(mt.getName());
-		this.setFqName(mt.getFqName());
-		this.setDescription(mt.getDescription());
-		this.setRequired(mt.isRequired());
-		this.setSource(mt.getSource());
-		this.setUuid(mt.getUuid());
-		this.setVersion(mt.getVersion());
-		this.setMetadataSourceLink(mt.getMetadataSourceLink());
+	public SourceBasedMetadataTemplate(final SourceBasedMetadataTemplate mt) {
+		setAuthor(mt.getAuthor());
+		setName(mt.getName());
+		setFqName(mt.getFqName());
+		setDescription(mt.getDescription());
+		setRequired(mt.isRequired());
+		setSource(mt.getSource());
+		setUuid(mt.getUuid());
+		setVersion(mt.getVersion());
+		setMetadataSourceLink(mt.getMetadataSourceLink());
 	}
 
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.vircoll;
 
@@ -9,7 +9,7 @@ import org.irods.jargon.vircoll.exception.VirtualCollectionException;
 
 /**
  * Interface for a service to handle temporary queries
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
@@ -17,7 +17,7 @@ public interface TemporaryQueryService {
 
 	/**
 	 * Generate a unique name for a temporary query
-	 * 
+	 *
 	 * @return <code>String</code> with the unique name for a temporary query
 	 */
 	public String generateTempUniqueName();
@@ -25,7 +25,7 @@ public interface TemporaryQueryService {
 	/**
 	 * Given a virtual collection, generate and insert a uniqueName and store in
 	 * the temporary queries folder for the given user.
-	 * 
+	 *
 	 * @param virtualCollection
 	 *            {@link ConfigurableVirtualCollection} to store. Note the
 	 *            unique name will be generated and overlaid if not provided.
@@ -38,16 +38,13 @@ public interface TemporaryQueryService {
 	 * @return <code>String</code> with the name of the virtual collection
 	 * @throws VirtualCollectionException
 	 */
-	public String addOrUpdateTemporaryQuery(
-			ConfigurableVirtualCollection virtualCollection,
-			String userName,
-			VirtualCollectionMaintenanceService virtualCollectionMaintenanceService)
-			throws VirtualCollectionException;
+	public String addOrUpdateTemporaryQuery(ConfigurableVirtualCollection virtualCollection, String userName,
+			VirtualCollectionMaintenanceService virtualCollectionMaintenanceService) throws VirtualCollectionException;
 
 	/**
 	 * Return a list of the last N temporary queries, sorted newest to oldest,
 	 * for the given VirtualCollectionMaintenanceService
-	 * 
+	 *
 	 * @param n
 	 *            <code>int</code> greater than 0, the size of list to attempt
 	 *            to return
@@ -61,16 +58,13 @@ public interface TemporaryQueryService {
 	 *         contain at most n elements.
 	 * @throws VirtualCollectionException
 	 */
-	public List<ConfigurableVirtualCollection> getLastNTemporaryQueries(
-			int n,
-			String userName,
-			VirtualCollectionMaintenanceService virtualCollectionMaintenanceService)
-			throws VirtualCollectionException;
+	public List<ConfigurableVirtualCollection> getLastNTemporaryQueries(int n, String userName,
+			VirtualCollectionMaintenanceService virtualCollectionMaintenanceService) throws VirtualCollectionException;
 
 	/**
 	 * Retrieve the temporary query given the uniqueName. Note that
 	 * <code>null</code> will be returned if it is not found.
-	 * 
+	 *
 	 * @param userName
 	 *            <code>String</code> userName with the name of the user
 	 * @param virtualCollectionMaintenanceService
@@ -82,8 +76,7 @@ public interface TemporaryQueryService {
 	 *         found.
 	 * @throws VirtualCollectionException
 	 */
-	public ConfigurableVirtualCollection getTemporaryQueryByUniqueName(
-			final String userName,
-			final VirtualCollectionMaintenanceService virtualCollectionMaintenanceService,
-			final String uniqueName) throws VirtualCollectionException;
+	public ConfigurableVirtualCollection getTemporaryQueryByUniqueName(final String userName,
+			final VirtualCollectionMaintenanceService virtualCollectionMaintenanceService, final String uniqueName)
+			throws VirtualCollectionException;
 }

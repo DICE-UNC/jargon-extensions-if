@@ -7,7 +7,7 @@ import org.irods.jargon.metadatatemplate.ElementTypeEnum;
 
 /**
  * Java representation of a formbot field
- * 
+ *
  * @author Rick Skarbez
  *
  */
@@ -45,21 +45,22 @@ public class FormBotField {
 	 * Contains the CURRENT value of this element.
 	 */
 	private List<String> currentValue = new ArrayList<String>();
-	
+
 	/**
 	 * Contains the DISPLAY value of this element.
 	 */
 	private List<String> displayValue = new ArrayList<String>();
-	
+
 	/**
 	 * Contains the DEFAULT value of this element.
 	 */
 	private List<String> defaultValue = new ArrayList<String>();
-	
+
 	/**
 	 * Contains the list of parameters for this element.
-	 * 
-	 * These can be, for example, the endpoints of a range, or the elements of a list
+	 *
+	 * These can be, for example, the endpoints of a range, or the elements of a
+	 * list
 	 */
 	private List<String> paramList = new ArrayList<String>();
 
@@ -67,7 +68,7 @@ public class FormBotField {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -75,15 +76,15 @@ public class FormBotField {
 		return uniqueId;
 	}
 
-	public void setUniqueId(String uniqueID) {
-		this.uniqueId = uniqueID;
+	public void setUniqueId(final String uniqueID) {
+		uniqueId = uniqueID;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -91,7 +92,7 @@ public class FormBotField {
 		return type;
 	}
 
-	public void setType(ElementTypeEnum type) {
+	public void setType(final ElementTypeEnum type) {
 		this.type = type;
 	}
 
@@ -99,7 +100,7 @@ public class FormBotField {
 		return formElement;
 	}
 
-	public void setFormElement(FormElementEnum formElement) {
+	public void setFormElement(final FormElementEnum formElement) {
 		this.formElement = formElement;
 	}
 
@@ -107,23 +108,23 @@ public class FormBotField {
 		return currentValue;
 	}
 
-	public void setCurrentValue(List<String> currentValue) {
+	public void setCurrentValue(final List<String> currentValue) {
 		this.currentValue = currentValue;
 	}
-	
+
 	public List<String> getDisplayValue() {
 		return displayValue;
 	}
 
-	public void setDisplayValue(List<String> displayValue) {
+	public void setDisplayValue(final List<String> displayValue) {
 		this.displayValue = displayValue;
 	}
-	
+
 	public List<String> getDefaultValue() {
 		return defaultValue;
 	}
 
-	public void setDefaultValue(List<String> defaultValue) {
+	public void setDefaultValue(final List<String> defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 
@@ -131,7 +132,7 @@ public class FormBotField {
 		return paramList;
 	}
 
-	public void setParamList(List<String> paramList) {
+	public void setParamList(final List<String> paramList) {
 		this.paramList = paramList;
 	}
 }

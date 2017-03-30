@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.metadatatemplate;
 
@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Describes a metadata element in a template
- * 
+ *
  * @author Mike Conway and Rick Skarbez
  *
  */
@@ -123,7 +123,7 @@ public class MetadataElement {
 
 	/**
 	 * Specifies the source of data that will populate the metadata element.
-	 * 
+	 *
 	 * XXX ONLY USER MODE IS CURRENTLY SUPPORTED
 	 */
 	@JsonProperty("source")
@@ -133,40 +133,40 @@ public class MetadataElement {
 		return templateUuid;
 	}
 
-	public void setTemplateUuid(UUID uuid) {
-		this.templateUuid = uuid;
+	public void setTemplateUuid(final UUID uuid) {
+		templateUuid = uuid;
 	}
 
 	/**
-	 * 
+	 *
 	 */
 
 	public String getName() {
 		return name;
 	}
 
-	public void setElementName(String elementName) {
-		this.name = elementName;
+	public void setElementName(final String elementName) {
+		name = elementName;
 	}
 
 	public String getI18nName() {
 		return i18nName;
 	}
 
-	public void setI18nName(String i18nElementName) {
-		this.i18nName = i18nElementName;
+	public void setI18nName(final String i18nElementName) {
+		i18nName = i18nElementName;
 	}
 
 	/*
 	 * public List<String> getAliases() { return aliases; }
-	 * 
+	 *
 	 * public void setAliases(List<String> aliases) { this.aliases = aliases; }
 	 */
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -174,7 +174,7 @@ public class MetadataElement {
 		return i18nDescription;
 	}
 
-	public void setI18nDescription(String i18nDescription) {
+	public void setI18nDescription(final String i18nDescription) {
 		this.i18nDescription = i18nDescription;
 	}
 
@@ -182,7 +182,7 @@ public class MetadataElement {
 		return required;
 	}
 
-	public void setRequired(boolean required) {
+	public void setRequired(final boolean required) {
 		this.required = required;
 	}
 
@@ -190,7 +190,7 @@ public class MetadataElement {
 		return type;
 	}
 
-	public void setType(ElementTypeEnum type) {
+	public void setType(final ElementTypeEnum type) {
 		this.type = type;
 	}
 
@@ -198,7 +198,7 @@ public class MetadataElement {
 		return validationOptions;
 	}
 
-	public void setValidationOptions(List<String> validationOptions) {
+	public void setValidationOptions(final List<String> validationOptions) {
 		this.validationOptions = validationOptions;
 	}
 
@@ -206,7 +206,7 @@ public class MetadataElement {
 		return validationStyle;
 	}
 
-	public void setValidationStyle(ValidationStyleEnum validationStyle) {
+	public void setValidationStyle(final ValidationStyleEnum validationStyle) {
 		this.validationStyle = validationStyle;
 	}
 
@@ -214,7 +214,7 @@ public class MetadataElement {
 		return defaultValue;
 	}
 
-	public void setDefaultValue(List<String> defaultValue) {
+	public void setDefaultValue(final List<String> defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 
@@ -222,7 +222,7 @@ public class MetadataElement {
 		return currentValue;
 	}
 
-	public void setCurrentValue(List<String> currentValue) {
+	public void setCurrentValue(final List<String> currentValue) {
 		this.currentValue = currentValue;
 	}
 
@@ -230,13 +230,13 @@ public class MetadataElement {
 		return displayValue;
 	}
 
-	public void setDisplayValue(List<String> displayValue) {
+	public void setDisplayValue(final List<String> displayValue) {
 		this.displayValue = displayValue;
 	}
 
 	/*
 	 * public List<String> getRenderingOptions() { return renderingOptions; }
-	 * 
+	 *
 	 * public void setRenderingOptions(List<String> renderingOptions) {
 	 * this.renderingOptions = renderingOptions; }
 	 */
@@ -244,7 +244,7 @@ public class MetadataElement {
 		return source;
 	}
 
-	public void setSource(SourceEnum source) {
+	public void setSource(final SourceEnum source) {
 		this.source = source;
 	}
 
@@ -261,11 +261,11 @@ public class MetadataElement {
 
 		StringBuilder sb = new StringBuilder();
 
-		if (!this.getDefaultValue().isEmpty()) {
-			if (this.getType() == ElementTypeEnum.LIST_STRING || this.getType() == ElementTypeEnum.LIST_INT
-					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
+		if (!getDefaultValue().isEmpty()) {
+			if (getType() == ElementTypeEnum.LIST_STRING || getType() == ElementTypeEnum.LIST_INT
+					|| getType() == ElementTypeEnum.LIST_FLOAT) {
 				sb.append("[");
-				for (String s : this.getDefaultValue()) {
+				for (String s : getDefaultValue()) {
 					sb.append(s);
 					sb.append(", ");
 				}
@@ -273,18 +273,18 @@ public class MetadataElement {
 				sb.delete(lastComma, sb.length());
 				sb.append("]");
 			} else {
-				sb.append(this.getDefaultValue().get(0));
+				sb.append(getDefaultValue().get(0));
 			}
 
 			defaultValue = sb.toString();
 		}
 
-		if (!this.getDisplayValue().isEmpty()) {
+		if (!getDisplayValue().isEmpty()) {
 			sb.delete(0, sb.length());
-			if (this.getType() == ElementTypeEnum.LIST_STRING || this.getType() == ElementTypeEnum.LIST_INT
-					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
+			if (getType() == ElementTypeEnum.LIST_STRING || getType() == ElementTypeEnum.LIST_INT
+					|| getType() == ElementTypeEnum.LIST_FLOAT) {
 				sb.append("[");
-				for (String s : this.getDisplayValue()) {
+				for (String s : getDisplayValue()) {
 					sb.append(s);
 					sb.append(", ");
 				}
@@ -292,22 +292,21 @@ public class MetadataElement {
 				sb.delete(lastComma, sb.length());
 				sb.append("]");
 			} else {
-				sb.append(this.getDisplayValue().get(0));
+				sb.append(getDisplayValue().get(0));
 			}
 
 			displayValue = sb.toString();
 		}
 
-		if (!this.getDefaultValue().isEmpty()) {
+		if (!getDefaultValue().isEmpty()) {
 			defaultStr = String.format("(default = %s)", defaultValue);
 		}
 
-		if (this.isRequired()) {
+		if (isRequired()) {
 			requiredStr = "*** REQUIRED ***";
 		}
 
-		toReturn = String.format("%s [%s]: %s %s %s\n", this.getName(), this.getType(), displayValue, defaultStr,
-				requiredStr);
+		toReturn = String.format("%s [%s]: %s %s %s\n", getName(), getType(), displayValue, defaultStr, requiredStr);
 
 		return toReturn;
 	}

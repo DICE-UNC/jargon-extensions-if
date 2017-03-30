@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.filetemplate;
 
@@ -18,29 +18,27 @@ import org.slf4j.LoggerFactory;
  * Basic abstract class that defines a file type service to manage 'templates'
  * of files that can be instatiated with default content, and to create files
  * with the templates.
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
 public abstract class FileTemplateService extends AbstractJargonService {
 
-	public static final Logger log = LoggerFactory
-			.getLogger(FileTemplateService.class);
+	public static final Logger log = LoggerFactory.getLogger(FileTemplateService.class);
 
 	/**
 	 * Generate a list of available file templates for the logged in user. These
 	 * are the types of files that the creator service knows how to process.
-	 * 
+	 *
 	 * @return <code>List</code> of {@link FileTemplate}
 	 * @throws FileTemplateException
 	 */
-	public abstract List<FileTemplate> listAvailableFileTemplates()
-			throws FileTemplateException;
+	public abstract List<FileTemplate> listAvailableFileTemplates() throws FileTemplateException;
 
 	/**
 	 * Given the unique identifier for a file template, create the given file
 	 * underneath the given iRODS parent collection absolute path.
-	 * 
+	 *
 	 * @param parentPath
 	 *            <code>String</code> with the absolute iRODS path to the parent
 	 *            collection that will contain the new file
@@ -62,10 +60,9 @@ public abstract class FileTemplateService extends AbstractJargonService {
 	 *             general exception
 	 */
 
-	public TemplateCreatedFile createFileBasedOnTemplateUniqueIdentifier(
-			String parentPath, String fileName, String templateUniqueIdentifier)
-			throws DuplicateDataException, FileTemplateNotFoundException,
-			FileTemplateException {
+	public TemplateCreatedFile createFileBasedOnTemplateUniqueIdentifier(final String parentPath, final String fileName,
+			final String templateUniqueIdentifier)
+			throws DuplicateDataException, FileTemplateNotFoundException, FileTemplateException {
 
 		log.info("createFileBasedOnTemplate()");
 		if (parentPath == null || parentPath.isEmpty()) {
@@ -76,10 +73,8 @@ public abstract class FileTemplateService extends AbstractJargonService {
 			throw new IllegalArgumentException("null or empty fileName");
 		}
 
-		if (templateUniqueIdentifier == null
-				|| templateUniqueIdentifier.isEmpty()) {
-			throw new IllegalArgumentException(
-					"templateUniqueIdentifier is null or empty");
+		if (templateUniqueIdentifier == null || templateUniqueIdentifier.isEmpty()) {
+			throw new IllegalArgumentException("templateUniqueIdentifier is null or empty");
 		}
 
 		log.info("parentPath:{}", parentPath);
@@ -88,8 +83,7 @@ public abstract class FileTemplateService extends AbstractJargonService {
 
 		FileTemplate fileTemplate = retrieveTemplateByUniqueName(templateUniqueIdentifier);
 		log.info("found fileTemplate:{}", fileTemplate);
-		TemplateCreatedFile templateCreatedFile = createFileBasedOnTemplate(
-				fileTemplate, parentPath, fileName);
+		TemplateCreatedFile templateCreatedFile = createFileBasedOnTemplate(fileTemplate, parentPath, fileName);
 
 		return templateCreatedFile;
 	}
@@ -97,7 +91,7 @@ public abstract class FileTemplateService extends AbstractJargonService {
 	/**
 	 * Given a template, create an iRODS file based on the template. To be
 	 * implemented by the particular extension
-	 * 
+	 *
 	 * @param fileTemplate
 	 *            {@link FileTemplate} that has been resolved
 	 * @param parentPath
@@ -112,23 +106,21 @@ public abstract class FileTemplateService extends AbstractJargonService {
 	 * @throws DuplicateDataException
 	 * @throws FileTemplateException
 	 */
-	protected abstract TemplateCreatedFile createFileBasedOnTemplate(
-			FileTemplate fileTemplate, String parentPath, String fileName)
-			throws DuplicateDataException, FileTemplateException;
+	protected abstract TemplateCreatedFile createFileBasedOnTemplate(FileTemplate fileTemplate, String parentPath,
+			String fileName) throws DuplicateDataException, FileTemplateException;
 
 	/**
-	 * 
+	 *
 	 * @param templateUniqueIdentifier
 	 * @return
 	 * @throws FileTemplateNotFoundException
 	 * @throws FileTemplateException
 	 */
-	protected abstract FileTemplate retrieveTemplateByUniqueName(
-			String templateUniqueIdentifier)
+	protected abstract FileTemplate retrieveTemplateByUniqueName(String templateUniqueIdentifier)
 			throws FileTemplateNotFoundException, FileTemplateException;
 
 	/**
-	 * 
+	 *
 	 */
 	public FileTemplateService() {
 		super();
@@ -138,9 +130,8 @@ public abstract class FileTemplateService extends AbstractJargonService {
 	 * @param irodsAccessObjectFactory
 	 * @param irodsAccount
 	 */
-	public FileTemplateService(
-			IRODSAccessObjectFactory irodsAccessObjectFactory,
-			IRODSAccount irodsAccount) {
+	public FileTemplateService(final IRODSAccessObjectFactory irodsAccessObjectFactory,
+			final IRODSAccount irodsAccount) {
 		super(irodsAccessObjectFactory, irodsAccount);
 	}
 

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.dataprofile.accessor;
 
@@ -18,11 +18,11 @@ import org.irods.jargon.dataprofile.accessor.exception.WrongDataProfileTypeExcep
  * The {@link AccessorValuesEnum} gives the enumeration of all of the possible
  * values that this service will respond to. Currently the response is always a
  * String representation.
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
- 
+
 public interface DataProfileAccessorService {
 
 	public String retrieveValueFromKey(final String accessorTextValue)

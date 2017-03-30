@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Java representation of a Formbot form
- * 
+ *
  * @author Rick Skarbez
  *
  */
@@ -36,7 +36,7 @@ public class FormBotForm {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -44,7 +44,7 @@ public class FormBotForm {
 		return uniqueId;
 	}
 
-	public void setUniqueId(String uniqueId) {
+	public void setUniqueId(final String uniqueId) {
 		this.uniqueId = uniqueId;
 	}
 
@@ -52,7 +52,7 @@ public class FormBotForm {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -65,9 +65,9 @@ public class FormBotForm {
 	public FormBotForm() {
 	}
 
-	public FormBotForm(FormBotForm fb) {
-		this.setName(fb.getName());
-		this.setUniqueId(fb.getUniqueId());
-		this.setDescription(fb.getDescription());
+	public FormBotForm(final FormBotForm fb) {
+		setName(fb.getName());
+		setUniqueId(fb.getUniqueId());
+		setDescription(fb.getDescription());
 	}
 }

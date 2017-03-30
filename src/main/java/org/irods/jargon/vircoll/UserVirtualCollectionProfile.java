@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.vircoll;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * <p/>
  * As vc's evolve to these broader types, we'll use this class as the complete
  * summary of the different types
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
@@ -54,7 +54,7 @@ public class UserVirtualCollectionProfile {
 	private List<AbstractVirtualCollection> gridDefinedCollections = new ArrayList<AbstractVirtualCollection>();
 
 	/**
-	 * 
+	 *
 	 */
 	public UserVirtualCollectionProfile() {
 	}
@@ -63,7 +63,7 @@ public class UserVirtualCollectionProfile {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName(final String userName) {
 		this.userName = userName;
 	}
 
@@ -71,7 +71,7 @@ public class UserVirtualCollectionProfile {
 		return homeZone;
 	}
 
-	public void setHomeZone(String homeZone) {
+	public void setHomeZone(final String homeZone) {
 		this.homeZone = homeZone;
 	}
 
@@ -79,8 +79,7 @@ public class UserVirtualCollectionProfile {
 		return userHomeCollections;
 	}
 
-	public void setUserHomeCollections(
-			List<AbstractVirtualCollection> userHomeCollections) {
+	public void setUserHomeCollections(final List<AbstractVirtualCollection> userHomeCollections) {
 		this.userHomeCollections = userHomeCollections;
 	}
 
@@ -88,8 +87,7 @@ public class UserVirtualCollectionProfile {
 		return userRecentQueries;
 	}
 
-	public void setUserRecentQueries(
-			List<AbstractVirtualCollection> userRecentQueries) {
+	public void setUserRecentQueries(final List<AbstractVirtualCollection> userRecentQueries) {
 		this.userRecentQueries = userRecentQueries;
 	}
 
@@ -97,8 +95,7 @@ public class UserVirtualCollectionProfile {
 		return gridDefinedCollections;
 	}
 
-	public void setGridDefinedCollections(
-			List<AbstractVirtualCollection> gridDefinedCollections) {
+	public void setGridDefinedCollections(final List<AbstractVirtualCollection> gridDefinedCollections) {
 		this.gridDefinedCollections = gridDefinedCollections;
 	}
 
@@ -106,8 +103,7 @@ public class UserVirtualCollectionProfile {
 		return disabledUserHomeCollections;
 	}
 
-	public void setDisabledUserHomeCollections(
-			List<AbstractVirtualCollection> disabledUserHomeCollections) {
+	public void setDisabledUserHomeCollections(final List<AbstractVirtualCollection> disabledUserHomeCollections) {
 		this.disabledUserHomeCollections = disabledUserHomeCollections;
 	}
 

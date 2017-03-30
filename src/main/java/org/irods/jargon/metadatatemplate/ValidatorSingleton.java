@@ -19,7 +19,7 @@ import org.irods.jargon.dataprofile.accessor.AccessorValuesEnum;
 import org.irods.jargon.dataprofile.accessor.exception.ObjectNotFoundException;
 
 /**
- * 
+ *
  * Provides the methods to validate a <code>MetadataElement</code> or a
  * <code>MetadataTemplate</code>.
  * <p/>
@@ -30,7 +30,7 @@ import org.irods.jargon.dataprofile.accessor.exception.ObjectNotFoundException;
  * <code>ValidatorSingleton v = ValidatorSingleton.VALIDATOR;<br/>
  * v.validate(me);<br/>
  * v.validate(mt);</code>
- * 
+ *
  * @author rskarbez
  *
  */
@@ -44,13 +44,13 @@ public final class ValidatorSingleton {
 
 	/**
 	 * Perform validation on a metadata element.
-	 * 
+	 *
 	 * @param me
 	 *            {@link MetadataElement} to be validated
 	 * @return {@link ValidationReturnEnum} reporting validation result
 	 */
-	public ValidationReturnEnum validate(IRODSAccount irodsAccount, IRODSAccessObjectFactory irodsAccessObjectFactory,
-			MetadataElement me) {
+	public ValidationReturnEnum validate(final IRODSAccount irodsAccount,
+			final IRODSAccessObjectFactory irodsAccessObjectFactory, final MetadataElement me) {
 		if (me.getCurrentValue().isEmpty()) {
 			if (me.isRequired()) {
 				return ValidationReturnEnum.VALUE_IS_REQUIRED;
@@ -138,8 +138,7 @@ public final class ValidatorSingleton {
 				}
 
 				try {
-					@SuppressWarnings("unused")
-					LocalDate parsedDate = LocalDate.parse(me.getCurrentValue().get(0));
+					LocalDate.parse(me.getCurrentValue().get(0));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.BAD_TYPE;
 				}
@@ -153,8 +152,7 @@ public final class ValidatorSingleton {
 				}
 
 				try {
-					@SuppressWarnings("unused")
-					LocalTime parsedTime = LocalTime.parse(me.getCurrentValue().get(0));
+					LocalTime.parse(me.getCurrentValue().get(0));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.BAD_TYPE;
 				}
@@ -168,8 +166,7 @@ public final class ValidatorSingleton {
 				}
 
 				try {
-					@SuppressWarnings("unused")
-					LocalDateTime parsedDateTime = LocalDateTime.parse(me.getCurrentValue().get(0));
+					LocalDateTime.parse(me.getCurrentValue().get(0));
 				} catch (DateTimeParseException e) {
 					return ValidationReturnEnum.BAD_TYPE;
 				}
@@ -246,7 +243,7 @@ public final class ValidatorSingleton {
 			/*
 			 * Should be exactly two values (endpoints of range) in
 			 * validationOptions
-			 * 
+			 *
 			 * But there must be AT LEAST 2. If more than 2, other values are
 			 * ignored.
 			 */
@@ -257,7 +254,7 @@ public final class ValidatorSingleton {
 			/*
 			 * IN_RANGE validation only makes sense for well-ordered values
 			 * (i.e. numbers and dates)
-			 * 
+			 *
 			 * Need to check type, and whether endpoints are valid, before
 			 * validating.
 			 */
@@ -516,8 +513,7 @@ public final class ValidatorSingleton {
 
 			if (me.getType() == ElementTypeEnum.REF_IRODS_QUERY) {
 				try {
-					@SuppressWarnings("unused")
-					AccessorValuesEnum tempEnum = AccessorValuesEnum.enumFromText(me.getCurrentValue().get(0));
+					AccessorValuesEnum.enumFromText(me.getCurrentValue().get(0));
 				} catch (ObjectNotFoundException e) {
 					return ValidationReturnEnum.BAD_REF;
 				}
@@ -563,14 +559,14 @@ public final class ValidatorSingleton {
 
 	/**
 	 * Perform validation on all metadata elements in a template
-	 * 
+	 *
 	 * @param mt
 	 *            {@link FormBasedMetadataTemplate} to be validated
 	 * @return List<{@link ValidationReturnEnum}> reporting validation results
 	 */
 
-	public List<ValidationReturnEnum> validate(IRODSAccount irodsAccount,
-			IRODSAccessObjectFactory irodsAccessObjectFactory, MetadataTemplate mt) {
+	public List<ValidationReturnEnum> validate(final IRODSAccount irodsAccount,
+			final IRODSAccessObjectFactory irodsAccessObjectFactory, final MetadataTemplate mt) {
 		List<ValidationReturnEnum> returnList = new ArrayList<ValidationReturnEnum>();
 		for (MetadataElement me : mt.getElements()) {
 			returnList.add(validate(irodsAccount, irodsAccessObjectFactory, me));

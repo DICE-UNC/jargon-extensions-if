@@ -5,7 +5,8 @@ package org.irods.jargon.metadatatemplate;
  */
 
 /**
- * Denotes the sub-type of the MetadataTemplate itself. (i.e. FormBasedMetadataTemplate).
+ * Denotes the sub-type of the MetadataTemplate itself. (i.e.
+ * FormBasedMetadataTemplate).
  */
 public enum TemplateTypeEnum {
 	FORM_BASED

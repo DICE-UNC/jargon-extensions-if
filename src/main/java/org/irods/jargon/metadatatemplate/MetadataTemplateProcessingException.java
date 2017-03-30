@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.metadatatemplate;
 
@@ -7,21 +7,21 @@ import org.irods.jargon.core.exception.JargonException;
 
 /**
  * General exception in metadata template processing
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
 public class MetadataTemplateProcessingException extends JargonException {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -2950017867032672042L;
 
 	/**
 	 * @param message
 	 */
-	public MetadataTemplateProcessingException(String message) {
+	public MetadataTemplateProcessingException(final String message) {
 		super(message);
 	}
 
@@ -29,14 +29,14 @@ public class MetadataTemplateProcessingException extends JargonException {
 	 * @param message
 	 * @param cause
 	 */
-	public MetadataTemplateProcessingException(String message, Throwable cause) {
+	public MetadataTemplateProcessingException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
 	 * @param cause
 	 */
-	public MetadataTemplateProcessingException(Throwable cause) {
+	public MetadataTemplateProcessingException(final Throwable cause) {
 		super(cause);
 	}
 
@@ -45,8 +45,8 @@ public class MetadataTemplateProcessingException extends JargonException {
 	 * @param cause
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public MetadataTemplateProcessingException(String message, Throwable cause,
-			int underlyingIRODSExceptionCode) {
+	public MetadataTemplateProcessingException(final String message, final Throwable cause,
+			final int underlyingIRODSExceptionCode) {
 		super(message, cause, underlyingIRODSExceptionCode);
 	}
 
@@ -54,8 +54,7 @@ public class MetadataTemplateProcessingException extends JargonException {
 	 * @param cause
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public MetadataTemplateProcessingException(Throwable cause,
-			int underlyingIRODSExceptionCode) {
+	public MetadataTemplateProcessingException(final Throwable cause, final int underlyingIRODSExceptionCode) {
 		super(cause, underlyingIRODSExceptionCode);
 	}
 
@@ -63,8 +62,7 @@ public class MetadataTemplateProcessingException extends JargonException {
 	 * @param message
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public MetadataTemplateProcessingException(String message,
-			int underlyingIRODSExceptionCode) {
+	public MetadataTemplateProcessingException(final String message, final int underlyingIRODSExceptionCode) {
 		super(message, underlyingIRODSExceptionCode);
 	}
 

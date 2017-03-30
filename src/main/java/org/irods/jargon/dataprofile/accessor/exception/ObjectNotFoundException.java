@@ -1,25 +1,25 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.dataprofile.accessor.exception;
 
 /**
  * Error caused by use of an invalid/unsupported accessor
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
 public class ObjectNotFoundException extends DataProfileAccessorException {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1037212511437679169L;
 
 	/**
 	 * @param message
 	 */
-	public ObjectNotFoundException(String message) {
+	public ObjectNotFoundException(final String message) {
 		super(message);
 	}
 
@@ -27,14 +27,14 @@ public class ObjectNotFoundException extends DataProfileAccessorException {
 	 * @param message
 	 * @param cause
 	 */
-	public ObjectNotFoundException(String message, Throwable cause) {
+	public ObjectNotFoundException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
 	/**
 	 * @param cause
 	 */
-	public ObjectNotFoundException(Throwable cause) {
+	public ObjectNotFoundException(final Throwable cause) {
 		super(cause);
 	}
 
@@ -43,8 +43,8 @@ public class ObjectNotFoundException extends DataProfileAccessorException {
 	 * @param cause
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public ObjectNotFoundException(String message, Throwable cause,
-			int underlyingIRODSExceptionCode) {
+	public ObjectNotFoundException(final String message, final Throwable cause,
+			final int underlyingIRODSExceptionCode) {
 		super(message, cause, underlyingIRODSExceptionCode);
 	}
 
@@ -52,7 +52,7 @@ public class ObjectNotFoundException extends DataProfileAccessorException {
 	 * @param cause
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public ObjectNotFoundException(Throwable cause, int underlyingIRODSExceptionCode) {
+	public ObjectNotFoundException(final Throwable cause, final int underlyingIRODSExceptionCode) {
 		super(cause, underlyingIRODSExceptionCode);
 	}
 
@@ -60,7 +60,7 @@ public class ObjectNotFoundException extends DataProfileAccessorException {
 	 * @param message
 	 * @param underlyingIRODSExceptionCode
 	 */
-	public ObjectNotFoundException(String message, int underlyingIRODSExceptionCode) {
+	public ObjectNotFoundException(final String message, final int underlyingIRODSExceptionCode) {
 		super(message, underlyingIRODSExceptionCode);
 	}
 

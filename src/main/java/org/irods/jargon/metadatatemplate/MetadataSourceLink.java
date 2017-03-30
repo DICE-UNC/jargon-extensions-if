@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.metadatatemplate;
 
@@ -10,7 +10,7 @@ import java.util.Properties;
  * individual resolver to map abstract names of metadata sources to an actual
  * metadata source, for example, use HIVE and the UAT vocabulary as a source of
  * a metadaa element)
- * 
+ *
  * @author Mike Conway and Rick Skarbez
  *
  */
@@ -33,7 +33,7 @@ public class MetadataSourceLink {
 	private final Properties properties = new Properties();
 
 	/**
-	 * 
+	 *
 	 */
 	public MetadataSourceLink() {
 	}

@@ -1,12 +1,12 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.filetemplate;
 
 /**
  * Represents a file created via a template, this is used as a returned value
  * from the creation service
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
@@ -30,8 +30,7 @@ public class TemplateCreatedFile {
 		return parentCollectionAbsolutePath;
 	}
 
-	public void setParentCollectionAbsolutePath(
-			String parentCollectionAbsolutePath) {
+	public void setParentCollectionAbsolutePath(final String parentCollectionAbsolutePath) {
 		this.parentCollectionAbsolutePath = parentCollectionAbsolutePath;
 	}
 
@@ -39,7 +38,7 @@ public class TemplateCreatedFile {
 		return fileName;
 	}
 
-	public void setFileName(String fileName) {
+	public void setFileName(final String fileName) {
 		this.fileName = fileName;
 	}
 
@@ -47,7 +46,7 @@ public class TemplateCreatedFile {
 		return fileTemplate;
 	}
 
-	public void setFileTemplate(FileTemplate fileTemplate) {
+	public void setFileTemplate(final FileTemplate fileTemplate) {
 		this.fileTemplate = fileTemplate;
 	}
 
@@ -56,8 +55,7 @@ public class TemplateCreatedFile {
 		StringBuilder builder = new StringBuilder();
 		builder.append("TemplateCreatedFile [");
 		if (parentCollectionAbsolutePath != null) {
-			builder.append("parentCollectionAbsolutePath=")
-					.append(parentCollectionAbsolutePath).append(", ");
+			builder.append("parentCollectionAbsolutePath=").append(parentCollectionAbsolutePath).append(", ");
 		}
 		if (fileName != null) {
 			builder.append("fileName=").append(fileName).append(", ");

@@ -1,17 +1,16 @@
 /**
- * 
+ *
  */
 package org.irods.jargon.vircoll;
 
 /**
  * Describes types of collections
- * 
+ *
  * @author Mike Conway - DICE
  *
  */
 public enum CollectionTypes {
-	USER_HOME("USER_HOME"), TEMPORARY_QUERY("TEMPORARY_QUERY"), USER_HIDDEN(
-			"USER_HIDDEN"), SHARED("SHARED");
+	USER_HOME("USER_HOME"), TEMPORARY_QUERY("TEMPORARY_QUERY"), USER_HIDDEN("USER_HIDDEN"), SHARED("SHARED");
 
 	private String textValue;
 
@@ -20,12 +19,12 @@ public enum CollectionTypes {
 	}
 
 	public String getTextValue() {
-		return this.textValue;
+		return textValue;
 	}
 
 	/**
 	 * Find the matching collection type based on a string
-	 * 
+	 *
 	 * @param textValue
 	 * @return
 	 */

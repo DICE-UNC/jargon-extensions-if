@@ -10,16 +10,16 @@ import org.irods.jargon.vircoll.exception.VirtualCollectionException;
  * <p/>
  * Consider this a transitional refactoring, iRODS specific things like iRODS
  * file semantics still pollute this prototype!
- * 
+ *
  * @author Mike Conway - DICE
- * 
+ *
  */
 public interface VirtualCollectionMaintenanceService {
 
 	/**
 	 * Add the given virtual collection, in a serialized form, to the specified
 	 * collection
-	 * 
+	 *
 	 * @param configurableVirtualCollection
 	 *            {@link ConfigurableVirtualCollection} which is serializable
 	 *            for the user
@@ -32,16 +32,14 @@ public interface VirtualCollectionMaintenanceService {
 	 *             if the virtual collection already exists
 	 * @throws JargonException
 	 */
-	public abstract void addVirtualCollection(
-			ConfigurableVirtualCollection configurableVirtualCollection,
-			CollectionTypes collection, String uniqueName)
-			throws DuplicateDataException, JargonException;
+	public abstract void addVirtualCollection(ConfigurableVirtualCollection configurableVirtualCollection,
+			CollectionTypes collection, String uniqueName) throws DuplicateDataException, JargonException;
 
 	/**
 	 * Method will discriminate between an existing virtual collection or a new
 	 * one and properly add or update in place. This is an alternative to the
 	 * direct add and update methods
-	 * 
+	 *
 	 * @param configurableVirtualCollection
 	 *            {@link ConfigurableVirtualCollection} which is serializable
 	 *            for the user
@@ -50,31 +48,29 @@ public interface VirtualCollectionMaintenanceService {
 	 *            which to save the VC
 	 * @param uniqueName
 	 *            <code>String</code> naming the virtual collection
-	 * 
+	 *
 	 * @throws JargonException
 	 */
-	public abstract void addOrUpdateVirtualCollection(
-			ConfigurableVirtualCollection configurableVirtualCollection,
-			CollectionTypes collection, String uniqueName)
-			throws JargonException;
+	public abstract void addOrUpdateVirtualCollection(ConfigurableVirtualCollection configurableVirtualCollection,
+			CollectionTypes collection, String uniqueName) throws JargonException;
 
 	/**
 	 * Move a virtual collection from one category to another (e.g. user home
 	 * collection, temp collection)
-	 * 
+	 *
 	 * @param collection
 	 *            {@link CollectionTypes} with the type of virtual collection
-	 * @param <code>String</code> with the name of the virtual collection file
+	 * @param <code>String</code>
+	 *            with the name of the virtual collection file
 	 * @throws FileNotFoundException
 	 * @throws VirtualCollectionException
 	 */
-	public abstract void reclassifyVirtualCollection(
-			final CollectionTypes collection, final String uniqueName)
+	public abstract void reclassifyVirtualCollection(final CollectionTypes collection, final String uniqueName)
 			throws FileNotFoundException, VirtualCollectionException;
 
 	/**
 	 * Convert the given virtual collection into a JSON format
-	 * 
+	 *
 	 * @param configurableVirtualCollection
 	 *            {@link ConfigurableVirtualCollection} that may be serialized
 	 *            to JSON
@@ -82,27 +78,27 @@ public interface VirtualCollectionMaintenanceService {
 	 *         data
 	 * @throws VirtualCollectionException
 	 */
-	public abstract String serializeVirtualCollectionToJson(
-			ConfigurableVirtualCollection configurableVirtualCollection)
+	public abstract String serializeVirtualCollectionToJson(ConfigurableVirtualCollection configurableVirtualCollection)
 			throws VirtualCollectionException;
 
 	/**
 	 * Given a collection and a file name, retrieve the virtual collection from
 	 * iRODS as an object
-	 * 
-	 * @param <code>String</code> with the name of the virtual collection file
+	 *
+	 * @param <code>String</code>
+	 *            with the name of the virtual collection file
 	 * @return {@link ConfigurableVirtualCollection} available at that location
 	 * @throws FileNotFoundException
 	 * @throws VirtualCollectionException
 	 */
-	public abstract ConfigurableVirtualCollection retrieveVirtualCollectionGivenUniqueName(
-			final String uniqueName) throws FileNotFoundException,
-			VirtualCollectionException;
+	public abstract ConfigurableVirtualCollection retrieveVirtualCollectionGivenUniqueName(final String uniqueName)
+			throws FileNotFoundException, VirtualCollectionException;
 
 	/**
 	 * Given a collection and a file name, delete the virtual collection file
-	 * 
-	 * @param <code>String</code> with the name of the virtual collection file
+	 *
+	 * @param <code>String</code>
+	 *            with the name of the virtual collection file
 	 * @return {@link ConfigurableVirtualCollection} available at that location
 	 * @throws FileNotFoundException
 	 * @throws VirtualCollectionException
@@ -112,15 +108,14 @@ public interface VirtualCollectionMaintenanceService {
 
 	/**
 	 * Update the contents of the virtual collection in-place
-	 * 
+	 *
 	 * @param configurableVirtualCollection
 	 *            {@link ConfigurableVirtualCollection} which is serializable
 	 *            for the user
 	 * @throws VirtualCollectionException
 	 * @throws FileNotFoundException
 	 */
-	void updateVirtualCollection(
-			ConfigurableVirtualCollection configurableVirtualCollection)
+	void updateVirtualCollection(ConfigurableVirtualCollection configurableVirtualCollection)
 			throws VirtualCollectionException, FileNotFoundException;
 
 }

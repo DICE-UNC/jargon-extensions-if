@@ -2,7 +2,7 @@ package org.irods.jargon.formbot;
 
 /**
  * Enumeration of HTML form elements.
- * 
+ *
  * @author rskarbez
  *
  */

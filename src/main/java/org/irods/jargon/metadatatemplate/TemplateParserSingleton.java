@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 //import com.github.jsonldjava.utils.JsonUtils;
 
 /**
- * 
+ *
  * Provides the methods to generate a <code>MetadataTemplate</code> from a JSON
  * file, and the code to generate a JSON file from an instantiated
  * <code>MetadataTemplate</code>.
@@ -35,7 +35,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * Example:<br/>
  * <code>TemplateParserSingleton parser = TemplateParserSingleton.PARSER;<br/>
  * MetadataTemplate mt = parser.createMetadataTemplateFromFile(file);</code>
- * 
+ *
  * @author rskarbez
  *
  */
@@ -55,7 +55,7 @@ public final class TemplateParserSingleton {
 	/**
 	 * Returns a FormBasedMetadataTemplate generated from the JSON string in the
 	 * input parameter.
-	 * 
+	 *
 	 * @param s
 	 *            {@link String} containing the JSON representation of a
 	 *            metadata template, most likely read from a saved metadata
@@ -63,7 +63,7 @@ public final class TemplateParserSingleton {
 	 * @return
 	 */
 	// public FormBasedMetadataTemplate createMetadataTemplateFromJSON(String s)
-	public MetadataTemplate createMetadataTemplateFromJSON(String s)
+	public MetadataTemplate createMetadataTemplateFromJSON(final String s)
 			throws MetadataTemplateParsingException, MetadataTemplateProcessingException {
 		log.info("createMetadataTemplateFromJSON()");
 
@@ -103,8 +103,9 @@ public final class TemplateParserSingleton {
 			MetadataTemplate temp = mt;
 			// If default values are defined, copy into current value
 			for (MetadataElement me : temp.getElements()) {
-				if (!me.getDefaultValue().isEmpty())
+				if (!me.getDefaultValue().isEmpty()) {
 					me.setCurrentValue(me.getDefaultValue());
+				}
 			}
 			// } else if (metadataTemplateType ==
 			// "SchemaReferenceMetadataTemplate") {
@@ -114,21 +115,21 @@ public final class TemplateParserSingleton {
 			 * (SchemaReferenceMetadataTemplate) mt; String rdfTranslatorURI =
 			 * "http://rdf-translator.appspot.com/convert/detect/json-ld/" +
 			 * temp.getSchemaURI();
-			 * 
+			 *
 			 * ResteasyClient client = new ResteasyClientBuilder().build();
 			 * ResteasyWebTarget target = client.target(rdfTranslatorURI);
 			 * Response response = target.request().get(); String value =
 			 * response.readEntity(String.class); response.close(); // You
 			 * should close connections!
-			 * 
+			 *
 			 * log.info(value);
-			 * 
+			 *
 			 * Object jsonObject = null; try { jsonObject =
 			 * JsonUtils.fromString(value); } catch (JsonParseException e) { //
 			 * TODO Auto-generated catch block e.printStackTrace(); } catch
 			 * (IOException e) { // TODO Auto-generated catch block
 			 * e.printStackTrace(); }
-			 * 
+			 *
 			 * if (jsonObject != null) { // Create a context JSON map containing
 			 * prefixes and definitions Map context = new HashMap(); //
 			 * Customise context... // Create an instance of JsonLdOptions with
@@ -157,14 +158,14 @@ public final class TemplateParserSingleton {
 	 * MetadataElements will be saved as default values in the template. Default
 	 * values that are already set will NOT be overwritten.
 	 * </p>
-	 * 
+	 *
 	 * @params {@link MetadataTemplate} containing a populated metadata template
 	 *         boolean indicating whether current values should be stored as
 	 *         default values
 	 * @return {@link String}
 	 */
-	public String createJSONFromMetadataTemplate(MetadataTemplate template, boolean saveCurrentValuesAsDefaults)
-			throws MetadataTemplateProcessingException {
+	public String createJSONFromMetadataTemplate(final MetadataTemplate template,
+			final boolean saveCurrentValuesAsDefaults) throws MetadataTemplateProcessingException {
 
 		String json = "";
 		try {
@@ -177,7 +178,8 @@ public final class TemplateParserSingleton {
 		return json;
 	}
 
-	public String createJSONFromMetadataTemplate(MetadataTemplate template) throws MetadataTemplateProcessingException {
+	public String createJSONFromMetadataTemplate(final MetadataTemplate template)
+			throws MetadataTemplateProcessingException {
 		return createJSONFromMetadataTemplate(template, true);
 	}
 }
