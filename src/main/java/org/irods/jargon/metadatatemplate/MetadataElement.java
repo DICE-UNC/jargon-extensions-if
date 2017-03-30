@@ -3,15 +3,14 @@
  */
 package org.irods.jargon.metadatatemplate;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Describes a metadata element in a template
@@ -80,6 +79,8 @@ public class MetadataElement {
 	 * would have two options, and a 'in list' would have an arbitrary list of
 	 * options. The options are strings by default, and may be coerced into a
 	 * type in combination with the <code>TypeEnum</code> value.
+	 * <p/>
+	 * Consider merging this with the concept of a range for a property - mcc
 	 */
 	private List<String> validationOptions = new ArrayList<String>();
 
@@ -261,8 +262,7 @@ public class MetadataElement {
 		StringBuilder sb = new StringBuilder();
 
 		if (!this.getDefaultValue().isEmpty()) {
-			if (this.getType() == ElementTypeEnum.LIST_STRING
-					|| this.getType() == ElementTypeEnum.LIST_INT
+			if (this.getType() == ElementTypeEnum.LIST_STRING || this.getType() == ElementTypeEnum.LIST_INT
 					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
 				sb.append("[");
 				for (String s : this.getDefaultValue()) {
@@ -281,8 +281,7 @@ public class MetadataElement {
 
 		if (!this.getDisplayValue().isEmpty()) {
 			sb.delete(0, sb.length());
-			if (this.getType() == ElementTypeEnum.LIST_STRING
-					|| this.getType() == ElementTypeEnum.LIST_INT
+			if (this.getType() == ElementTypeEnum.LIST_STRING || this.getType() == ElementTypeEnum.LIST_INT
 					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
 				sb.append("[");
 				for (String s : this.getDisplayValue()) {
@@ -307,9 +306,17 @@ public class MetadataElement {
 			requiredStr = "*** REQUIRED ***";
 		}
 
-		toReturn = String.format("%s [%s]: %s %s %s\n", this.getName(),
-				this.getType(), displayValue, defaultStr, requiredStr);
+		toReturn = String.format("%s [%s]: %s %s %s\n", this.getName(), this.getType(), displayValue, defaultStr,
+				requiredStr);
 
 		return toReturn;
+	}
+
+	public String getRange() {
+		return range;
+	}
+
+	public void setRange(String range) {
+		this.range = range;
 	}
 }
