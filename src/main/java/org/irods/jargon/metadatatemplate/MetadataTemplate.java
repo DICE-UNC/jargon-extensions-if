@@ -154,7 +154,6 @@ public class MetadataTemplate {
 		return uuid;
 	}
 
-	// TODO Hide public setter?
 	public void setUuid(final UUID uuid) {
 		this.uuid = uuid;
 	}
@@ -277,6 +276,10 @@ public class MetadataTemplate {
 		setSource(mt.getSource());
 		setUuid(mt.getUuid());
 		setVersion(mt.getVersion());
+	}
+
+	public void setElements(List<MetadataElement> elements) {
+		this.elements = elements;
 	}
 
 }
