@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.irods.jargon.core.pub.IRODSAccessObjectFactory;
+
 /**
  * Abstract superclass for a metadata resolver that can locate and perform CRUD
  * operations on metadata templates.
@@ -30,41 +32,34 @@ import java.util.UUID;
  *
  */
 
-// TODO Should all lists really be hashmaps?
-
-public abstract class AbstractMetadataResolver {
+public abstract class AbstractMetadataResolver<T extends MetadataTemplateContext> {
 
 	/**
-	 * Holds locations (directories, database tables, etc.) where publicly
-	 * available metadata templates reside.
+	 * {@link MetadataTemplateContext} with specific
 	 */
-	private List<String> publicTemplateLocations = new ArrayList<String>();
+	private final T metadataTemplateContext;
 
 	/**
-	 *
+	 * Access object factory used to interact with iRODS
 	 */
-	public AbstractMetadataResolver() {
-	}
-
-	// TODO Should public template locations be database keys?
-	// TODO Locator == fqName?
-	public List<String> getPublicTemplateLocations() {
-		return publicTemplateLocations;
-	}
+	private final IRODSAccessObjectFactory irodsAccessObjectFactory;
 
 	/**
-	 * Used in combination with <code>listPublicTemplates</code>. Call this
-	 * first to indicate the directories in which public templates are stored.
-	 * </p>
-	 * <p>
-	 * Directories should be fully-qualified. That is, if the template files are
-	 * actually stored in /foo/bar/.irods/metadataTemplates, the string for this
-	 * folder would be "/foo/bar/.irods/metadataTemplates", not just "/foo/bar".
-	 *
-	 * @param publicTemplateLocations
+	 * Configuration object for metadata templates
 	 */
-	public void setPublicTemplateLocations(final List<String> publicTemplateLocations) {
-		this.publicTemplateLocations = publicTemplateLocations;
+	private final MetadataTemplateConfiguration metadataTemplateConfiguration;
+
+	/**
+	 * @param metadataTemplateContext
+	 * @param irodsAccessObjectFactory
+	 * @param metadataTemplateConfiguration
+	 */
+	public AbstractMetadataResolver(T metadataTemplateContext, IRODSAccessObjectFactory irodsAccessObjectFactory,
+			MetadataTemplateConfiguration metadataTemplateConfiguration) {
+		super();
+		this.metadataTemplateContext = metadataTemplateContext;
+		this.irodsAccessObjectFactory = irodsAccessObjectFactory;
+		this.metadataTemplateConfiguration = metadataTemplateConfiguration;
 	}
 
 	/**
@@ -96,14 +91,26 @@ public abstract class AbstractMetadataResolver {
 	 */
 	public abstract List<MetadataTemplate> listPublicTemplates();
 
-	public List<MetadataTemplate> listAllTemplates(final String path) throws FileNotFoundException, IOException,
-			MetadataTemplateProcessingException, MetadataTemplateParsingException {
+	/**
+	 * @param absolutePathInIrods
+	 *            <code>String</code> with the path in iRODS to which templates
+	 *            may be bound
+	 * @return <code>List</code> of {@link MetadataTemplate} with both public
+	 *         and attached metadata templates.
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws MetadataTemplateProcessingException
+	 * @throws MetadataTemplateParsingException
+	 */
+	public List<MetadataTemplate> listAllTemplatesBoundToPath(final String absolutePathInIrods)
+			throws FileNotFoundException, IOException, MetadataTemplateProcessingException,
+			MetadataTemplateParsingException {
 
 		List<MetadataTemplate> allTemplates = new ArrayList<MetadataTemplate>();
 		List<MetadataTemplate> hierarchyTemplates;
 		List<MetadataTemplate> publicTemplates;
 
-		hierarchyTemplates = listTemplatesInDirectoryHierarchyAbovePath(path);
+		hierarchyTemplates = listTemplatesInDirectoryHierarchyAbovePath(absolutePathInIrods);
 		publicTemplates = listPublicTemplates();
 
 		// Both the directory hierarchy list and the public list have already
@@ -130,11 +137,26 @@ public abstract class AbstractMetadataResolver {
 		return allTemplates;
 	}
 
-	public List<MetadataTemplate> listAllRequiredTemplates(final String path) throws FileNotFoundException, IOException,
-			MetadataTemplateProcessingException, MetadataTemplateParsingException {
+	/**
+	 * List all templates that are required to be associated with the given
+	 * iRODS path, whether public or bound in the heirarchy
+	 * 
+	 * @param absolutePathInIrods
+	 *            <code>String</code> with the path in iRODS to which templates
+	 *            may be bound
+	 * @return <code>List</code> of {@link MetadataTemplate} with both public
+	 *         and attached metadata templates.
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws MetadataTemplateProcessingException
+	 * @throws MetadataTemplateParsingException
+	 */
+	public List<MetadataTemplate> listAllRequiredTemplates(final String absolutePathInIrods)
+			throws FileNotFoundException, IOException, MetadataTemplateProcessingException,
+			MetadataTemplateParsingException {
 		List<MetadataTemplate> requiredTemplates = new ArrayList<MetadataTemplate>();
 
-		List<MetadataTemplate> allTemplates = listAllTemplates(path);
+		List<MetadataTemplate> allTemplates = listAllTemplatesBoundToPath(absolutePathInIrods);
 
 		for (MetadataTemplate t : allTemplates) {
 			if (t.isRequired()) {
@@ -148,6 +170,7 @@ public abstract class AbstractMetadataResolver {
 	public abstract MetadataTemplate findTemplateByName(String name, String activeDir) throws FileNotFoundException,
 			IOException, MetadataTemplateProcessingException, MetadataTemplateParsingException;
 
+	// TODO: has file based semantics, do we need it? - mcc
 	public abstract MetadataTemplate findTemplateByNameInDirectoryHierarchy(String name, String activeDir)
 			throws FileNotFoundException, IOException, MetadataTemplateProcessingException,
 			MetadataTemplateParsingException;
@@ -155,93 +178,64 @@ public abstract class AbstractMetadataResolver {
 	public abstract MetadataTemplate findTemplateByNameInPublicTemplates(String name) throws FileNotFoundException,
 			IOException, MetadataTemplateProcessingException, MetadataTemplateParsingException;
 
-	public abstract MetadataTemplate findTemplateByFqName(String fqName) throws FileNotFoundException, IOException,
+	public abstract MetadataTemplate findTemplateByUUID(final String string) throws FileNotFoundException, IOException,
 			MetadataTemplateProcessingException, MetadataTemplateParsingException;
 
-	public MetadataTemplate findTemplateByUUID(final UUID uuid) throws FileNotFoundException, IOException,
-			MetadataTemplateProcessingException, MetadataTemplateParsingException {
-		return findTemplateByFqName(getFqNameForUUID(uuid));
-	}
-
-	public MetadataTemplate findTemplateByUUID(final String uuid) throws FileNotFoundException, IOException,
-			MetadataTemplateProcessingException, MetadataTemplateParsingException {
-		return findTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)));
-	}
-
 	/**
-	 * Add or update existing by unique name
+	 * Add a metadata template
 	 *
 	 * @param metadataTemplate
-	 *
+	 *            {@link MetadataTemplate} to be added
+	 * @param metadataTemplateLocationTypeEnum
+	 *            {@link MetadataTemplateLocationTypeEnum} that indicates
+	 *            whether to store this in a public versus user repo
 	 * @throws FileNotFoundException
 	 *             if <code>location</code> is not a valid save location
 	 * @throws IOException
 	 *             if save fails
 	 */
-	public abstract String saveFormBasedTemplateAsJSON(MetadataTemplate metadataTemplate, String location)
-			throws FileNotFoundException, IOException, MetadataTemplateProcessingException;
+	public abstract UUID saveTemplate(MetadataTemplate metadataTemplate,
+			MetadataTemplateLocationTypeEnum metadataTemplateLocationTypeEnum)
+			throws MetadataTemplateProcessingException;
 
-	public abstract boolean renameTemplateByFqName(String uniqueName, String newName)
-			throws FileNotFoundException, IOException;
-
-	public boolean renameTemplateByUUID(final UUID uuid, final String newFqName)
-			throws FileNotFoundException, IOException {
-		return renameTemplateByFqName(getFqNameForUUID(uuid), newFqName);
-	}
-
-	public boolean renameTemplateByUUID(final String uuid, final String newFqName)
-			throws FileNotFoundException, IOException {
-		return renameTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), newFqName);
-	}
-
-	public abstract boolean updateFormBasedTemplateByFqName(String uniqueName, MetadataTemplate metadataTemplate)
-			throws FileNotFoundException, IOException;
-
-	public boolean updateFormBasedTemplateByUUID(final UUID uuid, final MetadataTemplate metadataTemplate)
-			throws FileNotFoundException, IOException {
-		return updateFormBasedTemplateByFqName(getFqNameForUUID(uuid), metadataTemplate);
-	}
-
-	public boolean updateFormBasedTemplateByUUID(final String uuid, final MetadataTemplate metadataTemplate)
-			throws FileNotFoundException, IOException {
-		return updateFormBasedTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), metadataTemplate);
-	}
-
-	public abstract boolean deleteTemplateByFqName(String uniqueName) throws FileNotFoundException, IOException;
-
-	public boolean deleteTemplateByUUID(final UUID uuid) throws FileNotFoundException, IOException {
-		return deleteTemplateByFqName(getFqNameForUUID(uuid));
-	}
-
-	public boolean deleteTemplateByUUID(final String uuid) throws FileNotFoundException, IOException {
-		return deleteTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)));
-	}
-
-	public abstract MetadataTemplate cloneTemplateByFqName(String fqName, String newTemplateName, String destDir)
-			throws FileNotFoundException, IOException, MetadataTemplateParsingException,
-			MetadataTemplateProcessingException;
-
-	public MetadataTemplate cloneTemplateByUUID(final UUID uuid, final String newTemplateName, final String destDir)
-			throws FileNotFoundException, IOException, MetadataTemplateParsingException,
-			MetadataTemplateProcessingException {
-		return cloneTemplateByFqName(getFqNameForUUID(uuid), newTemplateName, destDir);
-	}
-
-	public MetadataTemplate cloneTemplateByUUID(final String uuid, final String newTemplateName, final String destDir)
-			throws FileNotFoundException, IOException, MetadataTemplateParsingException,
-			MetadataTemplateProcessingException {
-		return cloneTemplateByFqName(getFqNameForUUID(UUID.fromString(uuid)), newTemplateName, destDir);
-	}
-
-	public abstract String getFqNameForUUID(UUID uuid);
-
-	public String getFqNameForUUID(final String uuid) {
-		return this.getFqNameForUUID(UUID.fromString(uuid));
-	}
-
-	/*
-	 * public abstract void saveTemplateToSystemMetadataOnObject(
-	 * MetadataTemplate metadataTemplate, String pathToObject) throws
-	 * FileNotFoundException, JargonException;
+	/**
+	 * Update a previously stored template, distinct from a save operation which
+	 * creates a new one.
+	 * 
+	 * @param metadataTemplate
+	 *            {@link MetadataTemplate} to update
+	 * @throws MetadataTemplateParsingException
+	 * @throws MetadataTemplateNotFoundException
+	 * @throws MetadataTemplateProcessingException
 	 */
+	public abstract void updateTemplate(MetadataTemplate metadataTemplate) throws MetadataTemplateParsingException,
+			MetadataTemplateNotFoundException, MetadataTemplateProcessingException;
+
+	/**
+	 * Delete a metadata template based on the uuid. Note that the actual
+	 * meaning and semantics of a delete are TBD. That is, is a delete actually
+	 * a deprectation? What happens when you delete a template that has metadata
+	 * associated?
+	 * 
+	 * @param uuid
+	 *            <code>String</code> representation of the UUID of the template
+	 *            to delete
+	 * @return <code>boolean</code> that indicates success
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public abstract boolean deleteTemplate(String uuid) throws FileNotFoundException, IOException;
+
+	public T getMetadataTemplateContext() {
+		return metadataTemplateContext;
+	}
+
+	public MetadataTemplateConfiguration getMetadataTemplateConfiguration() {
+		return metadataTemplateConfiguration;
+	}
+
+	public IRODSAccessObjectFactory getIrodsAccessObjectFactory() {
+		return irodsAccessObjectFactory;
+	}
+
 }
