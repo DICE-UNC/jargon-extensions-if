@@ -1,4 +1,4 @@
-package org.irods.jargon.metadatatemplate_if;
+package org.irods.jargon.metadatatemplate;
 
 import java.util.Arrays;
 import java.util.Properties;

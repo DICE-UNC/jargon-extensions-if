@@ -98,52 +98,10 @@ public final class TemplateParserSingleton {
 
 		log.info(mt.toString());
 
-		// if (metadataTemplateType == "FormBasedMetadataTemplate") {
-		if (mt.getType() == TemplateTypeEnum.FORM_BASED) {
-			MetadataTemplate temp = mt;
-			// If default values are defined, copy into current value
-			for (MetadataElement me : temp.getElements()) {
-				if (!me.getDefaultValue().isEmpty()) {
-					me.setCurrentValue(me.getDefaultValue());
-				}
+		for (MetadataElement me : mt.getElements()) {
+			if (!me.getDefaultValue().isEmpty()) {
+				me.setCurrentValue(me.getDefaultValue());
 			}
-			// } else if (metadataTemplateType ==
-			// "SchemaReferenceMetadataTemplate") {
-			// } else if (mt.getType() == TemplateTypeEnum.SCHEMA_REFERENCE) {
-			/*
-			 * SchemaReferenceMetadataTemplate temp =
-			 * (SchemaReferenceMetadataTemplate) mt; String rdfTranslatorURI =
-			 * "http://rdf-translator.appspot.com/convert/detect/json-ld/" +
-			 * temp.getSchemaURI();
-			 *
-			 * ResteasyClient client = new ResteasyClientBuilder().build();
-			 * ResteasyWebTarget target = client.target(rdfTranslatorURI);
-			 * Response response = target.request().get(); String value =
-			 * response.readEntity(String.class); response.close(); // You
-			 * should close connections!
-			 *
-			 * log.info(value);
-			 *
-			 * Object jsonObject = null; try { jsonObject =
-			 * JsonUtils.fromString(value); } catch (JsonParseException e) { //
-			 * TODO Auto-generated catch block e.printStackTrace(); } catch
-			 * (IOException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); }
-			 *
-			 * if (jsonObject != null) { // Create a context JSON map containing
-			 * prefixes and definitions Map context = new HashMap(); //
-			 * Customise context... // Create an instance of JsonLdOptions with
-			 * the standard JSON-LD options JsonLdOptions options = new
-			 * JsonLdOptions(); // Customise options... // Call whichever JSONLD
-			 * function you want! (e.g. compact) Object compact = null; try {
-			 * compact = JsonLdProcessor.expand(jsonObject, options); } catch
-			 * (JsonLdError e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); } // Print out the result (or don't, it's
-			 * your call!) try {
-			 * System.out.println(JsonUtils.toPrettyString(compact)); } catch
-			 * (IOException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); } }
-			 */
 		}
 
 		return mt;

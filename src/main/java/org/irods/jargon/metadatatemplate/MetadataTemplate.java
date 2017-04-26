@@ -85,14 +85,6 @@ public class MetadataTemplate {
 	private String version = "";
 
 	/**
-	 * Specifies the subtype of MetadataTemplate.
-	 *
-	 * XXX ONLY FORM_BASED MODE IS CURRENTLY SUPPORTED
-	 */
-	@JsonProperty("type")
-	private TemplateTypeEnum type = TemplateTypeEnum.FORM_BASED;
-
-	/**
 	 * Specifies the source of data that will populate the metadata template.
 	 *
 	 * XXX ONLY USER MODE IS CURRENTLY SUPPORTED
@@ -214,14 +206,6 @@ public class MetadataTemplate {
 		this.version = version;
 	}
 
-	public TemplateTypeEnum getType() {
-		return type;
-	}
-
-	public void setType(final TemplateTypeEnum type) {
-		this.type = type;
-	}
-
 	public SourceEnum getSource() {
 		return source;
 	}
@@ -267,7 +251,6 @@ public class MetadataTemplate {
 	}
 
 	public MetadataTemplate(final MetadataTemplate mt) {
-		setType(mt.getType());
 		setAuthor(mt.getAuthor());
 		setName(mt.getName());
 		setFqName(mt.getFqName());

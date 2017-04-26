@@ -1,6 +1,6 @@
-package org.irods.jargon.metadatatemplate_if.unittest;
+package org.irods.jargon.metadatatemplate.unittest;
 
-import org.irods.jargon.metadatatemplate_if.JargonMetadataValidatorTest;
+import org.irods.jargon.metadatatemplate.JargonMetadataValidatorTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
