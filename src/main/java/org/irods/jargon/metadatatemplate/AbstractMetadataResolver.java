@@ -89,8 +89,9 @@ public abstract class AbstractMetadataResolver<T extends MetadataTemplateContext
 	 *
 	 * @param templateGropus
 	 * @return
+	 * @throws MetadataTemplateProcessingException
 	 */
-	public abstract List<MetadataTemplate> listPublicTemplates();
+	public abstract List<MetadataTemplate> listPublicTemplates() throws MetadataTemplateProcessingException;
 
 	/**
 	 * @param absolutePathInIrods
