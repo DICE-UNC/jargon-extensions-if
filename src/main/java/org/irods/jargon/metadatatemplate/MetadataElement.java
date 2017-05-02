@@ -10,7 +10,6 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Describes a metadata element in a template
@@ -106,13 +105,6 @@ public class MetadataElement {
 	private List<String> currentValue = new ArrayList<String>();
 
 	/**
-	 * Contains the DISPLAY value of this element. For example, an element of
-	 * type REF_IRODS_QUERY may have a current value of "data.size", but a
-	 * display value of "18375".
-	 */
-	private List<String> displayValue = new ArrayList<String>();
-
-	/**
 	 * Provides hints to the interface builder about how to display this
 	 * element. Note that these are not guaranteed to be supported by every user
 	 * interface in every situation.
@@ -120,14 +112,6 @@ public class MetadataElement {
 	 * XXX NOT YET DESIGNED OR IMPLEMENTED
 	 */
 	// private List<String> renderingOptions = new ArrayList<String>();
-
-	/**
-	 * Specifies the source of data that will populate the metadata element.
-	 *
-	 * XXX ONLY USER MODE IS CURRENTLY SUPPORTED
-	 */
-	@JsonProperty("source")
-	private SourceEnum source = SourceEnum.USER;
 
 	public UUID getTemplateUuid() {
 		return templateUuid;
@@ -226,28 +210,6 @@ public class MetadataElement {
 		this.currentValue = currentValue;
 	}
 
-	public List<String> getDisplayValue() {
-		return displayValue;
-	}
-
-	public void setDisplayValue(final List<String> displayValue) {
-		this.displayValue = displayValue;
-	}
-
-	/*
-	 * public List<String> getRenderingOptions() { return renderingOptions; }
-	 *
-	 * public void setRenderingOptions(List<String> renderingOptions) {
-	 * this.renderingOptions = renderingOptions; }
-	 */
-	public SourceEnum getSource() {
-		return source;
-	}
-
-	public void setSource(final SourceEnum source) {
-		this.source = source;
-	}
-
 	public MetadataElement() {
 	}
 
@@ -277,25 +239,6 @@ public class MetadataElement {
 			}
 
 			defaultValue = sb.toString();
-		}
-
-		if (!getDisplayValue().isEmpty()) {
-			sb.delete(0, sb.length());
-			if (getType() == ElementTypeEnum.LIST_STRING || getType() == ElementTypeEnum.LIST_INT
-					|| getType() == ElementTypeEnum.LIST_FLOAT) {
-				sb.append("[");
-				for (String s : getDisplayValue()) {
-					sb.append(s);
-					sb.append(", ");
-				}
-				int lastComma = sb.lastIndexOf(",");
-				sb.delete(lastComma, sb.length());
-				sb.append("]");
-			} else {
-				sb.append(getDisplayValue().get(0));
-			}
-
-			displayValue = sb.toString();
 		}
 
 		if (!getDefaultValue().isEmpty()) {

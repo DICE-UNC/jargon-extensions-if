@@ -54,6 +54,7 @@ public abstract class AbstractMetadataResolver<T extends MetadataTemplateContext
 	 * @param irodsAccessObjectFactory
 	 * @param metadataTemplateConfiguration
 	 */
+
 	public AbstractMetadataResolver(T metadataTemplateContext, IRODSAccessObjectFactory irodsAccessObjectFactory,
 			MetadataTemplateConfiguration metadataTemplateConfiguration) {
 		super();
