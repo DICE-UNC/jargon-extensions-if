@@ -3,12 +3,11 @@
  */
 package org.irods.jargon.metadatatemplate;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.irods.jargon.core.exception.FileNotFoundException;
 import org.irods.jargon.core.pub.IRODSAccessObjectFactory;
 
 /**
@@ -55,8 +54,9 @@ public abstract class AbstractMetadataResolver<T extends MetadataTemplateContext
 	 * @param metadataTemplateConfiguration
 	 */
 
-	public AbstractMetadataResolver(T metadataTemplateContext, IRODSAccessObjectFactory irodsAccessObjectFactory,
-			MetadataTemplateConfiguration metadataTemplateConfiguration) {
+	public AbstractMetadataResolver(final T metadataTemplateContext,
+			final IRODSAccessObjectFactory irodsAccessObjectFactory,
+			final MetadataTemplateConfiguration metadataTemplateConfiguration) {
 		super();
 		this.metadataTemplateContext = metadataTemplateContext;
 		this.irodsAccessObjectFactory = irodsAccessObjectFactory;
@@ -64,123 +64,68 @@ public abstract class AbstractMetadataResolver<T extends MetadataTemplateContext
 	}
 
 	/**
-	 * Discover any metadata templates that are bound to the given path. This
-	 * path is not where the templates are stored, this path is the irods object
-	 * that is having metadata applied to it.
-	 * <p/>
-	 * This is equivalent to saying, I want to put metadata on this file, what
-	 * templates are in this collection or any parent collections that I should
-	 * use or require.
+	 * List all metadata templates available as 'public' templates
 	 *
-	 * @param absolutePath
-	 * @return
-	 */
-	// TODO maybe refactor name?
-	public abstract List<MetadataTemplate> listTemplatesInDirectoryHierarchyAbovePath(final String absolutePath)
-			throws FileNotFoundException, IOException, MetadataTemplateProcessingException,
-			MetadataTemplateParsingException;
-
-	/**
-	 * Given an abstract notion of a group, return metadata templates gathered
-	 * from that group. In our iRODS based reference implementation, these
-	 * groups are really just iRODS paths to directories that can contain
-	 * metadata templates, you can implement this differently, or just leave as
-	 * is and it returns an empty list.
-	 *
-	 * @param templateGropus
-	 * @return
+	 * @return <code>List</code> of {@link MetadataTemplate}
 	 * @throws MetadataTemplateProcessingException
 	 */
 	public abstract List<MetadataTemplate> listPublicTemplates() throws MetadataTemplateProcessingException;
 
 	/**
-	 * @param absolutePathInIrods
-	 *            <code>String</code> with the path in iRODS to which templates
-	 *            may be bound
-	 * @return <code>List</code> of {@link MetadataTemplate} with both public
-	 *         and attached metadata templates.
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * List all public and otherwise visible metadata templates based on user
+	 * permissions
+	 *
+	 * @return <code>List</code> of {@link MetadataTemplate}
 	 * @throws MetadataTemplateProcessingException
-	 * @throws MetadataTemplateParsingException
 	 */
-	public List<MetadataTemplate> listAllTemplatesBoundToPath(final String absolutePathInIrods)
-			throws FileNotFoundException, IOException, MetadataTemplateProcessingException,
-			MetadataTemplateParsingException {
-
-		List<MetadataTemplate> allTemplates = new ArrayList<MetadataTemplate>();
-		List<MetadataTemplate> hierarchyTemplates;
-		List<MetadataTemplate> publicTemplates;
-
-		hierarchyTemplates = listTemplatesInDirectoryHierarchyAbovePath(absolutePathInIrods);
-		publicTemplates = listPublicTemplates();
-
-		// Both the directory hierarchy list and the public list have already
-		// had duplicates accounted for. HOWEVER, there exists the possibility
-		// that there is a template name that appears both in the hierarchy and
-		// the public lists. This check accounts for that.
-		allTemplates.addAll(hierarchyTemplates);
-		if (!hierarchyTemplates.isEmpty() && !publicTemplates.isEmpty()) {
-			for (MetadataTemplate mtPublic : publicTemplates) {
-				boolean duplicate = false;
-				for (MetadataTemplate mtHierarchy : hierarchyTemplates) {
-					if (mtPublic.getName().equalsIgnoreCase(mtHierarchy.getName())) {
-						duplicate = true;
-						break;
-					}
-				}
-
-				if (!duplicate) {
-					allTemplates.add(mtPublic);
-				}
-			}
-		}
-
-		return allTemplates;
-	}
+	public abstract List<MetadataTemplate> listAvailableTemplates() throws MetadataTemplateProcessingException;
 
 	/**
-	 * List all templates that are required to be associated with the given
-	 * iRODS path, whether public or bound in the heirarchy
-	 * 
-	 * @param absolutePathInIrods
-	 *            <code>String</code> with the path in iRODS to which templates
-	 *            may be bound
-	 * @return <code>List</code> of {@link MetadataTemplate} with both public
-	 *         and attached metadata templates.
+	 * List all metadata templates that have been linked to this path, either
+	 * directly, or via a parent collection
+	 *
+	 * @param irodsAbsolutePath
+	 *            <code>String</code> with the iRODS absolute path for which
+	 *            bound templates are associated
+	 * @return <code>List</code> of {@link MetadataTemplate} with bound
+	 *         templates
+	 * @throws MetadataTemplateProcessingException
 	 * @throws FileNotFoundException
-	 * @throws IOException
+	 */
+	public abstract List<MetadataTemplate> listAllTemplatesBoundToPath(final String irodsAbsolutePath)
+			throws MetadataTemplateProcessingException, FileNotFoundException;
+
+	/**
+	 * Find a template by name (it may not be unique) of a given type, based on
+	 * the location (public, user, etc)
+	 *
+	 * @param name
+	 *            <code>String</code> with the name of the template
+	 * @param metadataTemplateLocationTypeEnum
+	 *            {@link MetadataTemplateLocationTypeEnum} describing the
+	 *            location to look for the template. If null, it will find all
+	 *            templates
+	 * @return <code>List</code> of {@link MetadataTemplate} with the templates
+	 *         that match that name
 	 * @throws MetadataTemplateProcessingException
 	 * @throws MetadataTemplateParsingException
 	 */
-	public List<MetadataTemplate> listAllRequiredTemplates(final String absolutePathInIrods)
-			throws FileNotFoundException, IOException, MetadataTemplateProcessingException,
-			MetadataTemplateParsingException {
-		List<MetadataTemplate> requiredTemplates = new ArrayList<MetadataTemplate>();
+	public abstract List<MetadataTemplate> findTemplateByName(String name,
+			MetadataTemplateLocationTypeEnum metadataTemplateLocationTypeEnum)
+			throws MetadataTemplateProcessingException, MetadataTemplateParsingException;
 
-		List<MetadataTemplate> allTemplates = listAllTemplatesBoundToPath(absolutePathInIrods);
-
-		for (MetadataTemplate t : allTemplates) {
-			if (t.isRequired()) {
-				requiredTemplates.add(t);
-			}
-		}
-
-		return requiredTemplates;
-	}
-
-	public abstract MetadataTemplate findTemplateByName(String name, String activeDir) throws FileNotFoundException,
-			IOException, MetadataTemplateProcessingException, MetadataTemplateParsingException;
-
-	// TODO: has file based semantics, do we need it? - mcc
-	public abstract MetadataTemplate findTemplateByNameInDirectoryHierarchy(String name, String activeDir)
-			throws FileNotFoundException, IOException, MetadataTemplateProcessingException,
-			MetadataTemplateParsingException;
-
-	public abstract MetadataTemplate findTemplateByNameInPublicTemplates(String name) throws FileNotFoundException,
-			IOException, MetadataTemplateProcessingException, MetadataTemplateParsingException;
-
-	public abstract MetadataTemplate findTemplateByUUID(final String string) throws FileNotFoundException, IOException,
+	/**
+	 *
+	 * @param uuid
+	 *            <code>String</code> form of a unique UUID that is associated
+	 *            with a metadata template
+	 * @return {@link MetadataTemplate} that matches the uuid
+	 * @throws MetadataTemplateNotFoundException
+	 *             if the metadata template cannot be found
+	 * @throws MetadataTemplateProcessingException
+	 * @throws MetadataTemplateParsingException
+	 */
+	public abstract MetadataTemplate findTemplateByUUID(final String uuid) throws MetadataTemplateNotFoundException,
 			MetadataTemplateProcessingException, MetadataTemplateParsingException;
 
 	/**
@@ -203,7 +148,7 @@ public abstract class AbstractMetadataResolver<T extends MetadataTemplateContext
 	/**
 	 * Update a previously stored template, distinct from a save operation which
 	 * creates a new one.
-	 * 
+	 *
 	 * @param metadataTemplate
 	 *            {@link MetadataTemplate} to update
 	 * @throws MetadataTemplateParsingException
@@ -218,15 +163,45 @@ public abstract class AbstractMetadataResolver<T extends MetadataTemplateContext
 	 * meaning and semantics of a delete are TBD. That is, is a delete actually
 	 * a deprectation? What happens when you delete a template that has metadata
 	 * associated?
-	 * 
+	 *
 	 * @param uuid
 	 *            <code>String</code> representation of the UUID of the template
 	 *            to delete
 	 * @return <code>boolean</code> that indicates success
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * @throws MetadataTemplateProcessingException
 	 */
-	public abstract boolean deleteTemplate(String uuid) throws FileNotFoundException, IOException;
+	public abstract boolean deleteTemplate(String uuid) throws MetadataTemplateProcessingException;
+
+	/**
+	 * Bind the given metadata template to the given path, and its children
+	 * 
+	 * @param irodsAbsolutePath
+	 *            <code>String</code> which is the iRODS path to which the
+	 *            template will be bound
+	 * @param templateUuid
+	 *            <code>String</code> representation of the UUID
+	 * @param required
+	 *            <code>boolean</code> that indicates the template will be
+	 *            required
+	 * @throws FileNotFoundException
+	 * @throws MetadataTemplateProcessingException
+	 */
+	public abstract void bindTemplateToPath(final String irodsAbsolutePath, final String templateUuid,
+			final boolean required) throws FileNotFoundException, MetadataTemplateProcessingException;
+
+	/**
+	 * Unbind the given metadata template from the given path
+	 * 
+	 * @param irodsAbsolutePath
+	 *            <code>String</code> which is the iRODS path from which the
+	 *            template will be unbound
+	 * @param templateUuid
+	 *            <code>String</code> representation of the UUID
+	 * @throws FileNotFoundException
+	 * @throws MetadataTemplateProcessingException
+	 */
+	public abstract void unbindTemplate(final String irodsAbsolutePath, final String templateUuid)
+			throws FileNotFoundException, MetadataTemplateProcessingException;
 
 	public T getMetadataTemplateContext() {
 		return metadataTemplateContext;
