@@ -121,7 +121,7 @@ public abstract class AbstractVirtualCollectionExecutor<T extends AbstractVirtua
 			log.info("no child collections");
 			pagingAwareCollectionListing
 					.getPagingAwareCollectionListingDescriptor()
-					.setCollectionsComplete(true);
+					.setComplete(true);
 			pagingAwareCollectionListing
 					.getPagingAwareCollectionListingDescriptor().setCount(0);
 			pagingAwareCollectionListing
@@ -130,7 +130,7 @@ public abstract class AbstractVirtualCollectionExecutor<T extends AbstractVirtua
 			log.info("adding child collections");
 			pagingAwareCollectionListing
 					.getPagingAwareCollectionListingDescriptor()
-					.setCollectionsComplete(
+					.setComplete(
 							entries.get(entries.size() - 1).isLastResult());
 			pagingAwareCollectionListing
 					.getPagingAwareCollectionListingDescriptor().setCount(
