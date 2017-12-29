@@ -13,6 +13,8 @@ package org.irods.jargon.extensions.datatyper;
  */
 public class DataTyperSettings {
 
+	public static final String APPLICATION_IRODS_RULE = "application/irods-rule";
+
 	/**
 	 * Save the determination in a persistant store
 	 */
