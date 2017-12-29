@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * @author Mike Conway - NIEHS
  *
  */
-public abstract class DataProfileService extends AbstractJargonService {
+public abstract class DataProfilerService extends AbstractJargonService {
 
 	private final DataProfilerSettings defaultDataProfilerSettings;
 	/**
@@ -43,7 +43,7 @@ public abstract class DataProfileService extends AbstractJargonService {
 	 * {@link DataTypeResolutionService} that can determine MIME and Info types
 	 */
 	private DataTypeResolutionService dataTypeResolutionService;
-	public static final Logger log = LoggerFactory.getLogger(DataProfileService.class);
+	public static final Logger log = LoggerFactory.getLogger(DataProfilerService.class);
 
 	/**
 	 * Default constructor with necessary values
@@ -54,7 +54,7 @@ public abstract class DataProfileService extends AbstractJargonService {
 	 * @param irodsAccessObjectFactory
 	 * @param irodsAccount
 	 */
-	public DataProfileService(DataProfilerSettings defaultDataProfilerSettings,
+	public DataProfilerService(DataProfilerSettings defaultDataProfilerSettings,
 			IRODSAccessObjectFactory irodsAccessObjectFactory, IRODSAccount irodsAccount) {
 		super(irodsAccessObjectFactory, irodsAccount);
 		this.defaultDataProfilerSettings = defaultDataProfilerSettings;
