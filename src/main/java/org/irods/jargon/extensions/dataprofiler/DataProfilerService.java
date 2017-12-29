@@ -2,7 +2,6 @@ package org.irods.jargon.extensions.dataprofiler;
 
 import org.irods.jargon.core.connection.IRODSAccount;
 import org.irods.jargon.core.exception.DataNotFoundException;
-import org.irods.jargon.core.exception.FileNotFoundException;
 import org.irods.jargon.core.exception.JargonException;
 import org.irods.jargon.core.pub.CollectionAO;
 import org.irods.jargon.core.pub.CollectionAndDataObjectListAndSearchAO;
@@ -66,50 +65,6 @@ public abstract class DataProfilerService extends AbstractJargonService {
 
 	public DataTypeResolutionService getDataTypeResolutionService() {
 		return dataTypeResolutionService;
-	}
-
-	/**
-	 * Retrieves base information from iRODS that can be decorated with additional
-	 * metadata
-	 * 
-	 * @param irodsAbsolutePath
-	 *            <code>String</code> with the iRODS absolute path to a data object
-	 *            (file)
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering
-	 * @return {@link DataProfile} of a {@link DataObject} that is expected to be
-	 *         decorated with additional gathered information
-	 * @throws JargonException
-	 * @throws FileNotFoundException
-	 */
-	protected DataProfile<DataObject> retrieveDataObjectProfile(String irodsAbsolutePath,
-			DataProfilerSettings dataProfilerSettings) throws JargonException, FileNotFoundException {
-		DataObjectAO dataObjectAO = this.getIrodsAccessObjectFactory().getDataObjectAO(getIrodsAccount());
-		DataObject dataObject = dataObjectAO.findByAbsolutePath(irodsAbsolutePath);
-		log.info("got dataObject:{}", dataObject);
-
-		DataProfile<DataObject> dataProfile = new DataProfile<DataObject>();
-		dataProfile.setDomainObject(dataObject);
-		dataProfile.setFile(true);
-
-		if (dataProfilerSettings.isRetrieveMetadata()) {
-			log.info("get AVUs");
-			dataProfile.setMetadata(dataObjectAO.findMetadataValuesForDataObject(irodsAbsolutePath));
-		}
-
-		if (dataProfilerSettings.isRetrieveAcls()) {
-			log.info("get ACLs...");
-			dataProfile.setAcls(dataObjectAO.listPermissionsForDataObject(irodsAbsolutePath));
-		}
-
-		dataProfile.setPathComponents(MiscIRODSUtils.breakIRODSPathIntoComponents(irodsAbsolutePath));
-		CollectionAndPath collectionAndPath = MiscIRODSUtils
-				.separateCollectionAndPathFromGivenAbsolutePath(irodsAbsolutePath);
-
-		dataProfile.setParentPath(collectionAndPath.getCollectionParent());
-		dataProfile.setChildName(collectionAndPath.getChildName());
-		return dataProfile;
 	}
 
 	/**
