@@ -34,7 +34,7 @@ public class DataProfilerSettings {
 	 */
 	private boolean retrieveAcls = false;
 	/**
-	 * Retrieve metadata
+	 * Retrieve raw AVU metadata
 	 */
 	private boolean retrieveMetadata = true;
 	/**
@@ -42,6 +42,16 @@ public class DataProfilerSettings {
 	 * process
 	 */
 	private boolean detectMimeAndInfoType = true;
+
+	/**
+	 * Gather and fill in metadata as templated information
+	 */
+	private boolean resolveMetadataTemplates = false;
+
+	/**
+	 * Get free tags and comments
+	 */
+	private boolean retrieveTagsAndComments = false;
 
 	public boolean isRetrieveReplicas() {
 		return retrieveReplicas;
@@ -106,8 +116,25 @@ public class DataProfilerSettings {
 				.append(retrieveTickets).append(", retrieveStarred=").append(retrieveStarred)
 				.append(", retrieveShared=").append(retrieveShared).append(", retrieveAcls=").append(retrieveAcls)
 				.append(", retrieveMetadata=").append(retrieveMetadata).append(", detectMimeAndInfoType=")
-				.append(detectMimeAndInfoType).append("]");
+				.append(detectMimeAndInfoType).append(", resolveMetadataTemplates=").append(resolveMetadataTemplates)
+				.append(", retrieveTagsAndComments=").append(retrieveTagsAndComments).append("]");
 		return builder.toString();
+	}
+
+	public boolean isResolveMetadataTemplates() {
+		return resolveMetadataTemplates;
+	}
+
+	public void setResolveMetadataTemplates(boolean resolveMetadataTemplates) {
+		this.resolveMetadataTemplates = resolveMetadataTemplates;
+	}
+
+	public boolean isRetrieveTagsAndComments() {
+		return retrieveTagsAndComments;
+	}
+
+	public void setRetrieveTagsAndComments(boolean retrieveTagsAndComments) {
+		this.retrieveTagsAndComments = retrieveTagsAndComments;
 	}
 
 }

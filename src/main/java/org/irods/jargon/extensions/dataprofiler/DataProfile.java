@@ -10,6 +10,7 @@ import org.irods.jargon.core.pub.domain.IRODSDomainObject;
 import org.irods.jargon.core.pub.domain.UserFilePermission;
 import org.irods.jargon.core.query.MetaDataAndDomainData;
 import org.irods.jargon.extensions.datatyper.DataType;
+import org.irods.jargon.metadatatemplate.MetadataTemplate;
 import org.irods.jargon.usertagging.domain.IRODSTagValue;
 
 /**
@@ -25,6 +26,10 @@ public class DataProfile<T extends IRODSDomainObject> {
 	private T domainObject;
 	private List<MetaDataAndDomainData> metadata = new ArrayList<MetaDataAndDomainData>();
 	private List<UserFilePermission> acls = new ArrayList<UserFilePermission>();
+	/**
+	 * Resolved {@link MetadataTemplate} associated with object
+	 */
+	private List<MetadataTemplate> metadataTemplates = new ArrayList<MetadataTemplate>();
 	private boolean starred = false;
 	private boolean shared = false;
 	private boolean hasTicket = false;
@@ -206,6 +211,14 @@ public class DataProfile<T extends IRODSDomainObject> {
 		}
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public List<MetadataTemplate> getMetadataTemplates() {
+		return metadataTemplates;
+	}
+
+	public void setMetadataTemplates(List<MetadataTemplate> metadataTemplates) {
+		this.metadataTemplates = metadataTemplates;
 	}
 
 }
