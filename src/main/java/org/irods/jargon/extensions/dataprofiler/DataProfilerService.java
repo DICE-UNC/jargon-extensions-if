@@ -14,6 +14,7 @@ import org.irods.jargon.core.query.JargonQueryException;
 import org.irods.jargon.core.service.AbstractJargonService;
 import org.irods.jargon.core.utils.CollectionAndPath;
 import org.irods.jargon.core.utils.MiscIRODSUtils;
+import org.irods.jargon.extensions.datatyper.DataType;
 import org.irods.jargon.extensions.datatyper.DataTypeResolutionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -434,6 +435,21 @@ public abstract class DataProfilerService extends AbstractJargonService {
 		DataProfile<Collection> dataProfile = new DataProfile<Collection>();
 		dataProfile.setDomainObject(collection);
 		dataProfile.setFile(false);
+		dataProfile.setPathComponents(MiscIRODSUtils.breakIRODSPathIntoComponents(objStat.getAbsolutePath()));
+		CollectionAndPath collectionAndPath = MiscIRODSUtils
+				.separateCollectionAndPathFromGivenAbsolutePath(objStat.getAbsolutePath());
+
+		dataProfile.setParentPath(collectionAndPath.getCollectionParent());
+		dataProfile.setChildName(collectionAndPath.getChildName());
+
+		/*
+		 * Consider how to handle this in a more generalizable way, but at least put
+		 * something in the MIME type for a dir - mc
+		 */
+		if (dataProfilerSettings.isDetectMimeAndInfoType()) {
+			DataType dataType = new DataType();
+			dataType.setMimeType("text/directory");
+		}
 
 		if (dataProfilerSettings.isRetrieveMetadata()) {
 			log.info("get AVUs");

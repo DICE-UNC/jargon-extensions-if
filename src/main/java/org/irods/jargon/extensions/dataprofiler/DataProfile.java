@@ -190,6 +190,10 @@ public class DataProfile<T extends IRODSDomainObject> {
 		if (acls != null) {
 			builder.append("acls=").append(acls.subList(0, Math.min(acls.size(), maxLen))).append(", ");
 		}
+		if (metadataTemplates != null) {
+			builder.append("metadataTemplates=")
+					.append(metadataTemplates.subList(0, Math.min(metadataTemplates.size(), maxLen))).append(", ");
+		}
 		builder.append("starred=").append(starred).append(", shared=").append(shared).append(", hasTicket=")
 				.append(hasTicket).append(", ");
 		if (dataType != null) {
