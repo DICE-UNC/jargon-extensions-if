@@ -359,6 +359,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 		DataProfile<DataObject> dataProfile = new DataProfile<DataObject>();
 		dataProfile.setDomainObject(dataObject);
 		dataProfile.setFile(true);
+		dataProfile.setAbsolutePath(dataObject.getAbsolutePath());
 
 		if (dataProfilerSettings.isRetrieveMetadata()) {
 			log.info("get AVUs");
@@ -434,6 +435,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 
 		DataProfile<Collection> dataProfile = new DataProfile<Collection>();
 		dataProfile.setDomainObject(collection);
+		dataProfile.setAbsolutePath(collection.getAbsolutePath());
 		dataProfile.setFile(false);
 		dataProfile.setPathComponents(MiscIRODSUtils.breakIRODSPathIntoComponents(objStat.getAbsolutePath()));
 		CollectionAndPath collectionAndPath = MiscIRODSUtils

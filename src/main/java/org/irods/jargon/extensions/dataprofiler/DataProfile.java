@@ -23,6 +23,10 @@ import org.irods.jargon.usertagging.domain.IRODSTagValue;
 public class DataProfile<T extends IRODSDomainObject> {
 
 	private boolean file = false;
+	/**
+	 * The full iRODS absolute path
+	 */
+	private String absolutePath = "";
 	private T domainObject;
 	private List<MetaDataAndDomainData> metadata = new ArrayList<MetaDataAndDomainData>();
 	private List<UserFilePermission> acls = new ArrayList<UserFilePermission>();
@@ -181,6 +185,9 @@ public class DataProfile<T extends IRODSDomainObject> {
 		final int maxLen = 10;
 		StringBuilder builder = new StringBuilder();
 		builder.append("DataProfile [file=").append(file).append(", ");
+		if (absolutePath != null) {
+			builder.append("absolutePath=").append(absolutePath).append(", ");
+		}
 		if (domainObject != null) {
 			builder.append("domainObject=").append(domainObject).append(", ");
 		}
@@ -223,6 +230,14 @@ public class DataProfile<T extends IRODSDomainObject> {
 
 	public void setMetadataTemplates(List<MetadataTemplate> metadataTemplates) {
 		this.metadataTemplates = metadataTemplates;
+	}
+
+	public String getAbsolutePath() {
+		return absolutePath;
+	}
+
+	public void setAbsolutePath(String absolutePath) {
+		this.absolutePath = absolutePath;
 	}
 
 }
