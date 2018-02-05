@@ -33,6 +33,18 @@ public abstract class DataTypeResolutionService extends AbstractJargonService {
 	}
 
 	/**
+	 * Convenience method that will use the quickest method available to determine
+	 * mime and other data typing information.
+	 * 
+	 * @param irodsAbsolutePath
+	 *            {@link String} with iRODS absolute path
+	 * @return {@link DataType} characterizing that file
+	 * @throws DataNotFoundException
+	 * @throws JargonException
+	 */
+	public abstract DataType quickType(final String irodsAbsolutePath) throws DataNotFoundException, JargonException;
+
+	/**
 	 * Resolve the data type based on the default settings
 	 * 
 	 * @param irodsAbsolutePath
