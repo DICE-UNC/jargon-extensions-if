@@ -38,11 +38,11 @@ public abstract class DataTypeResolutionService extends AbstractJargonService {
 	 * 
 	 * @param irodsAbsolutePath
 	 *            {@link String} with iRODS absolute path
-	 * @return {@link DataType} characterizing that file
+	 * @return {@link String} with the MIME type of the file
 	 * @throws DataNotFoundException
 	 * @throws JargonException
 	 */
-	public abstract DataType quickType(final String irodsAbsolutePath) throws DataNotFoundException, JargonException;
+	public abstract String quickMimeType(final String irodsAbsolutePath) throws DataNotFoundException, JargonException;
 
 	/**
 	 * Resolve the data type based on the default settings
