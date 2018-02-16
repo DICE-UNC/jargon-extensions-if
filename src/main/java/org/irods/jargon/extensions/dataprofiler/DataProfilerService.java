@@ -448,10 +448,12 @@ public abstract class DataProfilerService extends AbstractJargonService {
 		 * Consider how to handle this in a more generalizable way, but at least put
 		 * something in the MIME type for a dir - mc
 		 */
+		DataType dataType = new DataType();
+
 		if (dataProfilerSettings.isDetectMimeAndInfoType()) {
-			DataType dataType = new DataType();
 			dataType.setMimeType("text/directory");
 		}
+		dataProfile.setDataType(dataType);
 
 		if (dataProfilerSettings.isRetrieveMetadata()) {
 			log.info("get AVUs");
