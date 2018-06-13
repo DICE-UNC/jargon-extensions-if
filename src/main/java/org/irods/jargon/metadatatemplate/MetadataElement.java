@@ -3,14 +3,12 @@
  */
 package org.irods.jargon.metadatatemplate;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
@@ -24,17 +22,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MetadataElement {
 	/**
-	 * UUID that uniquely identifies the metadata template this element belongs
-	 * to. Helpful to implement versioning and template linking.
+	 * UUID that uniquely identifies the metadata template this element belongs to.
+	 * Helpful to implement versioning and template linking.
 	 */
 	private UUID templateUuid = new UUID(0, 0);
 
 	/**
 	 * Descriptive display name for metadata element, e.g. Author
 	 * <p/>
-	 * XXX @ is a reserved character; if @ is present as the first character,
-	 * that indicates that information for this metadata element will be
-	 * retrieved from a special list of elements. This is NOT YET SUPPORTED.
+	 * XXX @ is a reserved character; if @ is present as the first character, that
+	 * indicates that information for this metadata element will be retrieved from a
+	 * special list of elements. This is NOT YET SUPPORTED.
 	 */
 	private String name = "";
 
@@ -44,8 +42,7 @@ public class MetadataElement {
 	private String i18nName = "";
 
 	/**
-	 * Other name(s) this attribute could be known as in, e.g. a data
-	 * dictionary.
+	 * Other name(s) this attribute could be known as in, e.g. a data dictionary.
 	 * <p/>
 	 * XXX NOT YET SUPPORTED
 	 */
@@ -67,8 +64,8 @@ public class MetadataElement {
 	private boolean required = false;
 
 	/**
-	 * The type of data for the element, useful for validation and creation of
-	 * user elements
+	 * The type of data for the element, useful for validation and creation of user
+	 * elements
 	 */
 	private ElementTypeEnum type = ElementTypeEnum.RAW_STRING;
 
@@ -76,26 +73,26 @@ public class MetadataElement {
 	 * If options are specified, then entry will not be free form, and interface
 	 * components should display a list or dropdown.
 	 * <p/>
-	 * This is used with the <code>ValidationStyleEnum</code>, so that a range
-	 * would have two options, and a 'in list' would have an arbitrary list of
-	 * options. The options are strings by default, and may be coerced into a
-	 * type in combination with the <code>TypeEnum</code> value.
+	 * This is used with the <code>ValidationStyleEnum</code>, so that a range would
+	 * have two options, and a 'in list' would have an arbitrary list of options.
+	 * The options are strings by default, and may be coerced into a type in
+	 * combination with the <code>TypeEnum</code> value.
 	 */
 	private List<String> validationOptions = new ArrayList<String>();
 
 	/**
-	 * Enum indicates the kind of validation to do (by type, or in combination
-	 * with the <code>validationOptions</code> to derive a range between two
-	 * values or a list that the entry must be part of)
+	 * Enum indicates the kind of validation to do (by type, or in combination with
+	 * the <code>validationOptions</code> to derive a range between two values or a
+	 * list that the entry must be part of)
 	 */
 	private ValidationStyleEnum validationStyle = ValidationStyleEnum.DEFAULT;
 
 	/**
 	 * Defines a default value (if desired) for this element.
 	 * <p/>
-	 * Note that the default value is stored as a string; no validation is
-	 * provided at compile time. If the specified value fails validation, this
-	 * will only be detected at runtime.
+	 * Note that the default value is stored as a string; no validation is provided
+	 * at compile time. If the specified value fails validation, this will only be
+	 * detected at runtime.
 	 */
 	private List<String> defaultValue = new ArrayList<String>();
 
@@ -105,28 +102,20 @@ public class MetadataElement {
 	private List<String> currentValue = new ArrayList<String>();
 
 	/**
-	 * Contains the DISPLAY value of this element. For example, an element of
-	 * type REF_IRODS_QUERY may have a current value of "data.size", but a
-	 * display value of "18375".
+	 * Contains the DISPLAY value of this element. For example, an element of type
+	 * REF_IRODS_QUERY may have a current value of "data.size", but a display value
+	 * of "18375".
 	 */
 	private List<String> displayValue = new ArrayList<String>();
 
 	/**
-	 * Provides hints to the interface builder about how to display this
-	 * element. Note that these are not guaranteed to be supported by every user
-	 * interface in every situation.
+	 * Provides hints to the interface builder about how to display this element.
+	 * Note that these are not guaranteed to be supported by every user interface in
+	 * every situation.
 	 * <p/>
 	 * XXX NOT YET DESIGNED OR IMPLEMENTED
 	 */
 	// private List<String> renderingOptions = new ArrayList<String>();
-
-	/**
-	 * Specifies the source of data that will populate the metadata element.
-	 * 
-	 * XXX ONLY USER MODE IS CURRENTLY SUPPORTED
-	 */
-	@JsonProperty("source")
-	private SourceEnum source = SourceEnum.USER;
 
 	public UUID getTemplateUuid() {
 		return templateUuid;
@@ -135,10 +124,6 @@ public class MetadataElement {
 	public void setTemplateUuid(UUID uuid) {
 		this.templateUuid = uuid;
 	}
-
-	/**
-	 * 
-	 */
 
 	public String getName() {
 		return name;
@@ -156,11 +141,6 @@ public class MetadataElement {
 		this.i18nName = i18nElementName;
 	}
 
-	/*
-	 * public List<String> getAliases() { return aliases; }
-	 * 
-	 * public void setAliases(List<String> aliases) { this.aliases = aliases; }
-	 */
 	public String getDescription() {
 		return description;
 	}
@@ -233,20 +213,6 @@ public class MetadataElement {
 		this.displayValue = displayValue;
 	}
 
-	/*
-	 * public List<String> getRenderingOptions() { return renderingOptions; }
-	 * 
-	 * public void setRenderingOptions(List<String> renderingOptions) {
-	 * this.renderingOptions = renderingOptions; }
-	 */
-	public SourceEnum getSource() {
-		return source;
-	}
-
-	public void setSource(SourceEnum source) {
-		this.source = source;
-	}
-
 	public MetadataElement() {
 	}
 
@@ -261,8 +227,7 @@ public class MetadataElement {
 		StringBuilder sb = new StringBuilder();
 
 		if (!this.getDefaultValue().isEmpty()) {
-			if (this.getType() == ElementTypeEnum.LIST_STRING
-					|| this.getType() == ElementTypeEnum.LIST_INT
+			if (this.getType() == ElementTypeEnum.LIST_STRING || this.getType() == ElementTypeEnum.LIST_INT
 					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
 				sb.append("[");
 				for (String s : this.getDefaultValue()) {
@@ -281,8 +246,7 @@ public class MetadataElement {
 
 		if (!this.getDisplayValue().isEmpty()) {
 			sb.delete(0, sb.length());
-			if (this.getType() == ElementTypeEnum.LIST_STRING
-					|| this.getType() == ElementTypeEnum.LIST_INT
+			if (this.getType() == ElementTypeEnum.LIST_STRING || this.getType() == ElementTypeEnum.LIST_INT
 					|| this.getType() == ElementTypeEnum.LIST_FLOAT) {
 				sb.append("[");
 				for (String s : this.getDisplayValue()) {
@@ -307,8 +271,8 @@ public class MetadataElement {
 			requiredStr = "*** REQUIRED ***";
 		}
 
-		toReturn = String.format("%s [%s]: %s %s %s\n", this.getName(),
-				this.getType(), displayValue, defaultStr, requiredStr);
+		toReturn = String.format("%s [%s]: %s %s %s\n", this.getName(), this.getType(), displayValue, defaultStr,
+				requiredStr);
 
 		return toReturn;
 	}

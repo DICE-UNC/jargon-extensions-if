@@ -3,9 +3,7 @@
  */
 package org.irods.jargon.metadatatemplate;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,36 +22,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 @JsonInclude(Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class MetadataTemplate {
 	/**
-	 * UUID that uniquely identifies this metadata template. Helpful to
-	 * implement versioning and template linking.
+	 * UUID that uniquely identifies this metadata template. Helpful to implement
+	 * versioning and template linking.
 	 */
 	// Not marked as "JsonProperty" because should not be serialized
 	// Will be handled in iRODS as AVU
 	private UUID uuid = new UUID(0, 0);
 
 	/**
-	 * Public name for a metadata template, represents a generic template of a
-	 * type (e.g. Dublin Core) of which there may be multiple unique
-	 * representations.
+	 * Public name for a metadata template, represents a generic template of a type
+	 * (e.g. Dublin Core) of which there may be multiple unique representations.
 	 * 
-	 * By convention, the template name is the same as the filename, for
-	 * example, a template named DC would be stored as a file named DC.mdtemplate.
+	 * By convention, the template name is the same as the filename, for example, a
+	 * template named DC would be stored as a file named DC.mdtemplate.
 	 */
 	@JsonProperty("name")
 	private String name = "";
-
-	/**
-	 * A resource locator that specifies where the template can be found. For
-	 * example, in iRODS, this would be the fully qualified logical name of the
-	 * iRODS directory that contains the template file.
-	 * 
-	 * By convention, the fully-qualified identifier location/name.json must be
-	 * unique.
-	 */
-	private String fqName = "";
 
 	/**
 	 * description, helpful text
@@ -82,46 +69,11 @@ public abstract class MetadataTemplate {
 	 */
 	@JsonProperty("version")
 	private String version = "";
-	
-	/**
-	 * Specifies the subtype of MetadataTemplate.
-	 * 
-	 * XXX ONLY FORM_BASED MODE IS CURRENTLY SUPPORTED
-	 */
-	@JsonProperty("type")
-	private TemplateTypeEnum type = TemplateTypeEnum.FORM_BASED;
 
 	/**
-	 * Specifies the source of data that will populate the metadata template.
-	 * 
-	 * XXX ONLY USER MODE IS CURRENTLY SUPPORTED
-	 */
-	@JsonProperty("source")
-	private SourceEnum source = SourceEnum.USER;
-
-	/**
-	 * Used in conjunction with <code>source</code>, driver specifies the
-	 * computation that will be run to generate data for <code>DRIVER</code> or
-	 * <code>MIXED</code> modes. <code>driver</code> is not used if
-	 * <code>source=USER</code>.
-	 * 
-	 * XXX NOT YET SUPPORTED
-	 */
-	//@JsonProperty("driver")
-	//private MetadataDriver driver = new MetadataDriver();
-	
-	/**
-	 * Specifies the format in which metadata is finally stored.
-	 * 
-	 * XXX ONLY IRODS MODE IS CURRENTLY SUPPORTED
-	 */
-	@JsonProperty("destination")
-	private DestinationEnum destination = DestinationEnum.IRODS;
-
-	/**
-	 * Indicates whether the given template is required. If true, the validator
-	 * will reject a file/metadata if the attributes marked as required are not
-	 * populated with valid values.
+	 * Indicates whether the given template is required. If true, the validator will
+	 * reject a file/metadata if the attributes marked as required are not populated
+	 * with valid values.
 	 */
 	@JsonProperty("required")
 	private boolean required = false;
@@ -136,13 +88,12 @@ public abstract class MetadataTemplate {
 	 * nearest to the collection 2) user home dir 3) public viewable dirs
 	 */
 	// TODO Uncomment when ready to implement linked templates
-	//private List<String> linkedTemplates = new ArrayList<String>();
+	// private List<String> linkedTemplates = new ArrayList<String>();
 
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	// TODO Hide public setter?
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
@@ -153,14 +104,6 @@ public abstract class MetadataTemplate {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getFqName() {
-		return fqName;
-	}
-
-	public void setFqName(String fqName) {
-		this.fqName = fqName;
 	}
 
 	public String getDescription() {
@@ -178,12 +121,11 @@ public abstract class MetadataTemplate {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	
+
 	public Date getCreated() {
 		return created;
 	}
-	
-	// TODO Hide public setter?
+
 	public void setCreated(Date created) {
 		this.created = created;
 	}
@@ -192,11 +134,10 @@ public abstract class MetadataTemplate {
 		return modified;
 	}
 
-	// TODO Hide public setter?
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
-	
+
 	public String getVersion() {
 		return version;
 	}
@@ -204,42 +145,7 @@ public abstract class MetadataTemplate {
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	
-	public TemplateTypeEnum getType() {
-		return type;
-	}
 
-	public void setType(TemplateTypeEnum type) {
-		this.type = type;
-	}
-
-	public SourceEnum getSource() {
-		return source;
-	}
-
-	public void setSource(SourceEnum source) {
-		this.source = source;
-	}
-	
-	// TODO Uncomment when ready to implement multiple drivers
-/*
-	public MetadataDriver getDriver() {
-		return driver;
-	}
-
-	public void setDriver(MetadataDriver driver) {
-		this.driver = driver;
-	}
-*/
-	
-	public DestinationEnum getExporter() {
-		return destination;
-	}
-
-	public void setExporter(DestinationEnum destination) {
-		this.destination = destination;
-	}
-	
 	public boolean isRequired() {
 		return required;
 	}
@@ -247,35 +153,10 @@ public abstract class MetadataTemplate {
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
-	
-	// TODO Uncomment when ready to implement linked templates
-/*
-	public List<String> getLinkedTemplates() {
-		return linkedTemplates;
-	}
 
-	public void setLinkedTemplates(List<String> linkedTemplates) {
-		this.linkedTemplates = linkedTemplates;
-	}
-*/
-	/**
-	 * 
-	 */
-	public MetadataTemplate() {
-	}
-	
-	public abstract MetadataTemplate deepCopy();
-	
-	public MetadataTemplate(MetadataTemplate mt) {
-		this.setType(mt.getType());
-		this.setAuthor(mt.getAuthor());
-		this.setName(mt.getName());
-		this.setFqName(mt.getFqName());
-		this.setDescription(mt.getDescription());
-		this.setRequired(mt.isRequired());
-		this.setSource(mt.getSource());
-		this.setUuid(mt.getUuid());
-		this.setVersion(mt.getVersion());
+	public Object getElements() {
+		// FIXME: Auto-generated method stub
+		return null;
 	}
 
 }
