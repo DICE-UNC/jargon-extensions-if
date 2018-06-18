@@ -52,7 +52,9 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            {@link DataProfilerSettings} that describes overridable defaults
 	 *            for the operation of the service
 	 * @param irodsAccessObjectFactory
+	 *            {@link IRODSAccessObjectFactory}
 	 * @param irodsAccount
+	 *            {@link IRODSAccount}
 	 */
 	public DataProfilerService(DataProfilerSettings defaultDataProfilerSettings,
 			IRODSAccessObjectFactory irodsAccessObjectFactory, IRODSAccount irodsAccount) {
@@ -80,6 +82,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addStarringDataToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -96,6 +99,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addStarringDataToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -112,6 +116,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addTaggingAndCommentsToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -128,6 +133,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addTaggingAndCommentsToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -144,6 +150,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addSharingToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -160,6 +167,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addSharingToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -176,6 +184,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addTicketsToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -192,6 +201,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addTicketsToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -208,6 +218,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addMetadataTemplatesToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -224,6 +235,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected abstract void addMetadataTemplatesToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -242,6 +254,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            gathering. If left <code>null</code> will use the default
 	 *            settings.
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected void establishDataType(final DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException {
@@ -281,7 +294,9 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 * @return {@link DataProfile} describing the collection or data object at that
 	 *         path
 	 * @throws DataNotFoundException
+	 *             {@link DataNotFoundException}
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 
 	@SuppressWarnings("rawtypes")
@@ -302,7 +317,9 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 * @return {@link DataProfile} describing the collection or data object at that
 	 *         path
 	 * @throws DataNotFoundException
+	 *             {@link DataNotFoundException}
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 
 	@SuppressWarnings("rawtypes")
@@ -346,7 +363,9 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            behaviors
 	 * @return {@link DataProfile} of a {@link DataObject}
 	 * @throws DataNotFoundException
+	 *             {@link DataNotFoundException}
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected DataProfile<DataObject> retrieveDataProfileForDataObject(ObjStat objStat,
 			DataProfilerSettings dataProfilerSettings) throws DataNotFoundException, JargonException {
@@ -423,7 +442,9 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 *            behaviors
 	 * @return {@link DataProfile} of a {@link Collection}
 	 * @throws DataNotFoundException
+	 *             {@link DataNotFoundException}
 	 * @throws JargonException
+	 *             {@link JargonException}
 	 */
 	protected DataProfile<Collection> retrieveDataProfileForCollection(ObjStat objStat,
 			DataProfilerSettings dataProfilerSettings) throws DataNotFoundException, JargonException {
