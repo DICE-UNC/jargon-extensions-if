@@ -3,8 +3,8 @@
 # Project: Jargon Extensions Interface
 
 ### Date:
-### Release Version: 4.3.0.0-RELEASE
-### git tag: 4.3.0.0-RELEASE
+### Release Version: 4.3.0.1-SNAPSHOT
+### git tag:
 #### Developer: Mike Conway - DICE
 
 ## News
@@ -27,7 +27,3 @@ This project uses Maven for dependency management.  See the pom.xml file for ref
 Note that the following bug and feature requests are logged in GitHub with related commit information [[https://github.com/DICE-UNC/jargon-extensions-if/issues]]
 
 ### Changes
-
-####  file template service #7
-
-Add a service to discover and create new files based on file templates
