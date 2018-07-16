@@ -10,8 +10,8 @@ import org.irods.jargon.core.pub.domain.IRODSDomainObject;
 import org.irods.jargon.core.pub.domain.UserFilePermission;
 import org.irods.jargon.core.query.MetaDataAndDomainData;
 import org.irods.jargon.extensions.datatyper.DataType;
-import org.irods.jargon.metadatatemplate.MetadataTemplate;
 import org.irods.jargon.usertagging.domain.IRODSTagValue;
+
 
 /**
  * Represents a consolidated summary of a data object or collection as a simple
@@ -33,7 +33,7 @@ public class DataProfile<T extends IRODSDomainObject> {
 	/**
 	 * Resolved {@link MetadataTemplate} associated with object
 	 */
-	private List<MetadataTemplate> metadataTemplates = new ArrayList<MetadataTemplate>();
+	//private List<Template> metadataTemplates = new ArrayList<Template>();
 	private boolean starred = false;
 	private boolean shared = false;
 	private boolean hasTicket = false;
@@ -197,10 +197,7 @@ public class DataProfile<T extends IRODSDomainObject> {
 		if (acls != null) {
 			builder.append("acls=").append(acls.subList(0, Math.min(acls.size(), maxLen))).append(", ");
 		}
-		if (metadataTemplates != null) {
-			builder.append("metadataTemplates=")
-					.append(metadataTemplates.subList(0, Math.min(metadataTemplates.size(), maxLen))).append(", ");
-		}
+		
 		builder.append("starred=").append(starred).append(", shared=").append(shared).append(", hasTicket=")
 				.append(hasTicket).append(", ");
 		if (dataType != null) {
@@ -224,13 +221,7 @@ public class DataProfile<T extends IRODSDomainObject> {
 		return builder.toString();
 	}
 
-	public List<MetadataTemplate> getMetadataTemplates() {
-		return metadataTemplates;
-	}
-
-	public void setMetadataTemplates(List<MetadataTemplate> metadataTemplates) {
-		this.metadataTemplates = metadataTemplates;
-	}
+	
 
 	public String getAbsolutePath() {
 		return absolutePath;
