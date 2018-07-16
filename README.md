@@ -3,13 +3,15 @@
 # Project: Jargon Extensions Interface
 
 ### Date:
-### Release Version: 4.3.0.0-SNAPSHOT
-### git tag:
+### Release Version: 4.3.1.0-SNAPSHOT
+### git tag: issue25-mdtemplate
 #### Developer: Mike Conway - DICE
 
 ## News
 
+https://github.com/DICE-UNC/jargon-extensions-if/milestone/2
 
+Branch supporting metadata template development
 
 Please go to [[https://github.com/DICE-UNC/jargon-extensions-if]] for the latest news and info.
 
