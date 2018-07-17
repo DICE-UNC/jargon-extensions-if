@@ -13,7 +13,7 @@ import javax.validation.Valid;
  * MDTemplate
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:07:25.464Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:26:03.800Z")
 
 public class MDTemplate   {
   @JsonProperty("id")

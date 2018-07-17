@@ -1,35 +1,28 @@
 package org.irods.jargon.metadatatemplate.model;
 
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import javax.validation.Valid;
-
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
+import javax.validation.Valid;
 
 /**
  * MDTemplateElement
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:07:25.464Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:26:03.800Z")
 
 public class MDTemplateElement   {
-  @JsonProperty("id")
-  private Long id = null;
+  @JsonProperty("guid")
+  private String guid = null;
 
-  @JsonProperty("attribute")
-  private String attribute = null;
+  @JsonProperty("name")
+  private String name = null;
 
   @JsonProperty("defaultValue")
   private String defaultValue = null;
-
-  @JsonProperty("attributeUnit")
-  private String attributeUnit = null;
 
   @JsonProperty("type")
   private String type = null;
@@ -46,51 +39,54 @@ public class MDTemplateElement   {
   @JsonProperty("validationExp")
   private String validationExp = null;
 
-  @JsonProperty("guid")
-  private String guid = null;
+  @JsonProperty("cardinalityMin")
+  private Integer cardinalityMin = null;
+
+  @JsonProperty("cardinalityMax")
+  private Integer cardinalityMax = null;
 
   @JsonProperty("elements")
   @Valid
   private List<MDTemplateElement> elements = null;
 
-  public MDTemplateElement id(Long id) {
-    this.id = id;
+  public MDTemplateElement guid(String guid) {
+    this.guid = guid;
     return this;
   }
 
   /**
-   * Get id
-   * @return id
+   * GUID uniquely identifying the element
+   * @return guid
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "GUID uniquely identifying the element")
 
 
-  public Long getId() {
-    return id;
+  public String getGuid() {
+    return guid;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setGuid(String guid) {
+    this.guid = guid;
   }
 
-  public MDTemplateElement attribute(String attribute) {
-    this.attribute = attribute;
+  public MDTemplateElement name(String name) {
+    this.name = name;
     return this;
   }
 
   /**
-   * Get attribute
-   * @return attribute
+   * Label for the element, analagous to the avu attribute
+   * @return name
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Label for the element, analagous to the avu attribute")
 
 
-  public String getAttribute() {
-    return attribute;
+  public String getName() {
+    return name;
   }
 
-  public void setAttribute(String attribute) {
-    this.attribute = attribute;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public MDTemplateElement defaultValue(String defaultValue) {
@@ -99,10 +95,10 @@ public class MDTemplateElement   {
   }
 
   /**
-   * Get defaultValue
+   * Value to use or select given no user input
    * @return defaultValue
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Value to use or select given no user input")
 
 
   public String getDefaultValue() {
@@ -113,36 +109,16 @@ public class MDTemplateElement   {
     this.defaultValue = defaultValue;
   }
 
-  public MDTemplateElement attributeUnit(String attributeUnit) {
-    this.attributeUnit = attributeUnit;
-    return this;
-  }
-
-  /**
-   * Get attributeUnit
-   * @return attributeUnit
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getAttributeUnit() {
-    return attributeUnit;
-  }
-
-  public void setAttributeUnit(String attributeUnit) {
-    this.attributeUnit = attributeUnit;
-  }
-
   public MDTemplateElement type(String type) {
     this.type = type;
     return this;
   }
 
   /**
-   * Get type
+   * Type of element [string, int, list, etc]
    * @return type
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Type of element [string, int, list, etc]")
 
 
   public String getType() {
@@ -159,10 +135,10 @@ public class MDTemplateElement   {
   }
 
   /**
-   * Get required
+   * Indicates that a value must be enetered
    * @return required
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Indicates that a value must be enetered")
 
 
   public Boolean isRequired() {
@@ -179,10 +155,10 @@ public class MDTemplateElement   {
   }
 
   /**
-   * Get options
+   * Type-specific options for a field, e.g. if a list this is a delimited array of possible values. For an ontology it may be a reference to a vocabulary
    * @return options
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Type-specific options for a field, e.g. if a list this is a delimited array of possible values. For an ontology it may be a reference to a vocabulary")
 
 
   public String getOptions() {
@@ -199,10 +175,10 @@ public class MDTemplateElement   {
   }
 
   /**
-   * Get accessType
+   * Type of metadata reference, e.g. a literal or an http referenceable link
    * @return accessType
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Type of metadata reference, e.g. a literal or an http referenceable link")
 
 
   public String getAccessType() {
@@ -219,10 +195,10 @@ public class MDTemplateElement   {
   }
 
   /**
-   * Get validationExp
+   * Type-specific validation hint, primarily via regex
    * @return validationExp
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Type-specific validation hint, primarily via regex")
 
 
   public String getValidationExp() {
@@ -233,24 +209,44 @@ public class MDTemplateElement   {
     this.validationExp = validationExp;
   }
 
-  public MDTemplateElement guid(String guid) {
-    this.guid = guid;
+  public MDTemplateElement cardinalityMin(Integer cardinalityMin) {
+    this.cardinalityMin = cardinalityMin;
     return this;
   }
 
   /**
-   * Get guid
-   * @return guid
+   * Minimum cardinality, minumum number of element x to be defined
+   * @return cardinalityMin
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Minimum cardinality, minumum number of element x to be defined")
 
 
-  public String getGuid() {
-    return guid;
+  public Integer getCardinalityMin() {
+    return cardinalityMin;
   }
 
-  public void setGuid(String guid) {
-    this.guid = guid;
+  public void setCardinalityMin(Integer cardinalityMin) {
+    this.cardinalityMin = cardinalityMin;
+  }
+
+  public MDTemplateElement cardinalityMax(Integer cardinalityMax) {
+    this.cardinalityMax = cardinalityMax;
+    return this;
+  }
+
+  /**
+   * Maximum cardinality, maximum number of element x to be defined
+   * @return cardinalityMax
+  **/
+  @ApiModelProperty(value = "Maximum cardinality, maximum number of element x to be defined")
+
+
+  public Integer getCardinalityMax() {
+    return cardinalityMax;
+  }
+
+  public void setCardinalityMax(Integer cardinalityMax) {
+    this.cardinalityMax = cardinalityMax;
   }
 
   public MDTemplateElement elements(List<MDTemplateElement> elements) {
@@ -267,10 +263,10 @@ public class MDTemplateElement   {
   }
 
   /**
-   * Get elements
+   * An array of child elements in the case of a grouping
    * @return elements
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "An array of child elements in the case of a grouping")
 
   @Valid
 
@@ -292,22 +288,22 @@ public class MDTemplateElement   {
       return false;
     }
     MDTemplateElement mdTemplateElement = (MDTemplateElement) o;
-    return Objects.equals(this.id, mdTemplateElement.id) &&
-        Objects.equals(this.attribute, mdTemplateElement.attribute) &&
+    return Objects.equals(this.guid, mdTemplateElement.guid) &&
+        Objects.equals(this.name, mdTemplateElement.name) &&
         Objects.equals(this.defaultValue, mdTemplateElement.defaultValue) &&
-        Objects.equals(this.attributeUnit, mdTemplateElement.attributeUnit) &&
         Objects.equals(this.type, mdTemplateElement.type) &&
         Objects.equals(this.required, mdTemplateElement.required) &&
         Objects.equals(this.options, mdTemplateElement.options) &&
         Objects.equals(this.accessType, mdTemplateElement.accessType) &&
         Objects.equals(this.validationExp, mdTemplateElement.validationExp) &&
-        Objects.equals(this.guid, mdTemplateElement.guid) &&
+        Objects.equals(this.cardinalityMin, mdTemplateElement.cardinalityMin) &&
+        Objects.equals(this.cardinalityMax, mdTemplateElement.cardinalityMax) &&
         Objects.equals(this.elements, mdTemplateElement.elements);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, attribute, defaultValue, attributeUnit, type, required, options, accessType, validationExp, guid, elements);
+    return Objects.hash(guid, name, defaultValue, type, required, options, accessType, validationExp, cardinalityMin, cardinalityMax, elements);
   }
 
   @Override
@@ -315,16 +311,16 @@ public class MDTemplateElement   {
     StringBuilder sb = new StringBuilder();
     sb.append("class MDTemplateElement {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    attribute: ").append(toIndentedString(attribute)).append("\n");
+    sb.append("    guid: ").append(toIndentedString(guid)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    defaultValue: ").append(toIndentedString(defaultValue)).append("\n");
-    sb.append("    attributeUnit: ").append(toIndentedString(attributeUnit)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("    accessType: ").append(toIndentedString(accessType)).append("\n");
     sb.append("    validationExp: ").append(toIndentedString(validationExp)).append("\n");
-    sb.append("    guid: ").append(toIndentedString(guid)).append("\n");
+    sb.append("    cardinalityMin: ").append(toIndentedString(cardinalityMin)).append("\n");
+    sb.append("    cardinalityMax: ").append(toIndentedString(cardinalityMax)).append("\n");
     sb.append("    elements: ").append(toIndentedString(elements)).append("\n");
     sb.append("}");
     return sb.toString();
