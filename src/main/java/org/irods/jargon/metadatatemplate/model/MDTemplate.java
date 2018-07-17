@@ -16,8 +16,7 @@ import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:26:03.800Z")
 
 public class MDTemplate   {
-  @JsonProperty("id")
-  private Long id = null;
+
 
   @JsonProperty("templateName")
   private String templateName = null;
@@ -47,25 +46,9 @@ public class MDTemplate   {
   @Valid
   private List<MDTemplateElement> elements = null;
 
-  public MDTemplate id(Long id) {
-    this.id = id;
-    return this;
-  }
 
-  /**
-   * Get id
-   * @return id
-  **/
+  
   @ApiModelProperty(value = "")
-
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
 
   public MDTemplate templateName(String templateName) {
     this.templateName = templateName;
@@ -268,7 +251,7 @@ public class MDTemplate   {
       return false;
     }
     MDTemplate mdTemplate = (MDTemplate) o;
-    return Objects.equals(this.id, mdTemplate.id) &&
+    return 
         Objects.equals(this.templateName, mdTemplate.templateName) &&
         Objects.equals(this.createTs, mdTemplate.createTs) &&
         Objects.equals(this.modifyTs, mdTemplate.modifyTs) &&
@@ -282,7 +265,7 @@ public class MDTemplate   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, templateName, createTs, modifyTs, version, description, guid, accessType, owner, elements);
+    return Objects.hash(templateName, createTs, modifyTs, version, description, guid, accessType, owner, elements);
   }
 
   @Override
@@ -290,7 +273,6 @@ public class MDTemplate   {
     StringBuilder sb = new StringBuilder();
     sb.append("class MDTemplate {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    templateName: ").append(toIndentedString(templateName)).append("\n");
     sb.append("    createTs: ").append(toIndentedString(createTs)).append("\n");
     sb.append("    modifyTs: ").append(toIndentedString(modifyTs)).append("\n");
