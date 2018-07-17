@@ -2,24 +2,20 @@ package org.irods.jargon.metadatatemplate.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.Element;
 import java.util.ArrayList;
 import java.util.List;
 import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
- * Template
+ * MDTemplate
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-16T19:38:53.663Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:07:25.464Z")
 
-public class Template   {
+public class MDTemplate   {
   @JsonProperty("id")
   private Long id = null;
 
@@ -49,9 +45,9 @@ public class Template   {
 
   @JsonProperty("elements")
   @Valid
-  private List<Element> elements = null;
+  private List<MDTemplateElement> elements = null;
 
-  public Template id(Long id) {
+  public MDTemplate id(Long id) {
     this.id = id;
     return this;
   }
@@ -71,7 +67,7 @@ public class Template   {
     this.id = id;
   }
 
-  public Template templateName(String templateName) {
+  public MDTemplate templateName(String templateName) {
     this.templateName = templateName;
     return this;
   }
@@ -91,7 +87,7 @@ public class Template   {
     this.templateName = templateName;
   }
 
-  public Template createTs(OffsetDateTime createTs) {
+  public MDTemplate createTs(OffsetDateTime createTs) {
     this.createTs = createTs;
     return this;
   }
@@ -112,7 +108,7 @@ public class Template   {
     this.createTs = createTs;
   }
 
-  public Template modifyTs(OffsetDateTime modifyTs) {
+  public MDTemplate modifyTs(OffsetDateTime modifyTs) {
     this.modifyTs = modifyTs;
     return this;
   }
@@ -133,7 +129,7 @@ public class Template   {
     this.modifyTs = modifyTs;
   }
 
-  public Template version(Integer version) {
+  public MDTemplate version(Integer version) {
     this.version = version;
     return this;
   }
@@ -153,7 +149,7 @@ public class Template   {
     this.version = version;
   }
 
-  public Template description(String description) {
+  public MDTemplate description(String description) {
     this.description = description;
     return this;
   }
@@ -173,7 +169,7 @@ public class Template   {
     this.description = description;
   }
 
-  public Template guid(String guid) {
+  public MDTemplate guid(String guid) {
     this.guid = guid;
     return this;
   }
@@ -193,7 +189,7 @@ public class Template   {
     this.guid = guid;
   }
 
-  public Template accessType(String accessType) {
+  public MDTemplate accessType(String accessType) {
     this.accessType = accessType;
     return this;
   }
@@ -213,7 +209,7 @@ public class Template   {
     this.accessType = accessType;
   }
 
-  public Template owner(String owner) {
+  public MDTemplate owner(String owner) {
     this.owner = owner;
     return this;
   }
@@ -233,14 +229,14 @@ public class Template   {
     this.owner = owner;
   }
 
-  public Template elements(List<Element> elements) {
+  public MDTemplate elements(List<MDTemplateElement> elements) {
     this.elements = elements;
     return this;
   }
 
-  public Template addElementsItem(Element elementsItem) {
+  public MDTemplate addElementsItem(MDTemplateElement elementsItem) {
     if (this.elements == null) {
-      this.elements = new ArrayList<Element>();
+      this.elements = new ArrayList<MDTemplateElement>();
     }
     this.elements.add(elementsItem);
     return this;
@@ -254,11 +250,11 @@ public class Template   {
 
   @Valid
 
-  public List<Element> getElements() {
+  public List<MDTemplateElement> getElements() {
     return elements;
   }
 
-  public void setElements(List<Element> elements) {
+  public void setElements(List<MDTemplateElement> elements) {
     this.elements = elements;
   }
 
@@ -271,17 +267,17 @@ public class Template   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Template template = (Template) o;
-    return Objects.equals(this.id, template.id) &&
-        Objects.equals(this.templateName, template.templateName) &&
-        Objects.equals(this.createTs, template.createTs) &&
-        Objects.equals(this.modifyTs, template.modifyTs) &&
-        Objects.equals(this.version, template.version) &&
-        Objects.equals(this.description, template.description) &&
-        Objects.equals(this.guid, template.guid) &&
-        Objects.equals(this.accessType, template.accessType) &&
-        Objects.equals(this.owner, template.owner) &&
-        Objects.equals(this.elements, template.elements);
+    MDTemplate mdTemplate = (MDTemplate) o;
+    return Objects.equals(this.id, mdTemplate.id) &&
+        Objects.equals(this.templateName, mdTemplate.templateName) &&
+        Objects.equals(this.createTs, mdTemplate.createTs) &&
+        Objects.equals(this.modifyTs, mdTemplate.modifyTs) &&
+        Objects.equals(this.version, mdTemplate.version) &&
+        Objects.equals(this.description, mdTemplate.description) &&
+        Objects.equals(this.guid, mdTemplate.guid) &&
+        Objects.equals(this.accessType, mdTemplate.accessType) &&
+        Objects.equals(this.owner, mdTemplate.owner) &&
+        Objects.equals(this.elements, mdTemplate.elements);
   }
 
   @Override
@@ -292,7 +288,7 @@ public class Template   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Template {\n");
+    sb.append("class MDTemplate {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    templateName: ").append(toIndentedString(templateName)).append("\n");

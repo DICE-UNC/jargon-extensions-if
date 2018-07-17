@@ -1,24 +1,24 @@
 package org.irods.jargon.metadatatemplate.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.model.Element;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Element
+ * MDTemplateElement
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-16T19:38:53.663Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:07:25.464Z")
 
-public class Element   {
+public class MDTemplateElement   {
   @JsonProperty("id")
   private Long id = null;
 
@@ -51,9 +51,9 @@ public class Element   {
 
   @JsonProperty("elements")
   @Valid
-  private List<Element> elements = null;
+  private List<MDTemplateElement> elements = null;
 
-  public Element id(Long id) {
+  public MDTemplateElement id(Long id) {
     this.id = id;
     return this;
   }
@@ -73,7 +73,7 @@ public class Element   {
     this.id = id;
   }
 
-  public Element attribute(String attribute) {
+  public MDTemplateElement attribute(String attribute) {
     this.attribute = attribute;
     return this;
   }
@@ -93,7 +93,7 @@ public class Element   {
     this.attribute = attribute;
   }
 
-  public Element defaultValue(String defaultValue) {
+  public MDTemplateElement defaultValue(String defaultValue) {
     this.defaultValue = defaultValue;
     return this;
   }
@@ -113,7 +113,7 @@ public class Element   {
     this.defaultValue = defaultValue;
   }
 
-  public Element attributeUnit(String attributeUnit) {
+  public MDTemplateElement attributeUnit(String attributeUnit) {
     this.attributeUnit = attributeUnit;
     return this;
   }
@@ -133,7 +133,7 @@ public class Element   {
     this.attributeUnit = attributeUnit;
   }
 
-  public Element type(String type) {
+  public MDTemplateElement type(String type) {
     this.type = type;
     return this;
   }
@@ -153,7 +153,7 @@ public class Element   {
     this.type = type;
   }
 
-  public Element required(Boolean required) {
+  public MDTemplateElement required(Boolean required) {
     this.required = required;
     return this;
   }
@@ -173,7 +173,7 @@ public class Element   {
     this.required = required;
   }
 
-  public Element options(String options) {
+  public MDTemplateElement options(String options) {
     this.options = options;
     return this;
   }
@@ -193,7 +193,7 @@ public class Element   {
     this.options = options;
   }
 
-  public Element accessType(String accessType) {
+  public MDTemplateElement accessType(String accessType) {
     this.accessType = accessType;
     return this;
   }
@@ -213,7 +213,7 @@ public class Element   {
     this.accessType = accessType;
   }
 
-  public Element validationExp(String validationExp) {
+  public MDTemplateElement validationExp(String validationExp) {
     this.validationExp = validationExp;
     return this;
   }
@@ -233,7 +233,7 @@ public class Element   {
     this.validationExp = validationExp;
   }
 
-  public Element guid(String guid) {
+  public MDTemplateElement guid(String guid) {
     this.guid = guid;
     return this;
   }
@@ -253,14 +253,14 @@ public class Element   {
     this.guid = guid;
   }
 
-  public Element elements(List<Element> elements) {
+  public MDTemplateElement elements(List<MDTemplateElement> elements) {
     this.elements = elements;
     return this;
   }
 
-  public Element addElementsItem(Element elementsItem) {
+  public MDTemplateElement addElementsItem(MDTemplateElement elementsItem) {
     if (this.elements == null) {
-      this.elements = new ArrayList<Element>();
+      this.elements = new ArrayList<MDTemplateElement>();
     }
     this.elements.add(elementsItem);
     return this;
@@ -274,11 +274,11 @@ public class Element   {
 
   @Valid
 
-  public List<Element> getElements() {
+  public List<MDTemplateElement> getElements() {
     return elements;
   }
 
-  public void setElements(List<Element> elements) {
+  public void setElements(List<MDTemplateElement> elements) {
     this.elements = elements;
   }
 
@@ -291,18 +291,18 @@ public class Element   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Element element = (Element) o;
-    return Objects.equals(this.id, element.id) &&
-        Objects.equals(this.attribute, element.attribute) &&
-        Objects.equals(this.defaultValue, element.defaultValue) &&
-        Objects.equals(this.attributeUnit, element.attributeUnit) &&
-        Objects.equals(this.type, element.type) &&
-        Objects.equals(this.required, element.required) &&
-        Objects.equals(this.options, element.options) &&
-        Objects.equals(this.accessType, element.accessType) &&
-        Objects.equals(this.validationExp, element.validationExp) &&
-        Objects.equals(this.guid, element.guid) &&
-        Objects.equals(this.elements, element.elements);
+    MDTemplateElement mdTemplateElement = (MDTemplateElement) o;
+    return Objects.equals(this.id, mdTemplateElement.id) &&
+        Objects.equals(this.attribute, mdTemplateElement.attribute) &&
+        Objects.equals(this.defaultValue, mdTemplateElement.defaultValue) &&
+        Objects.equals(this.attributeUnit, mdTemplateElement.attributeUnit) &&
+        Objects.equals(this.type, mdTemplateElement.type) &&
+        Objects.equals(this.required, mdTemplateElement.required) &&
+        Objects.equals(this.options, mdTemplateElement.options) &&
+        Objects.equals(this.accessType, mdTemplateElement.accessType) &&
+        Objects.equals(this.validationExp, mdTemplateElement.validationExp) &&
+        Objects.equals(this.guid, mdTemplateElement.guid) &&
+        Objects.equals(this.elements, mdTemplateElement.elements);
   }
 
   @Override
@@ -313,7 +313,7 @@ public class Element   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Element {\n");
+    sb.append("class MDTemplateElement {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    attribute: ").append(toIndentedString(attribute)).append("\n");
