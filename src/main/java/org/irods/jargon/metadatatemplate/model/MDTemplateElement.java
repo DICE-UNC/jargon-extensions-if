@@ -2,17 +2,21 @@ package org.irods.jargon.metadatatemplate.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.irods.jargon.metadatatemplate.model.MDTemplateElement;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * MDTemplateElement
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:26:03.800Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T19:36:32.386Z")
 
 public class MDTemplateElement   {
   @JsonProperty("guid")
@@ -26,6 +30,9 @@ public class MDTemplateElement   {
 
   @JsonProperty("type")
   private String type = null;
+
+  @JsonProperty("unit")
+  private String unit = null;
 
   @JsonProperty("required")
   private Boolean required = null;
@@ -127,6 +134,26 @@ public class MDTemplateElement   {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public MDTemplateElement unit(String unit) {
+    this.unit = unit;
+    return this;
+  }
+
+  /**
+   * Unit of measure associated with entered value, e.g. a length field may have a unit of meters
+   * @return unit
+  **/
+  @ApiModelProperty(value = "Unit of measure associated with entered value, e.g. a length field may have a unit of meters")
+
+
+  public String getUnit() {
+    return unit;
+  }
+
+  public void setUnit(String unit) {
+    this.unit = unit;
   }
 
   public MDTemplateElement required(Boolean required) {
@@ -292,6 +319,7 @@ public class MDTemplateElement   {
         Objects.equals(this.name, mdTemplateElement.name) &&
         Objects.equals(this.defaultValue, mdTemplateElement.defaultValue) &&
         Objects.equals(this.type, mdTemplateElement.type) &&
+        Objects.equals(this.unit, mdTemplateElement.unit) &&
         Objects.equals(this.required, mdTemplateElement.required) &&
         Objects.equals(this.options, mdTemplateElement.options) &&
         Objects.equals(this.accessType, mdTemplateElement.accessType) &&
@@ -303,7 +331,7 @@ public class MDTemplateElement   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(guid, name, defaultValue, type, required, options, accessType, validationExp, cardinalityMin, cardinalityMax, elements);
+    return Objects.hash(guid, name, defaultValue, type, unit, required, options, accessType, validationExp, cardinalityMin, cardinalityMax, elements);
   }
 
   @Override
@@ -315,6 +343,7 @@ public class MDTemplateElement   {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    defaultValue: ").append(toIndentedString(defaultValue)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("    accessType: ").append(toIndentedString(accessType)).append("\n");
