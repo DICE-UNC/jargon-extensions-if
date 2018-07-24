@@ -2,22 +2,24 @@ package org.irods.jargon.metadatatemplate.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.irods.jargon.metadatatemplate.model.MDTemplateElement;
 import java.util.ArrayList;
 import java.util.List;
 import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * MDTemplate
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T12:26:03.800Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T19:36:32.386Z")
 
 public class MDTemplate   {
-
-
   @JsonProperty("templateName")
   private String templateName = null;
 
@@ -45,10 +47,6 @@ public class MDTemplate   {
   @JsonProperty("elements")
   @Valid
   private List<MDTemplateElement> elements = null;
-
-
-  
-  @ApiModelProperty(value = "")
 
   public MDTemplate templateName(String templateName) {
     this.templateName = templateName;
@@ -251,8 +249,7 @@ public class MDTemplate   {
       return false;
     }
     MDTemplate mdTemplate = (MDTemplate) o;
-    return 
-        Objects.equals(this.templateName, mdTemplate.templateName) &&
+    return Objects.equals(this.templateName, mdTemplate.templateName) &&
         Objects.equals(this.createTs, mdTemplate.createTs) &&
         Objects.equals(this.modifyTs, mdTemplate.modifyTs) &&
         Objects.equals(this.version, mdTemplate.version) &&
