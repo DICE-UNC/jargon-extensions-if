@@ -17,7 +17,7 @@ public abstract class AbstractMetadataService {
 
 	public abstract List<MDTemplate> listAllTemplates(final String path) throws MetadataTemplateException;
 
-	public abstract MDTemplate findTemplateByUUID(UUID uuid)
+	public abstract MDTemplate findTemplateByGuid(UUID guid)
 			throws MetadataTemplateNotFoundException, MetadataTemplateException;
 	
 	public abstract MDTemplate findTemplateByName(String templateName)
@@ -25,6 +25,8 @@ public abstract class AbstractMetadataService {
 	
 	public abstract boolean isTemplateExist(String templateName)
 			throws MetadataTemplateNotFoundException, MetadataTemplateException;
+	
+	public abstract UUID updateTemplate(MDTemplate metadataTemplate) throws MetadataTemplateException;
 
 	
 }
