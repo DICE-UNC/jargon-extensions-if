@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.irods.jargon.metadatatemplate.model.MDTemplate;
+import org.irods.jargon.metadatatemplate.model.MDTemplateElement;
 
 public abstract class AbstractMetadataService {
 
@@ -28,5 +29,14 @@ public abstract class AbstractMetadataService {
 	
 	public abstract UUID updateTemplate(MDTemplate metadataTemplate) throws MetadataTemplateException;
 
+	
+	public abstract UUID saveElement(UUID templateGuid, MDTemplateElement metadataTemplate) throws MetadataTemplateException;
+
+	public abstract UUID updateElement(UUID templateGuid , MDTemplateElement metadataTemplate) throws MetadataTemplateException;
+	
+	public abstract boolean deleteElementByGuid(UUID templateGuid, UUID elementGuid) throws MetadataTemplateException;
+	
+	public abstract MDTemplateElement findElementByGuid(UUID templateGuid, UUID elementGuid)
+			throws MetadataTemplateNotFoundException, MetadataTemplateException;
 	
 }
