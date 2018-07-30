@@ -66,6 +66,19 @@
 				<checksumPolicy>warn</checksumPolicy>
 			</snapshots>
 		</repository>
+		<repository>
+					 <id>netbeans.repository</id>
+					 <name>netbeans.repository</name>
+					 <url>http://bits.netbeans.org/maven2</url>
+					 <releases>
+							 <enabled>true</enabled>
+					 </releases>
+					 <snapshots>
+							 <enabled>true</enabled>
+							 <updatePolicy>never</updatePolicy>
+							 <checksumPolicy>fail</checksumPolicy>
+					 </snapshots>
+			 </repository>
 	</repositories>
 	<dependencies>
 		<dependency>
