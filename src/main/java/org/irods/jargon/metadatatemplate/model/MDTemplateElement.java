@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.irods.jargon.metadatatemplate.model.MDTemplateElement;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +15,7 @@ import javax.validation.constraints.*;
  * MDTemplateElement
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-17T19:36:32.386Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-07-31T15:53:32.552Z")
 
 public class MDTemplateElement   {
   @JsonProperty("guid")
@@ -24,6 +23,15 @@ public class MDTemplateElement   {
 
   @JsonProperty("name")
   private String name = null;
+
+  @JsonProperty("i18name")
+  private String i18name = null;
+
+  @JsonProperty("i18description")
+  private String i18description = null;
+
+  @JsonProperty("description")
+  private String description = null;
 
   @JsonProperty("defaultValue")
   private String defaultValue = null;
@@ -39,9 +47,6 @@ public class MDTemplateElement   {
 
   @JsonProperty("options")
   private String options = null;
-
-  @JsonProperty("access_type")
-  private String accessType = null;
 
   @JsonProperty("validationExp")
   private String validationExp = null;
@@ -62,10 +67,10 @@ public class MDTemplateElement   {
   }
 
   /**
-   * GUID uniquely identifying the element
+   * A system generated GUID for the template that serves as a unique identifier. The system should behave such that a blank GUID on creation will result in the generation of a GUID, while specification of a GUID on create would use that provided GUID as the unique identifier.
    * @return guid
   **/
-  @ApiModelProperty(value = "GUID uniquely identifying the element")
+  @ApiModelProperty(value = "A system generated GUID for the template that serves as a unique identifier. The system should behave such that a blank GUID on creation will result in the generation of a GUID, while specification of a GUID on create would use that provided GUID as the unique identifier.")
 
 
   public String getGuid() {
@@ -96,6 +101,66 @@ public class MDTemplateElement   {
     this.name = name;
   }
 
+  public MDTemplateElement i18name(String i18name) {
+    this.i18name = i18name;
+    return this;
+  }
+
+  /**
+   * An optional resource bundle property reference to an internationalized name for the template element
+   * @return i18name
+  **/
+  @ApiModelProperty(value = "An optional resource bundle property reference to an internationalized name for the template element")
+
+
+  public String getI18name() {
+    return i18name;
+  }
+
+  public void setI18name(String i18name) {
+    this.i18name = i18name;
+  }
+
+  public MDTemplateElement i18description(String i18description) {
+    this.i18description = i18description;
+    return this;
+  }
+
+  /**
+   * An optional resource bundle property reference to an internationalized description for the template element
+   * @return i18description
+  **/
+  @ApiModelProperty(value = "An optional resource bundle property reference to an internationalized description for the template element")
+
+
+  public String getI18description() {
+    return i18description;
+  }
+
+  public void setI18description(String i18description) {
+    this.i18description = i18description;
+  }
+
+  public MDTemplateElement description(String description) {
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * User guidance on the purpose and use of the given field, can be displayed as help
+   * @return description
+  **/
+  @ApiModelProperty(value = "User guidance on the purpose and use of the given field, can be displayed as help")
+
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public MDTemplateElement defaultValue(String defaultValue) {
     this.defaultValue = defaultValue;
     return this;
@@ -122,10 +187,10 @@ public class MDTemplateElement   {
   }
 
   /**
-   * Type of element [string, int, list, etc]
+   * Type of element [string, int, list, boolean, float, range etc]
    * @return type
   **/
-  @ApiModelProperty(value = "Type of element [string, int, list, etc]")
+  @ApiModelProperty(value = "Type of element [string, int, list, boolean, float, range etc]")
 
 
   public String getType() {
@@ -194,26 +259,6 @@ public class MDTemplateElement   {
 
   public void setOptions(String options) {
     this.options = options;
-  }
-
-  public MDTemplateElement accessType(String accessType) {
-    this.accessType = accessType;
-    return this;
-  }
-
-  /**
-   * Type of metadata reference, e.g. a literal or an http referenceable link
-   * @return accessType
-  **/
-  @ApiModelProperty(value = "Type of metadata reference, e.g. a literal or an http referenceable link")
-
-
-  public String getAccessType() {
-    return accessType;
-  }
-
-  public void setAccessType(String accessType) {
-    this.accessType = accessType;
   }
 
   public MDTemplateElement validationExp(String validationExp) {
@@ -317,12 +362,14 @@ public class MDTemplateElement   {
     MDTemplateElement mdTemplateElement = (MDTemplateElement) o;
     return Objects.equals(this.guid, mdTemplateElement.guid) &&
         Objects.equals(this.name, mdTemplateElement.name) &&
+        Objects.equals(this.i18name, mdTemplateElement.i18name) &&
+        Objects.equals(this.i18description, mdTemplateElement.i18description) &&
+        Objects.equals(this.description, mdTemplateElement.description) &&
         Objects.equals(this.defaultValue, mdTemplateElement.defaultValue) &&
         Objects.equals(this.type, mdTemplateElement.type) &&
         Objects.equals(this.unit, mdTemplateElement.unit) &&
         Objects.equals(this.required, mdTemplateElement.required) &&
         Objects.equals(this.options, mdTemplateElement.options) &&
-        Objects.equals(this.accessType, mdTemplateElement.accessType) &&
         Objects.equals(this.validationExp, mdTemplateElement.validationExp) &&
         Objects.equals(this.cardinalityMin, mdTemplateElement.cardinalityMin) &&
         Objects.equals(this.cardinalityMax, mdTemplateElement.cardinalityMax) &&
@@ -331,7 +378,7 @@ public class MDTemplateElement   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(guid, name, defaultValue, type, unit, required, options, accessType, validationExp, cardinalityMin, cardinalityMax, elements);
+    return Objects.hash(guid, name, i18name, i18description, description, defaultValue, type, unit, required, options, validationExp, cardinalityMin, cardinalityMax, elements);
   }
 
   @Override
@@ -341,12 +388,14 @@ public class MDTemplateElement   {
     
     sb.append("    guid: ").append(toIndentedString(guid)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    i18name: ").append(toIndentedString(i18name)).append("\n");
+    sb.append("    i18description: ").append(toIndentedString(i18description)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    defaultValue: ").append(toIndentedString(defaultValue)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
     sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
-    sb.append("    accessType: ").append(toIndentedString(accessType)).append("\n");
     sb.append("    validationExp: ").append(toIndentedString(validationExp)).append("\n");
     sb.append("    cardinalityMin: ").append(toIndentedString(cardinalityMin)).append("\n");
     sb.append("    cardinalityMax: ").append(toIndentedString(cardinalityMax)).append("\n");
