@@ -8,7 +8,7 @@ import org.irods.jargon.metadatatemplate.model.MDTemplateElement;
 
 public abstract class AbstractMetadataService {
 
-	public abstract void saveTemplate(MDTemplate metadataTemplate) throws MetadataTemplateException;
+	public abstract MDTemplate saveTemplate(MDTemplate metadataTemplate) throws MetadataTemplateException;
 
 	public abstract boolean deleteTemplateByName(String uniqueName) throws MetadataTemplateException;
 	
@@ -27,12 +27,12 @@ public abstract class AbstractMetadataService {
 	public abstract boolean isTemplateExist(String templateName)
 			throws MetadataTemplateNotFoundException, MetadataTemplateException;
 	
-	public abstract void updateTemplate(MDTemplate metadataTemplate) throws MetadataTemplateException;
+	public abstract MDTemplate updateTemplate(MDTemplate metadataTemplate) throws MetadataTemplateException;
 
 	
-	public abstract void saveElement(UUID templateGuid, MDTemplateElement metadataTemplate) throws MetadataTemplateException;
+	public abstract MDTemplateElement saveElement(UUID templateGuid, MDTemplateElement metadataTemplate) throws MetadataTemplateException;
 
-	public abstract void updateElement(UUID templateGuid , MDTemplateElement metadataTemplate) throws MetadataTemplateException;
+	public abstract MDTemplateElement updateElement(UUID templateGuid , MDTemplateElement metadataTemplate) throws MetadataTemplateException;
 	
 	public abstract boolean deleteElementByGuid(UUID templateGuid, UUID elementGuid) throws MetadataTemplateException;
 	
