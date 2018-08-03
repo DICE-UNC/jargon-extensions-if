@@ -17,13 +17,13 @@ import javax.validation.Valid;
 
 public class MDTemplate   {
   @JsonProperty("templateName")
-  private String templateName = null;
+  private String templateName = "";
 
   @JsonProperty("i18name")
-  private String i18name = null;
+  private String i18name = "";
 
   @JsonProperty("i18description")
-  private String i18description = null;
+  private String i18description = "";
 
   @JsonProperty("createTs")
   private OffsetDateTime createTs = null;
@@ -32,19 +32,19 @@ public class MDTemplate   {
   private OffsetDateTime modifyTs = null;
 
   @JsonProperty("version")
-  private Integer version = null;
+  private Integer version = 0;
 
   @JsonProperty("description")
-  private String description = null;
+  private String description = "";
 
   @JsonProperty("guid")
-  private String guid = null;
+  private String guid = "";
 
   @JsonProperty("access_type")
-  private String accessType = null;
+  private String accessType = "";
 
   @JsonProperty("owner")
-  private String owner = null;
+  private String owner = "";
 
   @JsonProperty("elements")
   @Valid

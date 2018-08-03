@@ -16,43 +16,43 @@ import javax.validation.Valid;
 
 public class MDTemplateElement   {
   @JsonProperty("guid")
-  private String guid = null;
+  private String guid = "";
 
   @JsonProperty("name")
-  private String name = null;
+  private String name = "";
 
   @JsonProperty("i18name")
-  private String i18name = null;
+  private String i18name = "";
 
   @JsonProperty("i18description")
-  private String i18description = null;
+  private String i18description = "";
 
   @JsonProperty("description")
-  private String description = null;
+  private String description = "";
 
   @JsonProperty("defaultValue")
-  private String defaultValue = null;
+  private String defaultValue = "";
 
   @JsonProperty("type")
-  private String type = null;
+  private String type = "";
 
   @JsonProperty("unit")
-  private String unit = null;
+  private String unit = "";
 
   @JsonProperty("required")
-  private Boolean required = null;
+  private Boolean required = false;
 
   @JsonProperty("options")
-  private String options = null;
+  private String options = "";
 
   @JsonProperty("validationExp")
-  private String validationExp = null;
+  private String validationExp = "";
 
   @JsonProperty("cardinalityMin")
-  private Integer cardinalityMin = null;
+  private Integer cardinalityMin = -1;
 
   @JsonProperty("cardinalityMax")
-  private Integer cardinalityMax = null;
+  private Integer cardinalityMax = -1;
 
   @JsonProperty("elements")
   @Valid
