@@ -16,6 +16,9 @@ public abstract class AbstractMetadataService {
 	
 	public abstract List<MDTemplate> listPublicTemplates();
 
+	public abstract List<MDTemplate> listAllTemplates();
+	public abstract List<MDTemplateElement> listAllElements(UUID templateGuid);
+	
 	public abstract List<MDTemplate> listAllTemplates(final String path) throws MetadataTemplateException;
 
 	public abstract MDTemplate findTemplateByGuid(UUID guid)
