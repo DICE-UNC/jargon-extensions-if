@@ -2,9 +2,9 @@
 
 # Project: Jargon Extensions Interface
 
-### Date:
-### Release Version: 4.3.0.1-SNAPSHOT
-### git tag:
+### Date: 10/25/2018
+### Release Version: 4.3.0.1-RELEASE
+### git tag: 4.3.0.1-RELEASE
 #### Developer: Mike Conway - DICE
 
 ## News
@@ -27,3 +27,5 @@ This project uses Maven for dependency management.  See the pom.xml file for ref
 Note that the following bug and feature requests are logged in GitHub with related commit information [[https://github.com/DICE-UNC/jargon-extensions-if/issues]]
 
 ### Changes
+
+#### Update misc dependency versions
