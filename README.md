@@ -2,9 +2,9 @@
 
 # Project: Jargon Extensions Interface
 
-### Date: 10/25/2018
-### Release Version: 4.3.0.1-RELEASE
-### git tag: 4.3.0.1-RELEASE
+### Date:
+### Release Version: 4.3.0.2-SNAPSHOT
+### git tag:
 #### Developer: Mike Conway - DICE
 
 ## News
@@ -18,7 +18,7 @@ Interfaces and abstract classes that define extensions built on top of Jargon an
 
 * Jargon depends on Java 1.8+
 * Jargon is built using Apache Maven2, see POM for dependencies
-* Jargon supports iRODS 3.0 through iRODS 3.3.1 community, as well as through iRODS 4.2.3 consortium
+* Jargon supports iRODS 3.0 through iRODS 3.3.1 community, as well as through iRODS 4.2.4 consortium
 
 ## Libraries
 
