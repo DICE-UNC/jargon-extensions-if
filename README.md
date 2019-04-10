@@ -19,7 +19,7 @@ Interfaces and abstract classes that define extensions built on top of Jargon an
 
 * Jargon depends on Java 1.8+
 * Jargon is built using Apache Maven2, see POM for dependencies
-* Jargon supports iRODS 3.0 through iRODS 3.3.1 community, as well as through iRODS 4.2.3 consortium
+* Jargon supports iRODS 3.0 through iRODS 3.3.1 community, as well as through iRODS 4.2.4 consortium
 
 ## Libraries
 
