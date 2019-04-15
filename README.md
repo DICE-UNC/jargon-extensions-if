@@ -2,9 +2,9 @@
 
 # Project: Jargon Extensions Interface
 
-### Date:
-### Release Version: 4.3.0.2-SNAPSHOT
-### git tag:
+### Date: 04/14/2019
+### Release Version: 4.3.0.2-RELEASE
+### git tag: 4.3.0.2-RELEASE
 #### Developer: Mike Conway - DICE
 
 ## News
