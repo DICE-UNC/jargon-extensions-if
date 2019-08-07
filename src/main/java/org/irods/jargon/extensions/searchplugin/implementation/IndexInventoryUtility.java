@@ -4,6 +4,7 @@
 package org.irods.jargon.extensions.searchplugin.implementation;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -19,7 +20,7 @@ import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 /**
  * Utility to access an index endpoint to get inventory data
@@ -30,7 +31,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class IndexInventoryUtility {
 
 	public static final Logger log = LoggerFactory.getLogger(IndexInventoryUtility.class);
-	private ObjectMapper objectMapper = new ObjectMapper();
+	// private ObjectMapper objectMapper = new ObjectMapper();
+	private Gson gson = new Gson();
 
 	public Indexes inventoryEndpoint(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
 			final String endpointUrl, final JwtIssueServiceImpl jwtIssueService)
@@ -86,7 +88,10 @@ public class IndexInventoryUtility {
 
 			log.debug("response:{}", response);
 			HttpEntity entity = response.getEntity();
-			Indexes indexes = objectMapper.readValue(entity.getContent(), Indexes.class);
+			InputStreamReader reader = new InputStreamReader(entity.getContent());
+			Indexes indexes = gson.fromJson(reader, Indexes.class);
+
+			// objectMapper.readValue(entity.getContent(), Indexes.class);
 			log.debug("indexes:{}", indexes);
 			return indexes;
 		} catch (IOException e) {
