@@ -5,6 +5,8 @@ package org.irods.jargon.extensions.searchplugin.implementation;
 
 import java.io.IOException;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -17,6 +19,8 @@ import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * Utility to access an index endpoint to get inventory data
  * 
@@ -26,6 +30,7 @@ import org.slf4j.LoggerFactory;
 public class IndexInventoryUtility {
 
 	public static final Logger log = LoggerFactory.getLogger(IndexInventoryUtility.class);
+	private ObjectMapper objectMapper = new ObjectMapper();
 
 	public Indexes inventoryEndpoint(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
 			final String endpointUrl, final JwtIssueServiceImpl jwtIssueService)
@@ -69,14 +74,25 @@ public class IndexInventoryUtility {
 
 		try {
 			CloseableHttpResponse response = httpclient.execute(httpGet);
-			log.debug("response:{}", response);
+			int statusCode = response.getStatusLine().getStatusCode();
+			log.info("statusCode:{}", statusCode);
+			if (statusCode == HttpStatus.SC_NOT_FOUND) {
+				log.warn("endpoint not found:{}", targetUrl);
+				throw new SearchPluginUnavailableException();
+			} else if (statusCode != HttpStatus.SC_OK) {
+				log.error("error in request to endpoint:{}", targetUrl);
+				throw new SearchPluginUnavailableException();
+			}
 
+			log.debug("response:{}", response);
+			HttpEntity entity = response.getEntity();
+			Indexes indexes = objectMapper.readValue(entity.getContent(), Indexes.class);
+			log.debug("indexes:{}", indexes);
+			return indexes;
 		} catch (IOException e) {
 			log.error("error accessing endpoint:{}", endpointUrl, e);
 			throw new SearchPluginUnavailableException();
 		}
-
-		return null; // TODO: implement
 
 	}
 
