@@ -132,6 +132,11 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.irods.jargon</groupId>
+			<artifactId>irodsext-jwt-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
@@ -175,7 +180,10 @@
 			<artifactId>threetenbp</artifactId>
 			<version>${threetenbp-version}</version>
 		</dependency>
-		
+		<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
