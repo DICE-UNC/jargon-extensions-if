@@ -226,6 +226,11 @@
 									test.federated.irods.host=${jargon.test.federated.irods.host}
 									test.federated.irods.port=${jargon.test.federated.irods.port}
 									test.federated.irods.zone=${jargon.test.federated.irods.zone}
+									test.search.endpointRegistryList=${jargon.search.endpointRegistryList}
+									test.search.jargon.search.endpointAccessSubject=${jargon.search.endpointAccessSubject}
+									test.search.jwtAlgo=${jargon.search.jwtAlgo}
+									test.search.jwtIssuer=${jargon.search.jwtIssuer}
+									test.search.jwtSecret=${jargon.search.jwtSecret}
 								</echo>
 							</tasks>
 						</configuration>
