@@ -17,7 +17,6 @@ import org.junit.Test;
 public class IndexInventoryUtilityTest {
 
 	private static Properties testingProperties = new Properties();
-	private static TestingPropertiesHelper testingPropertiesHelper = new TestingPropertiesHelper();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -55,6 +54,9 @@ public class IndexInventoryUtilityTest {
 		Indexes index = indexInventoryUtil.inventoryEndpoint(registrationConfig, derivedEndpoints.get(0),
 				jwtIssueService);
 		Assert.assertNotNull("null index", index);
+		// the test assumes, if you are running it,that there should be at least one
+		// index entry
+		Assert.assertFalse("no indexes found", index.getIndexes().isEmpty());
 
 	}
 

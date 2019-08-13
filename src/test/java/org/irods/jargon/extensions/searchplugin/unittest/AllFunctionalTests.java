@@ -1,5 +1,6 @@
 package org.irods.jargon.extensions.searchplugin.unittest;
 
+import org.irods.jargon.extensions.searchplugin.SearchPluginDiscoveryServiceTest;
 import org.irods.jargon.extensions.searchplugin.implementation.IndexInventoryUtilityTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -13,7 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({ IndexInventoryUtilityTest.class })
+@SuiteClasses({ IndexInventoryUtilityTest.class, SearchPluginDiscoveryServiceTest.class })
 public class AllFunctionalTests {
 
 }
