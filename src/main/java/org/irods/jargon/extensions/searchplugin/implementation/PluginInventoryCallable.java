@@ -9,7 +9,7 @@ import org.irods.jargon.extensions.searchplugin.SearchIndexInventory;
 import org.irods.jargon.extensions.searchplugin.SearchIndexInventoryEntry;
 import org.irods.jargon.extensions.searchplugin.SearchPluginRegistrationConfig;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
-import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
+import org.irods.jargon.irodsext.jwt.JwtIssueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,13 +24,13 @@ public class PluginInventoryCallable implements Callable<Indexes> {
 
 	private final SearchPluginRegistrationConfig searchPluginRegistrationConfig;
 	private final String endpointUrl;
-	private final JwtIssueServiceImpl jwtIssueService;
+	private final JwtIssueService jwtIssueService;
 	private final SearchIndexInventory searchIndexInventory;
 
 	public static final Logger log = LoggerFactory.getLogger(PluginInventoryCallable.class);
 
 	public PluginInventoryCallable(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
-			final String endpointUrl, final JwtIssueServiceImpl jwtIssueService,
+			final String endpointUrl, final JwtIssueService jwtIssueService,
 			final SearchIndexInventory searchIndexInventory) {
 
 		if (searchPluginRegistrationConfig == null) {

@@ -125,4 +125,25 @@ public class SearchPluginRegistrationConfig {
 		this.jwtSecret = jwtSecret;
 	}
 
+	/**
+	 * Handy method to return the single line, comma delimited set of endpoints into
+	 * a string list
+	 * 
+	 * @param endpoints {@code String} with the endpoint property value
+	 * @return {@code List<String>} with parsed endpoints
+	 */
+	public static List<String> convertEndpointListToArray(final String endpoints) {
+		if (endpoints == null || endpoints.isEmpty()) {
+			throw new IllegalArgumentException("null or empty endpoints");
+		}
+		List<String> endpointList = new ArrayList<>();
+		String[] split = endpoints.split(",");
+		for (String item : split) {
+			endpointList.add(item);
+		}
+
+		return endpointList;
+
+	}
+
 }

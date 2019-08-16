@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.irods.jargon.extensions.searchplugin.unittest.TestConstants;
+import org.irods.jargon.irodsext.jwt.JwtIssueService;
+import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
+import org.irods.jargon.irodsext.jwt.JwtServiceConfig;
 import org.irods.jargon.testutils.TestingPropertiesHelper;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -42,8 +45,14 @@ public class SearchPluginDiscoveryServiceTest {
 
 		SearchIndexInventory inventory = new SearchIndexInventory();
 
-		SearchPluginDiscoveryService searchPluginDiscoveryService = new SearchPluginDiscoveryService(
-				registrationConfig);
+		JwtServiceConfig jwtServiceConfig = new JwtServiceConfig();
+		jwtServiceConfig.setAlgo(jwtAlgo);
+		jwtServiceConfig.setIssuer(jwtIssuer);
+		jwtServiceConfig.setSecret(jwtSecret);
+		JwtIssueServiceImpl jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
+
+		SearchPluginDiscoveryService searchPluginDiscoveryService = new SearchPluginDiscoveryService(registrationConfig,
+				(JwtIssueService) jwtIssueService);
 		searchPluginDiscoveryService.queryEndpoints(derivedEndpoints, inventory);
 		Assert.assertNotNull("null inventory", inventory);
 		// the test assumes, if you are running it,that there should be at least one
@@ -87,8 +96,14 @@ public class SearchPluginDiscoveryServiceTest {
 
 		SearchIndexInventory inventory = new SearchIndexInventory();
 
-		SearchPluginDiscoveryService searchPluginDiscoveryService = new SearchPluginDiscoveryService(
-				registrationConfig);
+		JwtServiceConfig jwtServiceConfig = new JwtServiceConfig();
+		jwtServiceConfig.setAlgo(jwtAlgo);
+		jwtServiceConfig.setIssuer(jwtIssuer);
+		jwtServiceConfig.setSecret(jwtSecret);
+		JwtIssueServiceImpl jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
+
+		SearchPluginDiscoveryService searchPluginDiscoveryService = new SearchPluginDiscoveryService(registrationConfig,
+				(JwtIssueService) jwtIssueService);
 
 		for (int i = 0; i < 100; i++) {
 			searchPluginDiscoveryService.queryEndpoints(derivedEndpoints, inventory);

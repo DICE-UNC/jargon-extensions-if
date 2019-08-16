@@ -16,7 +16,7 @@ import org.apache.http.message.BasicHeader;
 import org.irods.jargon.extensions.searchplugin.SearchPluginRegistrationConfig;
 import org.irods.jargon.extensions.searchplugin.exception.SearchPluginUnavailableException;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
-import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
+import org.irods.jargon.irodsext.jwt.JwtIssueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +35,7 @@ public class IndexInventoryUtility {
 	private Gson gson = new Gson();
 
 	public Indexes inventoryEndpoint(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
-			final String endpointUrl, final JwtIssueServiceImpl jwtIssueService)
-			throws SearchPluginUnavailableException {
+			final String endpointUrl, final JwtIssueService jwtIssueService) throws SearchPluginUnavailableException {
 
 		log.info("inventoryEndpoint()");
 

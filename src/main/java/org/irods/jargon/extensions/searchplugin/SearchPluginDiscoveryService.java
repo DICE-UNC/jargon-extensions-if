@@ -14,8 +14,7 @@ import org.irods.jargon.core.exception.JargonRuntimeException;
 import org.irods.jargon.extensions.searchplugin.exception.SearchPluginUnavailableException;
 import org.irods.jargon.extensions.searchplugin.implementation.PluginInventoryCallable;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
-import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
-import org.irods.jargon.irodsext.jwt.JwtServiceConfig;
+import org.irods.jargon.irodsext.jwt.JwtIssueService;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -27,7 +26,7 @@ import org.slf4j.LoggerFactory;
 public class SearchPluginDiscoveryService {
 
 	private final SearchPluginRegistrationConfig searchPluginRegistrationConfig;
-	private final JwtIssueServiceImpl jwtIssueService;
+	private final JwtIssueService jwtIssueService;
 	public static final org.slf4j.Logger log = LoggerFactory.getLogger(SearchPluginDiscoveryService.class);
 
 	/**
@@ -35,18 +34,19 @@ public class SearchPluginDiscoveryService {
 	 * 
 	 * @param searchPluginRegistrationConfig {@link SearchPluginRegistrationConfig}
 	 */
-	public SearchPluginDiscoveryService(final SearchPluginRegistrationConfig searchPluginRegistrationConfig) {
+	public SearchPluginDiscoveryService(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
+			JwtIssueService jwtIssueService) {
+
 		if (searchPluginRegistrationConfig == null) {
 			throw new IllegalArgumentException("null searchPluginRegistrationConfig");
 		}
 
-		this.searchPluginRegistrationConfig = searchPluginRegistrationConfig;
-		JwtServiceConfig jwtServiceConfig = new JwtServiceConfig();
-		jwtServiceConfig.setAlgo(searchPluginRegistrationConfig.getJwtAlgo());
-		jwtServiceConfig.setIssuer(searchPluginRegistrationConfig.getJwtIssuer());
-		jwtServiceConfig.setSecret(searchPluginRegistrationConfig.getJwtSecret());
+		if (jwtIssueService == null) {
+			throw new IllegalArgumentException("null jwtIssueService");
+		}
 
-		jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
+		this.searchPluginRegistrationConfig = searchPluginRegistrationConfig;
+		this.jwtIssueService = jwtIssueService;
 	}
 
 	/**
