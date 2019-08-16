@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.irods.jargon.core.exception.JargonRuntimeException;
@@ -84,16 +83,15 @@ public class SearchPluginDiscoveryService {
 					searchIndexInventory));
 		}
 
-		List<Future<Indexes>> futures;
 		try {
 			if (searchPluginRegistrationConfig.getEndpointAccessTimeout() > 0) {
 				log.debug("getting endpoints with a timeout");
 
-				futures = executor.invokeAll(callables, searchPluginRegistrationConfig.getEndpointAccessTimeout(),
+				executor.invokeAll(callables, searchPluginRegistrationConfig.getEndpointAccessTimeout(),
 						TimeUnit.MILLISECONDS);
 
 			} else {
-				futures = executor.invokeAll(callables);
+				executor.invokeAll(callables);
 			}
 
 			awaitTerminationAfterShutdown(executor);

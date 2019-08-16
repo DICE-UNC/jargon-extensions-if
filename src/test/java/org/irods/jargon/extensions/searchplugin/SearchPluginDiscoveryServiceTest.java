@@ -13,7 +13,6 @@ import org.junit.Test;
 public class SearchPluginDiscoveryServiceTest {
 
 	private static Properties testingProperties = new Properties();
-	private static TestingPropertiesHelper testingPropertiesHelper = new TestingPropertiesHelper();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
