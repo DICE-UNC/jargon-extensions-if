@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
 import org.irods.jargon.extensions.searchplugin.unittest.TestConstants;
 import org.irods.jargon.irodsext.jwt.JwtIssueService;
 import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
@@ -59,6 +60,48 @@ public class SearchPluginDiscoveryServiceTest {
 		// index entry
 		Assert.assertFalse("no indexes found", inventory.getIndexInventoryEntries().isEmpty());
 		Assert.assertTrue("did not update ping time", inventory.getLastScanTimeInMillis() > 0);
+
+	}
+
+	@Test
+	public void testAcquireAttributes() throws Exception {
+		String endpointList = (String) testingProperties.get(TestConstants.ENDPOINT_REGISTRY_LIST);
+		String jwtAlgo = (String) testingProperties.get(TestConstants.ENDPOINT_JWT_ALGO);
+		String jwtIssuer = (String) testingProperties.get(TestConstants.ENDPOINT_JWT_ISSUER);
+		String jwtSecret = (String) testingProperties.get(TestConstants.ENDPOINT_JWT_SECRET);
+		String testSubject = (String) testingProperties.get(TestConstants.ENDPOINT_ACCESS_SUBJECT);
+		SearchPluginRegistrationConfig registrationConfig = new SearchPluginRegistrationConfig();
+		String[] endpoints = endpointList.split(",");
+		List<String> derivedEndpoints = new ArrayList<>();
+		for (String endpoint : endpoints) {
+			derivedEndpoints.add(endpoint);
+		}
+
+		registrationConfig.setEndpointAccessSubject(testSubject);
+		registrationConfig.setEndpointRegistryList(derivedEndpoints);
+		registrationConfig.setJwtAlgo(jwtAlgo);
+		registrationConfig.setJwtIssuer(jwtIssuer);
+		registrationConfig.setJwtSecret(jwtSecret);
+
+		SearchIndexInventory inventory = new SearchIndexInventory();
+
+		JwtServiceConfig jwtServiceConfig = new JwtServiceConfig();
+		jwtServiceConfig.setAlgo(jwtAlgo);
+		jwtServiceConfig.setIssuer(jwtIssuer);
+		jwtServiceConfig.setSecret(jwtSecret);
+		JwtIssueServiceImpl jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
+
+		SearchPluginDiscoveryService searchPluginDiscoveryService = new SearchPluginDiscoveryService(registrationConfig,
+				(JwtIssueService) jwtIssueService);
+		searchPluginDiscoveryService.queryEndpoints(derivedEndpoints, inventory);
+		Assert.assertNotNull("null inventory", inventory);
+		// now go into an endpoint and find a schema and then proceed to get the
+		// attributes
+		String testEndpoint = derivedEndpoints.get(0);
+		String testSchema = inventory.getIndexInventoryEntries().get(testEndpoint).getIndexInformation().getIndexes()
+				.get(0).getId();
+		SearchAttributes attributes = searchPluginDiscoveryService.queryAttributes(testEndpoint, testSchema, inventory);
+		Assert.assertNotNull("null attributes discovered", attributes);
 
 	}
 
