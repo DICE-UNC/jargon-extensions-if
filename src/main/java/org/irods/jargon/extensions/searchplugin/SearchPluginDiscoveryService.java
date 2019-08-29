@@ -76,6 +76,7 @@ public class SearchPluginDiscoveryService {
 		log.info("schemaId:{}", schemaId);
 		log.info("offset:{}", offset);
 		log.info("length:{}", length);
+		return null;
 
 	}
 
