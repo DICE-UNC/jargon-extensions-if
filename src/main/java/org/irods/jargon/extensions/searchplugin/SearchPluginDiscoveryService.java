@@ -19,7 +19,7 @@ import org.irods.jargon.extensions.searchplugin.implementation.SchemaAttributesC
 import org.irods.jargon.extensions.searchplugin.model.IndexSchemaDescription;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
-import org.irods.jargon.irodsext.jwt.JwtIssueService;
+import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 public class SearchPluginDiscoveryService {
 
 	private final SearchPluginRegistrationConfig searchPluginRegistrationConfig;
-	private final JwtIssueService jwtIssueService;
+	private final AbstractJwtIssueService jwtIssueService;
 	public static final org.slf4j.Logger log = LoggerFactory.getLogger(SearchPluginDiscoveryService.class);
 
 	/**
@@ -40,7 +40,7 @@ public class SearchPluginDiscoveryService {
 	 * @param searchPluginRegistrationConfig {@link SearchPluginRegistrationConfig}
 	 */
 	public SearchPluginDiscoveryService(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
-			JwtIssueService jwtIssueService) {
+			AbstractJwtIssueService jwtIssueService) {
 
 		if (searchPluginRegistrationConfig == null) {
 			throw new IllegalArgumentException("null searchPluginRegistrationConfig");
@@ -52,6 +52,31 @@ public class SearchPluginDiscoveryService {
 
 		this.searchPluginRegistrationConfig = searchPluginRegistrationConfig;
 		this.jwtIssueService = jwtIssueService;
+	}
+
+	public String textSearch(final String queryText, final String endpointUrl, final String schemaId, final int offset,
+			final int length) throws SearchPluginUnavailableException {
+
+		log.info("textSearch()");
+
+		if (queryText == null || queryText.isEmpty()) {
+			throw new IllegalArgumentException("null or empty queryText");
+		}
+
+		if (endpointUrl == null || endpointUrl.isEmpty()) {
+			throw new IllegalArgumentException("null or empty endpointUrl");
+		}
+
+		if (schemaId == null || schemaId.isEmpty()) {
+			throw new IllegalArgumentException("null or empty schemaId");
+		}
+
+		log.info("queryText:{}", queryText);
+		log.info("endpointUrl:{}", endpointUrl);
+		log.info("schemaId:{}", schemaId);
+		log.info("offset:{}", offset);
+		log.info("length:{}", length);
+
 	}
 
 	public SearchAttributes queryAttributes(final String endpointUrl, final String schemaId,
@@ -213,6 +238,10 @@ public class SearchPluginDiscoveryService {
 			threadPool.shutdownNow();
 			Thread.currentThread().interrupt();
 		}
+	}
+
+	public SearchPluginRegistrationConfig getSearchPluginRegistrationConfig() {
+		return searchPluginRegistrationConfig;
 	}
 
 }

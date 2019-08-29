@@ -5,7 +5,7 @@ import java.util.concurrent.Callable;
 import org.irods.jargon.extensions.searchplugin.SearchIndexInventory;
 import org.irods.jargon.extensions.searchplugin.SearchPluginRegistrationConfig;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
-import org.irods.jargon.irodsext.jwt.JwtIssueService;
+import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,14 +19,14 @@ public class SchemaAttributesCallable implements Callable<SearchAttributes> {
 
 	private final SearchPluginRegistrationConfig searchPluginRegistrationConfig;
 	private final String endpointUrl;
-	private final JwtIssueService jwtIssueService;
+	private final AbstractJwtIssueService jwtIssueService;
 	private final SearchIndexInventory searchIndexInventory;
 	private final String schemaId;
 
 	public static final Logger log = LoggerFactory.getLogger(PluginInventoryCallable.class);
 
 	public SchemaAttributesCallable(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
-			final String endpointUrl, final String schemaId, final JwtIssueService jwtIssueService,
+			final String endpointUrl, final String schemaId, final AbstractJwtIssueService jwtIssueService,
 			final SearchIndexInventory searchIndexInventory) {
 
 		if (searchPluginRegistrationConfig == null) {

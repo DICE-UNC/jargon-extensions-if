@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
 import org.irods.jargon.extensions.searchplugin.unittest.TestConstants;
-import org.irods.jargon.irodsext.jwt.JwtIssueService;
+import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
 import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
 import org.irods.jargon.irodsext.jwt.JwtServiceConfig;
 import org.irods.jargon.testutils.TestingPropertiesHelper;
@@ -50,10 +50,10 @@ public class SearchPluginDiscoveryServiceTest {
 		jwtServiceConfig.setAlgo(jwtAlgo);
 		jwtServiceConfig.setIssuer(jwtIssuer);
 		jwtServiceConfig.setSecret(jwtSecret);
-		JwtIssueServiceImpl jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
+		AbstractJwtIssueService jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
 
 		SearchPluginDiscoveryService searchPluginDiscoveryService = new SearchPluginDiscoveryService(registrationConfig,
-				(JwtIssueService) jwtIssueService);
+				jwtIssueService);
 		searchPluginDiscoveryService.queryEndpoints(derivedEndpoints, inventory);
 		Assert.assertNotNull("null inventory", inventory);
 		// the test assumes, if you are running it,that there should be at least one
@@ -89,10 +89,10 @@ public class SearchPluginDiscoveryServiceTest {
 		jwtServiceConfig.setAlgo(jwtAlgo);
 		jwtServiceConfig.setIssuer(jwtIssuer);
 		jwtServiceConfig.setSecret(jwtSecret);
-		JwtIssueServiceImpl jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
+		AbstractJwtIssueService jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
 
 		SearchPluginDiscoveryService searchPluginDiscoveryService = new SearchPluginDiscoveryService(registrationConfig,
-				(JwtIssueService) jwtIssueService);
+				jwtIssueService);
 		searchPluginDiscoveryService.queryEndpoints(derivedEndpoints, inventory);
 		Assert.assertNotNull("null inventory", inventory);
 		// now go into an endpoint and find a schema and then proceed to get the
@@ -146,7 +146,7 @@ public class SearchPluginDiscoveryServiceTest {
 		JwtIssueServiceImpl jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
 
 		SearchPluginDiscoveryService searchPluginDiscoveryService = new SearchPluginDiscoveryService(registrationConfig,
-				(JwtIssueService) jwtIssueService);
+				jwtIssueService);
 
 		for (int i = 0; i < 100; i++) {
 			searchPluginDiscoveryService.queryEndpoints(derivedEndpoints, inventory);

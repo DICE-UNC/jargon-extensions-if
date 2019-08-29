@@ -17,7 +17,7 @@ import org.irods.jargon.extensions.searchplugin.SearchPluginRegistrationConfig;
 import org.irods.jargon.extensions.searchplugin.exception.SearchPluginUnavailableException;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
-import org.irods.jargon.irodsext.jwt.JwtIssueService;
+import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +35,7 @@ public class IndexInventoryUtility {
 	private Gson gson = new Gson();
 
 	public SearchAttributes inventoryAttributes(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
-			final String endpointUrl, final String schemaId, final JwtIssueService jwtIssueService)
+			final String endpointUrl, final String schemaId, final AbstractJwtIssueService jwtIssueService)
 			throws SearchPluginUnavailableException {
 
 		log.info("inventoryAttributes()");
@@ -119,15 +119,16 @@ public class IndexInventoryUtility {
 	 *                                       that describes the various config
 	 *                                       options for plugin search
 	 * @param endpointUrl                    {@code String} with the URL that
-	 * @param jwtIssueService                {@link JwtIssueService} which is a
-	 *                                       dependency required to generate a JWT
-	 *                                       to talk to an endpoint
+	 * @param jwtIssueService                {@link AbstractJwtIssueService} which
+	 *                                       is a dependency required to generate a
+	 *                                       JWT to talk to an endpoint
 	 * @return {@link Indexes} that describes the schema supported at the endpoint
 	 * @throws SearchPluginUnavailableException {@link SearchPluginUnavailableException}
 	 *                                          if any error contacting the plugin
 	 */
 	public Indexes inventoryEndpoint(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
-			final String endpointUrl, final JwtIssueService jwtIssueService) throws SearchPluginUnavailableException {
+			final String endpointUrl, final AbstractJwtIssueService jwtIssueService)
+			throws SearchPluginUnavailableException {
 
 		log.info("inventoryEndpoint()");
 

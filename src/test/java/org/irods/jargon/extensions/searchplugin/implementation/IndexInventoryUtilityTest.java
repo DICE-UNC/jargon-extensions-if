@@ -9,7 +9,7 @@ import org.irods.jargon.extensions.searchplugin.model.IndexSchemaDescription;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
 import org.irods.jargon.extensions.searchplugin.unittest.TestConstants;
-import org.irods.jargon.irodsext.jwt.JwtIssueService;
+import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
 import org.irods.jargon.irodsext.jwt.JwtIssueServiceImpl;
 import org.irods.jargon.irodsext.jwt.JwtServiceConfig;
 import org.irods.jargon.testutils.TestingPropertiesHelper;
@@ -52,10 +52,10 @@ public class IndexInventoryUtilityTest {
 		jwtServiceConfig.setIssuer(jwtIssuer);
 		jwtServiceConfig.setSecret(jwtSecret);
 
-		JwtIssueServiceImpl jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
+		AbstractJwtIssueService jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
 		IndexInventoryUtility indexInventoryUtil = new IndexInventoryUtility();
 		Indexes index = indexInventoryUtil.inventoryEndpoint(registrationConfig, derivedEndpoints.get(0),
-				(JwtIssueService) jwtIssueService);
+				jwtIssueService);
 		Assert.assertNotNull("null index", index);
 		// the test assumes, if you are running it,that there should be at least one
 		// index entry
@@ -88,7 +88,7 @@ public class IndexInventoryUtilityTest {
 		jwtServiceConfig.setIssuer(jwtIssuer);
 		jwtServiceConfig.setSecret(jwtSecret);
 
-		JwtIssueService jwtIssueService = (JwtIssueService) new JwtIssueServiceImpl(jwtServiceConfig);
+		AbstractJwtIssueService jwtIssueService = new JwtIssueServiceImpl(jwtServiceConfig);
 		IndexInventoryUtility indexInventoryUtil = new IndexInventoryUtility();
 		Indexes index = indexInventoryUtil.inventoryEndpoint(registrationConfig, derivedEndpoints.get(0),
 				jwtIssueService);

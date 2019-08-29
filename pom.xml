@@ -132,7 +132,7 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.irods.jargon</groupId>
+			<groupId>org.irods</groupId>
 			<artifactId>irodsext-jwt-service</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -283,8 +283,6 @@
 		</plugins>
 		<pluginManagement>
 			<plugins />
-
-
 		</pluginManagement>
 	</build>
 	<profiles>
