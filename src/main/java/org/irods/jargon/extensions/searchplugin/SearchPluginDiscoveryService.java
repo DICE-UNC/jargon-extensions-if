@@ -16,6 +16,8 @@ import org.irods.jargon.core.exception.JargonRuntimeException;
 import org.irods.jargon.extensions.searchplugin.exception.SearchPluginUnavailableException;
 import org.irods.jargon.extensions.searchplugin.implementation.PluginInventoryCallable;
 import org.irods.jargon.extensions.searchplugin.implementation.SchemaAttributesCallable;
+import org.irods.jargon.extensions.searchplugin.implementation.TextSearchCallable;
+import org.irods.jargon.extensions.searchplugin.implementation.TextSearchRequest;
 import org.irods.jargon.extensions.searchplugin.model.IndexSchemaDescription;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
@@ -54,6 +56,22 @@ public class SearchPluginDiscoveryService {
 		this.jwtIssueService = jwtIssueService;
 	}
 
+	/**
+	 * Execute a plain text search against an endpoint and pass thru the JSON
+	 * results as a string.
+	 * 
+	 * @param queryText   {@code String} with the text search query
+	 * @param endpointUrl {@code String} with the registered endpoint url
+	 * @param schemaId    {@code String} with the registered search schema at the
+	 *                    endpoint
+	 * @param offset      {@code int} with a paging offset (if supported by
+	 *                    endpoint)
+	 * @param length      {@code int} with the desired result length (if supported
+	 *                    by the endpoint)
+	 * @return {@code String} with the result JSON (to minimize any middle-man
+	 *         processing just treat as a raw string)
+	 * @throws SearchPluginUnavailableException {@link SearchPluginUnavailableException}
+	 */
 	public String textSearch(final String queryText, final String endpointUrl, final String schemaId, final int offset,
 			final int length) throws SearchPluginUnavailableException {
 
@@ -77,7 +95,42 @@ public class SearchPluginDiscoveryService {
 		log.info("offset:{}", offset);
 		log.info("length:{}", length);
 
-		return null;
+		ExecutorService executor = Executors.newCachedThreadPool();
+		List<Callable<String>> callables = new ArrayList<>();
+		TextSearchRequest textSearchRequest = new TextSearchRequest();
+		textSearchRequest.setEndpointUrl(endpointUrl);
+		textSearchRequest.setSearchSchema(schemaId);
+		textSearchRequest.setLimit(length);
+		textSearchRequest.setOffset(offset);
+		textSearchRequest.setSearchText(queryText);
+		textSearchRequest.setSearchPrincipal("test1"); // FIXME: add from user
+
+		callables.add(new TextSearchCallable(jwtIssueService, textSearchRequest));
+
+		List<Future<String>> results = null;
+
+		try {
+			if (searchPluginRegistrationConfig.getEndpointAccessTimeout() > 0) {
+				log.debug("getting endpoints with a timeout");
+
+				results = executor.invokeAll(callables, searchPluginRegistrationConfig.getEndpointAccessTimeout(),
+						TimeUnit.MILLISECONDS);
+
+			} else {
+				results = executor.invokeAll(callables);
+			}
+
+			awaitTerminationAfterShutdown(executor);
+
+			return results.get(0).get();
+
+		} catch (InterruptedException | ExecutionException e) {
+			log.error("Runtime error pinging endpoint", e);
+			throw new JargonRuntimeException("Runtime error accessing endpoint", e);
+		} finally {
+			executor.shutdownNow();
+			log.info("shutdown finished");
+		}
 
 	}
 

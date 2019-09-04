@@ -4,20 +4,16 @@
 package org.irods.jargon.extensions.searchplugin.implementation;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URLEncoder;
 import java.util.concurrent.Callable;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.message.BasicNameValuePair;
 import org.irods.jargon.core.utils.MiscIRODSUtils;
 import org.irods.jargon.extensions.searchplugin.exception.SearchPluginUnavailableException;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
@@ -64,6 +60,7 @@ public class TextSearchCallable implements Callable<String> {
 	public String call() throws Exception {
 		log.info("call()");
 
+		log.debug("principal for call:{}", textSearchRequest);
 		String bearerToken = jwtIssueService.issueJwtToken(textSearchRequest.getSearchPrincipal());
 
 		// formulate the query to the endpoint
@@ -76,7 +73,12 @@ public class TextSearchCallable implements Callable<String> {
 			sb.append("/");
 		}
 
-		sb.append("search");
+		sb.append("search?");
+		sb.append("index_name=");
+		sb.append(URLEncoder.encode(textSearchRequest.getSearchSchema(), "UTF-8"));
+		sb.append("&search_query=");
+		sb.append(URLEncoder.encode(textSearchRequest.getSearchText(), "UTF-8"));
+
 		String stringJsonResponse = "";
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -84,10 +86,13 @@ public class TextSearchCallable implements Callable<String> {
 
 		httpPost.addHeader(new BasicHeader("Authorization", "Bearer " + bearerToken));
 		httpPost.addHeader(new BasicHeader("accept", "application/json"));
-		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("index_name", textSearchRequest.getSearchSchema()));
-		nvps.add(new BasicNameValuePair("search_query", textSearchRequest.getSearchText()));
-		httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+
+		// List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		// nvps.add(new BasicNameValuePair("index_name",
+		// textSearchRequest.getSearchSchema()));
+		// nvps.add(new BasicNameValuePair("search_query",
+		// textSearchRequest.getSearchText()));
+		// httpPost.setEntity(new UrlEncodedFormEntity(nvps));
 
 		try {
 			CloseableHttpResponse response = httpclient.execute(httpPost);
