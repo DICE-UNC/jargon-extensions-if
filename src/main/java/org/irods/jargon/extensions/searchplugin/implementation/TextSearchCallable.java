@@ -87,13 +87,6 @@ public class TextSearchCallable implements Callable<String> {
 		httpPost.addHeader(new BasicHeader("Authorization", "Bearer " + bearerToken));
 		httpPost.addHeader(new BasicHeader("accept", "application/json"));
 
-		// List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		// nvps.add(new BasicNameValuePair("index_name",
-		// textSearchRequest.getSearchSchema()));
-		// nvps.add(new BasicNameValuePair("search_query",
-		// textSearchRequest.getSearchText()));
-		// httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-
 		try {
 			CloseableHttpResponse response = httpclient.execute(httpPost);
 			int statusCode = response.getStatusLine().getStatusCode();

@@ -68,12 +68,13 @@ public class SearchPluginDiscoveryService {
 	 *                    endpoint)
 	 * @param length      {@code int} with the desired result length (if supported
 	 *                    by the endpoint)
+	 * @param principal   {@code String} with the principal to use for the search
 	 * @return {@code String} with the result JSON (to minimize any middle-man
 	 *         processing just treat as a raw string)
 	 * @throws SearchPluginUnavailableException {@link SearchPluginUnavailableException}
 	 */
 	public String textSearch(final String queryText, final String endpointUrl, final String schemaId, final int offset,
-			final int length) throws SearchPluginUnavailableException {
+			final int length, final String principal) throws SearchPluginUnavailableException {
 
 		log.info("textSearch()");
 
@@ -89,11 +90,16 @@ public class SearchPluginDiscoveryService {
 			throw new IllegalArgumentException("null or empty schemaId");
 		}
 
+		if (principal == null || principal.isEmpty()) {
+			throw new IllegalArgumentException("null or empty principal");
+		}
+
 		log.info("queryText:{}", queryText);
 		log.info("endpointUrl:{}", endpointUrl);
 		log.info("schemaId:{}", schemaId);
 		log.info("offset:{}", offset);
 		log.info("length:{}", length);
+		log.info("principal:{}", principal);
 
 		ExecutorService executor = Executors.newCachedThreadPool();
 		List<Callable<String>> callables = new ArrayList<>();
@@ -103,7 +109,7 @@ public class SearchPluginDiscoveryService {
 		textSearchRequest.setLimit(length);
 		textSearchRequest.setOffset(offset);
 		textSearchRequest.setSearchText(queryText);
-		textSearchRequest.setSearchPrincipal("test1"); // FIXME: add from user
+		textSearchRequest.setSearchPrincipal(principal);
 
 		callables.add(new TextSearchCallable(jwtIssueService, textSearchRequest));
 
