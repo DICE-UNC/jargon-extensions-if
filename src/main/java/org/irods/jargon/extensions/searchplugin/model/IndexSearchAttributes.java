@@ -82,6 +82,11 @@ public class IndexSearchAttributes {
 
 	@SerializedName("info")
 	private String info = null;
+	
+	@SerializedName("attrib_example")
+	private String attribExample = null;
+
+	
 
 	@SerializedName("shortcut_text")
 	private String shortcutText = null;
@@ -163,6 +168,14 @@ public class IndexSearchAttributes {
 	public void setShortcutText(String shortcutText) {
 		this.shortcutText = shortcutText;
 	}
+	
+	public String getAttribExample() {
+		return attribExample;
+	}
+
+	public void setAttribExample(String attribExample) {
+		this.attribExample = attribExample;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -176,12 +189,13 @@ public class IndexSearchAttributes {
 		return Objects.equals(this.attribName, indexSearchAttributes.attribName)
 				&& Objects.equals(this.attribType, indexSearchAttributes.attribType)
 				&& Objects.equals(this.info, indexSearchAttributes.info)
+				&& Objects.equals(this.attribExample, indexSearchAttributes.attribExample)
 				&& Objects.equals(this.shortcutText, indexSearchAttributes.shortcutText);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(attribName, attribType, info, shortcutText);
+		return Objects.hash(attribName, attribType, info, attribExample, shortcutText);
 	}
 
 	@Override
@@ -192,6 +206,7 @@ public class IndexSearchAttributes {
 		sb.append("    attribName: ").append(toIndentedString(attribName)).append("\n");
 		sb.append("    attribType: ").append(toIndentedString(attribType)).append("\n");
 		sb.append("    info: ").append(toIndentedString(info)).append("\n");
+		sb.append("    attribExample: ").append(toIndentedString(attribExample)).append("\n");
 		sb.append("    shortcutText: ").append(toIndentedString(shortcutText)).append("\n");
 		sb.append("}");
 		return sb.toString();
