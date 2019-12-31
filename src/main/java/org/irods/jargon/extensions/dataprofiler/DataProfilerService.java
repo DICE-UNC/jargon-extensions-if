@@ -48,13 +48,11 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Default constructor with necessary values
 	 * 
-	 * @param defaultDataProfilerSettings
-	 *            {@link DataProfilerSettings} that describes overridable defaults
-	 *            for the operation of the service
-	 * @param irodsAccessObjectFactory
-	 *            {@link IRODSAccessObjectFactory}
-	 * @param irodsAccount
-	 *            {@link IRODSAccount}
+	 * @param defaultDataProfilerSettings {@link DataProfilerSettings} that
+	 *                                    describes overridable defaults for the
+	 *                                    operation of the service
+	 * @param irodsAccessObjectFactory    {@link IRODSAccessObjectFactory}
+	 * @param irodsAccount                {@link IRODSAccount}
 	 */
 	public DataProfilerService(DataProfilerSettings defaultDataProfilerSettings,
 			IRODSAccessObjectFactory irodsAccessObjectFactory, IRODSAccount irodsAccount) {
@@ -73,16 +71,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a data object with starring and favorites information
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addStarringDataToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -90,16 +85,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a collection with starring and favorites information
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addStarringDataToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -107,16 +99,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a data object with tagging and comments
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addTaggingAndCommentsToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -124,16 +113,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a collection with tagging and comments
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addTaggingAndCommentsToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -141,16 +127,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a data object with sharing information
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addSharingToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -158,16 +141,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a collection with sharing information
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addSharingToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -175,16 +155,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a data object with ticket information
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addTicketsToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -192,16 +169,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a collection with ticket information
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addTicketsToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -209,16 +183,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a data object with metadata template information
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addMetadataTemplatesToDataObject(DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -226,16 +197,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	/**
 	 * Decorate a collection with metadata template information
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected abstract void addMetadataTemplatesToCollection(DataProfile<Collection> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException;
@@ -245,16 +213,13 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 * method will have only been invoked if the <code>dataProfilerSettings</code>
 	 * requests this processing.
 	 * 
-	 * @param dataProfile
-	 *            {@link DataProfile} to decorate with data type information. The
-	 *            method will alter the passed in parameter object with the new
-	 *            data.
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that will be used to influence data
-	 *            gathering. If left <code>null</code> will use the default
-	 *            settings.
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @param dataProfile          {@link DataProfile} to decorate with data type
+	 *                             information. The method will alter the passed in
+	 *                             parameter object with the new data.
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that will be used to
+	 *                             influence data gathering. If left
+	 *                             <code>null</code> will use the default settings.
+	 * @throws JargonException {@link JargonException}
 	 */
 	protected void establishDataType(final DataProfile<DataObject> dataProfile,
 			DataProfilerSettings dataProfilerSettings) throws JargonException {
@@ -288,15 +253,12 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 * return a {@link DataProfile} with a {@link Collection{ or one with a
 	 * {@link DataObject}
 	 * 
-	 * @param irodsAbsolutePath
-	 *            irodsAbsolutePath <code>String</code> with the path to the data
-	 *            object
+	 * @param irodsAbsolutePath irodsAbsolutePath <code>String</code> with the path
+	 *                          to the data object
 	 * @return {@link DataProfile} describing the collection or data object at that
 	 *         path
-	 * @throws DataNotFoundException
-	 *             {@link DataNotFoundException}
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @throws DataNotFoundException {@link DataNotFoundException}
+	 * @throws JargonException       {@link JargonException}
 	 */
 
 	@SuppressWarnings("rawtypes")
@@ -309,17 +271,14 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 * return a {@link DataProfile} with a {@link Collection{ or one with a
 	 * {@link DataObject}
 	 * 
-	 * @param irodsAbsolutePath
-	 *            irodsAbsolutePath <code>String</code> with the path to the data
-	 *            object
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that override the default behaviors
+	 * @param irodsAbsolutePath    irodsAbsolutePath <code>String</code> with the
+	 *                             path to the data object
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that override the
+	 *                             default behaviors
 	 * @return {@link DataProfile} describing the collection or data object at that
 	 *         path
-	 * @throws DataNotFoundException
-	 *             {@link DataNotFoundException}
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @throws DataNotFoundException {@link DataNotFoundException}
+	 * @throws JargonException       {@link JargonException}
 	 */
 
 	@SuppressWarnings("rawtypes")
@@ -356,16 +315,12 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 * Main roll-up point for data object (File) processing, this will call
 	 * override-able abstract methods for particular aspects of a data profile
 	 * 
-	 * @param objStat
-	 *            {@link ObjStat} characterizing the data object
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that can override the default
-	 *            behaviors
+	 * @param objStat              {@link ObjStat} characterizing the data object
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that can override
+	 *                             the default behaviors
 	 * @return {@link DataProfile} of a {@link DataObject}
-	 * @throws DataNotFoundException
-	 *             {@link DataNotFoundException}
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @throws DataNotFoundException {@link DataNotFoundException}
+	 * @throws JargonException       {@link JargonException}
 	 */
 	protected DataProfile<DataObject> retrieveDataProfileForDataObject(ObjStat objStat,
 			DataProfilerSettings dataProfilerSettings) throws DataNotFoundException, JargonException {
@@ -435,16 +390,12 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 * Main roll-up point for collection (directory) processing, this will call
 	 * override-able abstract methods for particular aspects of a data profile
 	 * 
-	 * @param objStat
-	 *            {@link ObjStat} characterizing the data object
-	 * @param dataProfilerSettings
-	 *            {@link DataProfilerSettings} that can override the default
-	 *            behaviors
+	 * @param objStat              {@link ObjStat} characterizing the data object
+	 * @param dataProfilerSettings {@link DataProfilerSettings} that can override
+	 *                             the default behaviors
 	 * @return {@link DataProfile} of a {@link Collection}
-	 * @throws DataNotFoundException
-	 *             {@link DataNotFoundException}
-	 * @throws JargonException
-	 *             {@link JargonException}
+	 * @throws DataNotFoundException {@link DataNotFoundException}
+	 * @throws JargonException       {@link JargonException}
 	 */
 	protected DataProfile<Collection> retrieveDataProfileForCollection(ObjStat objStat,
 			DataProfilerSettings dataProfilerSettings) throws DataNotFoundException, JargonException {
