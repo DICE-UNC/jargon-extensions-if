@@ -16,15 +16,12 @@ public abstract class DataTypeResolutionService extends AbstractJargonService {
 	/**
 	 * Default constructor
 	 * 
-	 * @param irodsAccessObjectFactory
-	 *            {@link IRODSAccessObjectFactory}
-	 * @param irodsAccount
-	 *            {@link IRODSAccount}
-	 * @param dataTyperSettings
-	 *            {@link DataTyperSettings}
+	 * @param irodsAccessObjectFactory {@link IRODSAccessObjectFactory}
+	 * @param irodsAccount             {@link IRODSAccount}
+	 * @param dataTyperSettings        {@link DataTyperSettings}
 	 */
 	public DataTypeResolutionService(IRODSAccessObjectFactory irodsAccessObjectFactory, IRODSAccount irodsAccount,
-			final DataTyperSettings dataTyperSettings) {
+			DataTyperSettings dataTyperSettings) {
 		super(irodsAccessObjectFactory, irodsAccount);
 		if (dataTyperSettings == null) {
 			throw new IllegalArgumentException("null dataTyperSettings");
@@ -36,8 +33,7 @@ public abstract class DataTypeResolutionService extends AbstractJargonService {
 	 * Convenience method that will use the quickest method available to determine
 	 * mime and other data typing information.
 	 * 
-	 * @param irodsAbsolutePath
-	 *            {@link String} with iRODS absolute path
+	 * @param irodsAbsolutePath {@link String} with iRODS absolute path
 	 * @return {@link String} with the MIME type of the file
 	 * @throws DataNotFoundException
 	 * @throws JargonException
@@ -47,8 +43,7 @@ public abstract class DataTypeResolutionService extends AbstractJargonService {
 	/**
 	 * Resolve the data type based on the default settings
 	 * 
-	 * @param irodsAbsolutePath
-	 *            <code>String</code> with the irods absolute path
+	 * @param irodsAbsolutePath <code>String</code> with the irods absolute path
 	 * @return {@link DataType} characterizing that file
 	 * @throws DataNotFoundException
 	 * @throws JargonException
@@ -59,10 +54,10 @@ public abstract class DataTypeResolutionService extends AbstractJargonService {
 	/**
 	 * Resolve data type based on provided settings
 	 * 
-	 * @param irodsAbsolutePath
-	 *            irodsAbsolutePath <code>String</code> with the irods absolute path
-	 * @param dataTyperSettings
-	 *            {@link DataTyperSettings} with override configuration
+	 * @param irodsAbsolutePath irodsAbsolutePath <code>String</code> with the irods
+	 *                          absolute path
+	 * @param dataTyperSettings {@link DataTyperSettings} with override
+	 *                          configuration
 	 * @return {@link DataType} characterizing that file
 	 * @throws DataNotFoundException
 	 * @throws JargonException
