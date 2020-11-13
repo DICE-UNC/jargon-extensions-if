@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.irods</groupId>
 		<artifactId>jargon-pom</artifactId>
-		<version>4.3.2.0-SNAPSHOT</version>
+		<version>4.3.2.0-RELEASE</version>
 	</parent>
 	<name>jargon-extensions-if</name>
 	<description />
@@ -131,11 +131,7 @@
 			<artifactId>jargon-user-tagging</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.irods</groupId>
-			<artifactId>irodsext-jwt-service</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
