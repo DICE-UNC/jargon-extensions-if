@@ -3,8 +3,6 @@
  */
 package org.irods.jargon.extensions.thumbnail;
 
-import java.util.List;
-
 import org.irods.jargon.core.exception.JargonException;
 
 /**
@@ -28,12 +26,11 @@ public interface GalleryListService {
 	 *                              list, 0 is the default
 	 * @param length                {@code int} with the desired length of the
 	 *                              result set
-	 * @return {@code List} of {@link ThumbnailListEntry} with the results. An empty
-	 *         list means no children or record was found. Note that if the given
-	 *         path is a data object a one record list will be returned.
+	 * @return {@link ThumbnailList} with the results. An empty list means no
+	 *         children or record was found. Note that if the given path is a data
+	 *         object a one record list will be returned.
 	 * @throws JargonException {@link JargonException}
 	 */
-	List<ThumbnailListEntry> list(final String irodsFileAbsolutePath, final int offset, final int length)
-			throws JargonException;
+	ThumbnailList list(final String irodsFileAbsolutePath, final int offset, final int length) throws JargonException;
 
 }
