@@ -1,18 +1,19 @@
-package org.irods.jargon.extensions.exportplugin;
+package org.irods.jargon.extensions.publishingplugin;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /*
- * Represents the known export indexes and their endpoints 
+ * Represents the known publishing and their endpoints 
  */
-public class ExportIndexInventory {
+
+public class PublishingIndexInventory {
 	
 	private long lastScanTimeInMillis = 0L;
-	private final Map<String, ExportIndexInventoryEntry> indexInventoryEntries;
+	private final Map<String, PublishingInventoryEntry> publishInventoryEntries;
 	
-	public ExportIndexInventory() {
-		this.indexInventoryEntries = new ConcurrentHashMap<String, ExportIndexInventoryEntry>();
+	public PublishingIndexInventory() {
+		this.publishInventoryEntries = new ConcurrentHashMap<String, PublishingInventoryEntry>();
 	}
 	
 	public synchronized long getLastScanTimeInMillis() {
@@ -26,14 +27,14 @@ public class ExportIndexInventory {
 	@Override
 	public synchronized String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ExportIndexInventory [lastScanTimeInMillis=").append(lastScanTimeInMillis)
+		builder.append("PublishingInventory [lastScanTimeInMillis=").append(lastScanTimeInMillis)
 				.append(", getLastScanTimeInMillis()=").append(getLastScanTimeInMillis()).append(", getClass()=")
 				.append(getClass()).append(", hashCode()=").append(hashCode()).append(", toString()=")
 				.append(super.toString()).append("]");
 		return builder.toString();
 	}
 	
-	public Map<String, ExportIndexInventoryEntry> getIndexInventoryEntries() {
-		return indexInventoryEntries;
+	public Map<String, PublishingInventoryEntry> getPublishingInventoryEntries() {
+		return publishInventoryEntries;
 	}
 }

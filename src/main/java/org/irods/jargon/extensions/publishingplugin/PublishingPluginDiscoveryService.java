@@ -1,4 +1,4 @@
-package org.irods.jargon.extensions.exportplugin;
+package org.irods.jargon.extensions.publishingplugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,43 +8,43 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.irods.jargon.core.exception.JargonRuntimeException;
-import org.irods.jargon.extensions.exportplugin.exception.ExportPluginUnavailableException;
-import org.irods.jargon.extensions.exportplugin.implementation.PluginInventoryCallable;
-import org.irods.jargon.extensions.exportplugin.model.Indexes;
+import org.irods.jargon.extensions.publishingplugin.exception.PublishingPluginUnavailableException;
+import org.irods.jargon.extensions.publishingplugin.implementation.PublishingPluginInventoryCallable;
+import org.irods.jargon.extensions.publishingplugin.model.PublishingEndpointDescription;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Service to interrogate registered export plugin endpoints
+ * Service to interrogate registered publishing plugin endpoints
  */
-public class ExportPluginDiscoveryService {
+public class PublishingPluginDiscoveryService {
+	
+	private static final Logger log = LoggerFactory.getLogger(PublishingPluginDiscoveryService.class);
 
-	private static final Logger log = LoggerFactory.getLogger(ExportPluginDiscoveryService.class);
-
-	private final ExportPluginRegistrationConfig exportPluginRegistrationConfig;
+	private final PublishingPluginRegistrationConfig publishingPluginRegistrationConfig;
 	private final AbstractJwtIssueService jwtIssueService;
 
 	/**
 	 * Constructor requiring configuration information
 	 * 
 	 */
-	public ExportPluginDiscoveryService(final ExportPluginRegistrationConfig exportPluginRegistrationConfig,
+	public PublishingPluginDiscoveryService(final PublishingPluginRegistrationConfig publishingPluginRegistrationConfig,
 			AbstractJwtIssueService jwtIssueService) {
-		if (exportPluginRegistrationConfig == null) {
-			throw new IllegalArgumentException("null exportPluginRegistrationConfig");
+		if (publishingPluginRegistrationConfig == null) {
+			throw new IllegalArgumentException("null publishingPluginRegistrationConfig");
 		}
 
 		if (jwtIssueService == null) {
 			throw new IllegalArgumentException("null jwtIssueService");
 		}
 
-		this.exportPluginRegistrationConfig = exportPluginRegistrationConfig;
+		this.publishingPluginRegistrationConfig = publishingPluginRegistrationConfig;
 		this.jwtIssueService = jwtIssueService;
 	}
 
-	public void queryEndpoints(final List<String> endpointUrls, final ExportIndexInventory exportIndexInventory)
-			throws ExportPluginUnavailableException {
+	public void queryEndpoints(final List<String> endpointUrls, final PublishingIndexInventory publishingInventory)
+			throws PublishingPluginUnavailableException {
 
 		log.info("queryEndpoints()");
 		if (endpointUrls == null || endpointUrls.isEmpty()) {
@@ -54,25 +54,25 @@ public class ExportPluginDiscoveryService {
 		log.info("endpointsUrls:{}", endpointUrls);
 
 		ExecutorService executor = Executors.newCachedThreadPool();
-		List<Callable<Indexes>> callables = new ArrayList<>();
+		List<Callable<PublishingEndpointDescription>> callables = new ArrayList<>();
 
 		for (String endpointUrl : endpointUrls) {
-			callables.add(new PluginInventoryCallable(exportPluginRegistrationConfig, endpointUrl, jwtIssueService,
-					exportIndexInventory));
+			callables.add(new PublishingPluginInventoryCallable(publishingPluginRegistrationConfig, endpointUrl,
+					jwtIssueService, publishingInventory));
 		}
-
+		
 		try {
-			if (exportPluginRegistrationConfig.getEndpointAccessTimeout() > 0) {
+			if (publishingPluginRegistrationConfig.getEndpointAccessTimeout() > 0) {
 				log.debug("getting endpoints with a timeout");
-
-				executor.invokeAll(callables, exportPluginRegistrationConfig.getEndpointAccessTimeout(),
+				
+				executor.invokeAll(callables, publishingPluginRegistrationConfig.getEndpointAccessTimeout(),
 						TimeUnit.MILLISECONDS);
 			} else {
 				executor.invokeAll(callables);
 			}
 
 			awaitTerminationAfterShutdown(executor);
-
+			
 		} catch (InterruptedException e) {
 			log.error("Runtime error pinging endpoint", e);
 			throw new JargonRuntimeException("Runtime error accessing endpoint", e);
@@ -81,9 +81,9 @@ public class ExportPluginDiscoveryService {
 			executor.shutdownNow();
 			log.info("shutdown finished");
 		}
-
+		
 	}
-
+	
 	private void awaitTerminationAfterShutdown(ExecutorService threadPool) {
 		threadPool.shutdown();
 		try {

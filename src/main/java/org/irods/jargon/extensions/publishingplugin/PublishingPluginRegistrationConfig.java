@@ -1,37 +1,37 @@
-package org.irods.jargon.extensions.exportplugin;
+package org.irods.jargon.extensions.publishingplugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Configuration used to gather and access registered export plugin endpoints
+ * Configuration used to gather and access registered publishing plugin endpoints
  */
-public class ExportPluginRegistrationConfig {
+public class PublishingPluginRegistrationConfig {
 
 	/**
-	 * List of fully qualified URLS to the endpoint of the export API, this should
-	 * be down to the version number and leave off the actual resource such as
-	 * /indexes. For example, https://foo.com/v1/. This is used to poll each of the
-	 * endpoints to gather a list of indexes and attributes
+	 * List of fully qualified URLS to the endpoint of the publishing API, this
+	 * should be down to the version number and leave off the actual resource such
+	 * as /indexes. For example, https://foo.com/v1/. This is used to poll each of
+	 * the endpoints to gather a list of indexes and attributes
 	 */
 	private List<String> endpointRegistryList = new ArrayList<String>();
 
 	/*
 	 * Subject to use when creating a JWT to access the backend service
 	 */
-	private String endpointAccessSubject = "exportPlugin";
+	private String endpointAccessSubject = "publishingPlugin";
 
 	/**
 	 * Timeout value to use for access descriptive methods (e.g. schema
 	 * description). Leave at 0 for no time-out. This is distinct from a timeout
-	 * value for export endpoints.
+	 * value for publishing endpoints.
 	 */
 	private long endpointAccessTimeout = 5000L;
 
 	/**
-	 * TImeout value to use for export methods. Leave at 0 for no time-out.
+	 * TImeout value to use for publishing methods. Leave at 0 for no time-out.
 	 */
-	private long endpointExportAccessTimeout = 30000L;
+	private long endpointPublishingAccessTimeout = 30000L;
 
 	/**
 	 * Algo to use to create JWT
@@ -72,12 +72,12 @@ public class ExportPluginRegistrationConfig {
 		this.endpointAccessTimeout = endpointAccessTimeout;
 	}
 
-	public long getEndpointExportAccessTimeout() {
-		return endpointExportAccessTimeout;
+	public long getEndpointPublishingAccessTimeout() {
+		return endpointPublishingAccessTimeout;
 	}
 
-	public void setEndpointExportAccessTimeout(long endpointExportAccessTimeout) {
-		this.endpointExportAccessTimeout = endpointExportAccessTimeout;
+	public void setEndpointPublishingAccessTimeout(long endpointPublishingAccessTimeout) {
+		this.endpointPublishingAccessTimeout = endpointPublishingAccessTimeout;
 	}
 
 	public String getJwtAlgo() {
@@ -108,17 +108,17 @@ public class ExportPluginRegistrationConfig {
 	public String toString() {
 		final int maxLen = 10;
 		StringBuilder builder = new StringBuilder();
-		builder.append("SearchPluginRegistrationConfig [endpointRegistryList=")
+		builder.append("PublishingPluginRegistrationConfig [endpointRegistryList=")
 				.append(endpointRegistryList != null
 						? endpointRegistryList.subList(0, Math.min(endpointRegistryList.size(), maxLen))
 						: null)
 				.append(", endpointAccessSubject=").append(endpointAccessSubject).append(", endpointAccessTimeout=")
-				.append(endpointAccessTimeout).append(", endpointExportAccessTimeout=")
-				.append(endpointExportAccessTimeout).append(", jwtAlgo=").append(jwtAlgo).append(", jwtIssuer=")
+				.append(endpointAccessTimeout).append(", endpointPublishingAccessTimeout=")
+				.append(endpointPublishingAccessTimeout).append(", jwtAlgo=").append(jwtAlgo).append(", jwtIssuer=")
 				.append(jwtIssuer).append("]");
 		return builder.toString();
 	}
-	
+
 	/**
 	 * Handy method to return the single line, comma delimited set of endpoints into
 	 * a string list
