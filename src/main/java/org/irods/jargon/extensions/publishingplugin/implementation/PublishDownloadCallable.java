@@ -43,7 +43,8 @@ public class PublishDownloadCallable implements Callable<String> {
 	public String call() throws Exception {
 		log.info("call()");
 		String bearerToken = jwtIssueService.issueJwtToken(publishDownloadRequest.getPublishPrincipal());
-
+		
+		
 		// formulate the query to the endpoint
 		StringBuilder sb = new StringBuilder();
 		sb.append(publishDownloadRequest.getEndpointUrl());
@@ -54,7 +55,7 @@ public class PublishDownloadCallable implements Callable<String> {
 		}
 		sb.append("publisher/");
 		sb.append(URLEncoder.encode(publishDownloadRequest.getPublishPrincipal(), "UTF-8"));
-		sb.append(URLEncoder.encode("/test1-metalnx-cart.dat", "UTF-8"));
+		sb.append(URLEncoder.encode("/" + publishDownloadRequest.getPublishPrincipal() +"-metalnx-cart.dat", "UTF-8"));
 
 		String stringJsonResponse = "";
 
