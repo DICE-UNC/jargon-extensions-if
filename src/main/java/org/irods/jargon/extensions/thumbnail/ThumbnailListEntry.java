@@ -1,8 +1,5 @@
 package org.irods.jargon.extensions.thumbnail;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ThumbnailListEntry {
@@ -11,9 +8,9 @@ public class ThumbnailListEntry {
 	private int id = 0;
 	@JsonProperty("name")
 	private String name = "";
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	@JsonProperty("lastModified")
-	private Date lastModified;
+	private String lastModified;
 	@JsonProperty("thumbnails")
 	private String thumbnails = "";
 
@@ -33,11 +30,11 @@ public class ThumbnailListEntry {
 		this.name = name;
 	}
 
-	public Date getLastModified() {
+	public String getLastModified() {
 		return lastModified;
 	}
 
-	public void setLastModified(Date lastModified) {
+	public void setLastModified(String lastModified) {
 		this.lastModified = lastModified;
 	}
 

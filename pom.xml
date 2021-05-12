@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.irods</groupId>
 		<artifactId>jargon-pom</artifactId>
-		<version>4.3.2.1-SNAPSHOT</version>
+		<version>4.3.2.1-RELEASE</version>
 	</parent>
 	<name>jargon-extensions-if</name>
 	<description />
@@ -149,7 +149,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>27.1-jre</version>
+			<version>29.0-jre</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
