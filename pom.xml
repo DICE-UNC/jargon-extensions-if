@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.irods.jargon</groupId>
 	<artifactId>jargon-extensions-if</artifactId>
@@ -9,7 +8,7 @@
 	<parent>
 		<groupId>org.irods</groupId>
 		<artifactId>jargon-pom</artifactId>
-		<version>4.3.2.2-SNAPSHOT</version>
+		<version>4.3.2.2-RELEASE</version>
 	</parent>
 	<name>jargon-extensions-if</name>
 	<description />
@@ -136,7 +135,7 @@
 			<artifactId>irodsext-jwt-service</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -149,7 +148,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>29.0-jre</version>
+			<version>[30.0-jre,)</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
@@ -202,42 +201,9 @@
 						<phase>validate</phase>
 						<configuration>
 							<tasks>
-								<delete
-									file="${basedir}/src/test/resources/testing.properties" />
-								<touch
-									file="${basedir}/src/test/resources/testing.properties"
-									mkdirs="true" />
-								<echo
-									file="${basedir}/src/test/resources/testing.properties"
-									append="true">
-									test.data.directory=${jargon.test.data.directory}
-									test.irods.admin=${jargon.test.irods.admin}
-									test.irods.admin.password=${jargon.test.irods.admin.password}
-									test.irods.user=${jargon.test.irods.user}
-									test.irods.password=${jargon.test.irods.password}
-									test.irods.resource=${jargon.test.irods.resource}
-									test2.irods.user=${jargon.test.irods.user2}
-									test2.irods.password=${jargon.test.irods.password2}
-									test2.irods.resource=${jargon.test.irods.resource2}
-									test3.irods.user=${jargon.test.irods.user3}
-									test3.irods.password=${jargon.test.irods.password3}
-									test3.irods.resource=${jargon.test.irods.resource3}
-									test.irods.host=${jargon.test.irods.host}
-									test.irods.port=${jargon.test.irods.port}
-									test.irods.zone=${jargon.test.irods.zone}
-									test.federated.irods.admin=${jargon.test.federated.irods.admin}
-									test.federated.irods.admin.password=${jargon.test.federated.irods.admin.password}
-									test.federated.irods.user=${jargon.test.federated.irods.user}
-									test.federated.irods.password=${jargon.test.federated.irods.password}
-									test.federated.irods.resource=${jargon.test.federated.irods.resource}
-									test.federated.irods.host=${jargon.test.federated.irods.host}
-									test.federated.irods.port=${jargon.test.federated.irods.port}
-									test.federated.irods.zone=${jargon.test.federated.irods.zone}
-									test.search.endpointRegistryList=${jargon.search.endpointRegistryList}
-									test.search.jargon.search.endpointAccessSubject=${jargon.search.endpointAccessSubject}
-									test.search.jwtAlgo=${jargon.search.jwtAlgo}
-									test.search.jwtIssuer=${jargon.search.jwtIssuer}
-									test.search.jwtSecret=${jargon.search.jwtSecret}
+								<delete file="${basedir}/src/test/resources/testing.properties" />
+								<touch file="${basedir}/src/test/resources/testing.properties" mkdirs="true" />
+								<echo file="${basedir}/src/test/resources/testing.properties" append="true"> test.data.directory=${jargon.test.data.directory} test.irods.admin=${jargon.test.irods.admin} test.irods.admin.password=${jargon.test.irods.admin.password} test.irods.user=${jargon.test.irods.user} test.irods.password=${jargon.test.irods.password} test.irods.resource=${jargon.test.irods.resource} test2.irods.user=${jargon.test.irods.user2} test2.irods.password=${jargon.test.irods.password2} test2.irods.resource=${jargon.test.irods.resource2} test3.irods.user=${jargon.test.irods.user3} test3.irods.password=${jargon.test.irods.password3} test3.irods.resource=${jargon.test.irods.resource3} test.irods.host=${jargon.test.irods.host} test.irods.port=${jargon.test.irods.port} test.irods.zone=${jargon.test.irods.zone} test.federated.irods.admin=${jargon.test.federated.irods.admin} test.federated.irods.admin.password=${jargon.test.federated.irods.admin.password} test.federated.irods.user=${jargon.test.federated.irods.user} test.federated.irods.password=${jargon.test.federated.irods.password} test.federated.irods.resource=${jargon.test.federated.irods.resource} test.federated.irods.host=${jargon.test.federated.irods.host} test.federated.irods.port=${jargon.test.federated.irods.port} test.federated.irods.zone=${jargon.test.federated.irods.zone} test.search.endpointRegistryList=${jargon.search.endpointRegistryList} test.search.jargon.search.endpointAccessSubject=${jargon.search.endpointAccessSubject} test.search.jwtAlgo=${jargon.search.jwtAlgo} test.search.jwtIssuer=${jargon.search.jwtIssuer} test.search.jwtSecret=${jargon.search.jwtSecret}
 								</echo>
 							</tasks>
 						</configuration>
