@@ -128,6 +128,16 @@ public class SearchPluginDiscoveryService {
 
 			awaitTerminationAfterShutdown(executor);
 
+			if (results.get(0) == null) {
+				log.error("null result at index 0");
+			}
+
+			String resultText = results.get(0).get();
+			if (resultText == null || resultText.isEmpty()) {
+				log.error("null or empty query result");
+				throw new JargonRuntimeException("null or empty query result from search plugin");
+			}
+
 			return results.get(0).get();
 
 		} catch (InterruptedException | ExecutionException e) {

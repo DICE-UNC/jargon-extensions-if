@@ -102,6 +102,7 @@ public class TextSearchCallable implements Callable<String> {
 			log.debug("response:{}", response);
 			HttpEntity entity = response.getEntity();
 			stringJsonResponse = MiscIRODSUtils.convertStreamToString(entity.getContent());
+			log.info("stringJsonResponse:{}", stringJsonResponse);
 
 		} catch (IOException e) {
 			log.error("error accessing endpoint:{}", textSearchRequest.getEndpointUrl(), e);
