@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.irods</groupId>
 		<artifactId>jargon-pom</artifactId>
-		<version>4.3.2.5-RELEASE</version>
+		<version>4.3.2.6-SNAPSHOT</version>
 	</parent>
 	<name>jargon-extensions-if</name>
 	<description />
@@ -35,44 +35,17 @@
 	</organization>
 	<developers>
 		<developer>
-			<id>mconway</id>
+			<id>michael-conway</id>
 			<name>Mike Conway</name>
-			<email>michael.c.conway@gmail.com</email>
-			<url>http://www.irods.org</url>
-			<organization>DICE</organization>
-			<organizationUrl>http://www.irods.org</organizationUrl>
+			<email>mike.conway@nih.gov</email>
+			<organization>NIH/NIEHS</organization>
+			<organizationUrl>https://www.niehs.nih.gov/about/od/osim/index.cfm</organizationUrl>
 			<roles>
 				<role>developer</role>
 			</roles>
 		</developer>
 	</developers>
 	<repositories>
-		<repository>
-			<id>dice.repository snaps</id>
-			<name>dice.repository.snapshots</name>
-			<url>https://raw.github.com/DICE-UNC/DICE-Maven/master/snapshots</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>dice.repository</id>
-			<name>dice.repository</name>
-			<url>https://raw.github.com/DICE-UNC/DICE-Maven/master/releases</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</snapshots>
-		</repository>
 		<repository>
 			<id>netbeans.repository</id>
 			<name>netbeans.repository</name>
