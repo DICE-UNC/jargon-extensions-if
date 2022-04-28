@@ -3,7 +3,7 @@
 # Project: Jargon Extensions Interface
 
 ### Date: 
-### Release Version: 4.3.2.6-SNAPSHOT
+### Release Version: 4.3.3.0-SNAPSHOT
 
 #### Developer: Mike Conway - DICE
 
