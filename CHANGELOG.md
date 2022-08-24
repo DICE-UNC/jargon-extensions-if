@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+#### Bump gson from 2.8.1 to 2.8.9 #35
+
 ## [4.2.2.5-RELEASE]
 
 ### Added
