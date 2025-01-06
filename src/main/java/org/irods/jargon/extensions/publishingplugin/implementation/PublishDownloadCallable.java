@@ -15,15 +15,15 @@ import org.apache.http.message.BasicHeader;
 import org.irods.jargon.core.utils.MiscIRODSUtils;
 import org.irods.jargon.extensions.publishingplugin.exception.PublishingPluginUnavailableException;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PublishDownloadCallable implements Callable<String> {
 
 	private final AbstractJwtIssueService jwtIssueService;
 	private final PublishDownloadRequest publishDownloadRequest;
 
-	public static final Logger log = LoggerFactory.getLogger(PublishDownloadCallable.class);
+	public static final Logger log = LogManager.getLogger(PublishDownloadCallable.class);
 
 	public PublishDownloadCallable(final AbstractJwtIssueService jwtIssueService,
 			final PublishDownloadRequest publishDownloadRequest) {

@@ -6,8 +6,8 @@ import org.irods.jargon.extensions.searchplugin.SearchIndexInventory;
 import org.irods.jargon.extensions.searchplugin.SearchPluginRegistrationConfig;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Callable to obtain information
@@ -23,7 +23,7 @@ public class SchemaAttributesCallable implements Callable<SearchAttributes> {
 	private final SearchIndexInventory searchIndexInventory;
 	private final String schemaId;
 
-	public static final Logger log = LoggerFactory.getLogger(PluginInventoryCallable.class);
+	public static final Logger log = LogManager.getLogger(PluginInventoryCallable.class);
 
 	public SchemaAttributesCallable(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
 			final String endpointUrl, final String schemaId, final AbstractJwtIssueService jwtIssueService,

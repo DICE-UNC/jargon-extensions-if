@@ -10,8 +10,8 @@ import org.irods.jargon.extensions.searchplugin.SearchIndexInventoryEntry;
 import org.irods.jargon.extensions.searchplugin.SearchPluginRegistrationConfig;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Callable unit of work that accesses an endpoint to gather information on the
@@ -27,7 +27,7 @@ public class PluginInventoryCallable implements Callable<Indexes> {
 	private final AbstractJwtIssueService jwtIssueService;
 	private final SearchIndexInventory searchIndexInventory;
 
-	public static final Logger log = LoggerFactory.getLogger(PluginInventoryCallable.class);
+	public static final Logger log = LogManager.getLogger(PluginInventoryCallable.class);
 
 	public PluginInventoryCallable(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,
 			final String endpointUrl, final AbstractJwtIssueService jwtIssueService,

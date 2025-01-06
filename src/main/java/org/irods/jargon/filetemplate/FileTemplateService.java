@@ -11,8 +11,8 @@ import org.irods.jargon.core.pub.IRODSAccessObjectFactory;
 import org.irods.jargon.core.service.AbstractJargonService;
 import org.irods.jargon.filetemplate.exception.FileTemplateException;
 import org.irods.jargon.filetemplate.exception.FileTemplateNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Basic abstract class that defines a file type service to manage 'templates'
@@ -24,8 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class FileTemplateService extends AbstractJargonService {
 
-	public static final Logger log = LoggerFactory
-			.getLogger(FileTemplateService.class);
+	public static final Logger log = LogManager.getLogger(FileTemplateService.class);
 
 	/**
 	 * Generate a list of available file templates for the logged in user. These

@@ -16,8 +16,8 @@ import org.irods.jargon.core.utils.CollectionAndPath;
 import org.irods.jargon.core.utils.MiscIRODSUtils;
 import org.irods.jargon.extensions.datatyper.DataType;
 import org.irods.jargon.extensions.datatyper.DataTypeResolutionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Defines contracts for a service that can provide summary profiles of the
@@ -43,7 +43,7 @@ public abstract class DataProfilerService extends AbstractJargonService {
 	 * {@link DataTypeResolutionService} that can determine MIME and Info types
 	 */
 	private DataTypeResolutionService dataTypeResolutionService;
-	public static final Logger log = LoggerFactory.getLogger(DataProfilerService.class);
+	public static final Logger log = LogManager.getLogger(DataProfilerService.class);
 
 	/**
 	 * Default constructor with necessary values

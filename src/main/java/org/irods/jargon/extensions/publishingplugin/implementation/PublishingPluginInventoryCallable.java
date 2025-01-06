@@ -7,12 +7,12 @@ import org.irods.jargon.extensions.publishingplugin.PublishingInventoryEntry;
 import org.irods.jargon.extensions.publishingplugin.PublishingPluginRegistrationConfig;
 import org.irods.jargon.extensions.publishingplugin.model.PublishingEndpointDescription;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PublishingPluginInventoryCallable implements Callable<PublishingEndpointDescription> {
 
-	public static final Logger log = LoggerFactory.getLogger(PublishingPluginInventoryCallable.class);
+	public static final Logger log = LogManager.getLogger(PublishingPluginInventoryCallable.class);
 
 	private final PublishingPluginRegistrationConfig publishingPluginRegistrationConfig;
 	private final String endpointUrl;

@@ -1,12 +1,12 @@
 package org.irods.jargon.extensions.publishingplugin;
 
 import org.irods.jargon.extensions.publishingplugin.model.PublishingEndpointDescription;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PublishingInventoryEntry {
 	
-	public static final Logger log = LoggerFactory.getLogger(PublishingInventoryEntry.class);
+	public static final Logger log = LogManager.getLogger(PublishingInventoryEntry.class);
 
 	private final String endpointUrl;
 	private final long lastScanTimeInMillis;
