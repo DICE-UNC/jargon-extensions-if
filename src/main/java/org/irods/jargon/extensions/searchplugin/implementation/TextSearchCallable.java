@@ -17,8 +17,8 @@ import org.apache.http.message.BasicHeader;
 import org.irods.jargon.core.utils.MiscIRODSUtils;
 import org.irods.jargon.extensions.searchplugin.exception.SearchPluginUnavailableException;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Callable unit of work that accesses an endpoint to gather information on the
@@ -32,7 +32,7 @@ public class TextSearchCallable implements Callable<String> {
 	private final AbstractJwtIssueService jwtIssueService;
 	private final TextSearchRequest textSearchRequest;
 
-	public static final Logger log = LoggerFactory.getLogger(TextSearchCallable.class);
+	public static final Logger log = LogManager.getLogger(TextSearchCallable.class);
 
 	/**
 	 * Callable to execute a text search

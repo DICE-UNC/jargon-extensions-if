@@ -12,8 +12,8 @@ import org.irods.jargon.core.query.CollectionAndDataObjectListingEntry;
 import org.irods.jargon.core.query.PagingAwareCollectionListing;
 import org.irods.jargon.core.service.AbstractJargonService;
 import org.irods.jargon.vircoll.exception.VirtualCollectionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Abstract model of a service that can execute operations on a given virtual
@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractVirtualCollectionExecutor<T extends AbstractVirtualCollection>
 		extends AbstractJargonService {
 
-	static Logger log = LoggerFactory.getLogger(AbstractVirtualCollectionExecutor.class);
+	static Logger log = LogManager.getLogger(AbstractVirtualCollectionExecutor.class);
 
 	private final T collection;
 

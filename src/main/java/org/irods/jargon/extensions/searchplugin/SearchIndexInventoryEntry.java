@@ -7,7 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * This data structure is a 'mostly immutable' representation of the schema
@@ -22,7 +23,7 @@ public class SearchIndexInventoryEntry {
 	private final long lastScanTimeInMillis;
 	private final Indexes indexInformation;
 	private final Map<String, SearchAttributes> searchAttributesMap;
-	public static final org.slf4j.Logger log = LoggerFactory.getLogger(SearchIndexInventoryEntry.class);
+	public static final Logger log = LogManager.getLogger(SearchIndexInventoryEntry.class);
 
 	public SearchIndexInventoryEntry(String endpointUrl, long lastScanTimeInMillis, Indexes indexInformation) {
 		super();

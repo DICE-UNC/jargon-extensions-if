@@ -16,15 +16,15 @@ import org.irods.jargon.extensions.publishingplugin.implementation.PublishDownlo
 import org.irods.jargon.extensions.publishingplugin.implementation.PublishingPluginInventoryCallable;
 import org.irods.jargon.extensions.publishingplugin.model.PublishingEndpointDescription;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Service to interrogate registered publishing plugin endpoints
  */
 public class PublishingPluginDiscoveryService {
 
-	private static final Logger log = LoggerFactory.getLogger(PublishingPluginDiscoveryService.class);
+	private static final Logger log = LogManager.getLogger(PublishingPluginDiscoveryService.class);
 
 	private final PublishingPluginRegistrationConfig publishingPluginRegistrationConfig;
 	private final AbstractJwtIssueService jwtIssueService;

@@ -22,7 +22,8 @@ import org.irods.jargon.extensions.searchplugin.model.IndexSchemaDescription;
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Service to interrogate registered search plugin endpoints
@@ -34,7 +35,7 @@ public class SearchPluginDiscoveryService {
 
 	private final SearchPluginRegistrationConfig searchPluginRegistrationConfig;
 	private final AbstractJwtIssueService jwtIssueService;
-	public static final org.slf4j.Logger log = LoggerFactory.getLogger(SearchPluginDiscoveryService.class);
+	public static final Logger log = LogManager.getLogger(SearchPluginDiscoveryService.class);
 
 	/**
 	 * Constructor requiring configuration information

@@ -18,8 +18,8 @@ import org.irods.jargon.extensions.searchplugin.exception.SearchPluginUnavailabl
 import org.irods.jargon.extensions.searchplugin.model.Indexes;
 import org.irods.jargon.extensions.searchplugin.model.SearchAttributes;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
@@ -31,7 +31,7 @@ import com.google.gson.Gson;
  */
 public class IndexInventoryUtility {
 
-	public static final Logger log = LoggerFactory.getLogger(IndexInventoryUtility.class);
+	public static final Logger log = LogManager.getLogger(IndexInventoryUtility.class);
 	private Gson gson = new Gson();
 
 	public SearchAttributes inventoryAttributes(final SearchPluginRegistrationConfig searchPluginRegistrationConfig,

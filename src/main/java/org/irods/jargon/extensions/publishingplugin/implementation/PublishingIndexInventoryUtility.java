@@ -14,8 +14,8 @@ import org.irods.jargon.extensions.publishingplugin.PublishingPluginRegistration
 import org.irods.jargon.extensions.publishingplugin.exception.PublishingPluginUnavailableException;
 import org.irods.jargon.extensions.publishingplugin.model.PublishingEndpointDescription;
 import org.irods.jargon.irodsext.jwt.AbstractJwtIssueService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
@@ -24,7 +24,7 @@ import com.google.gson.Gson;
  */
 
 public class PublishingIndexInventoryUtility {
-	public static final Logger log = LoggerFactory.getLogger(PublishingIndexInventoryUtility.class);
+	public static final Logger log = LogManager.getLogger(PublishingIndexInventoryUtility.class);
 	private Gson gson = new Gson();
 
 	public PublishingEndpointDescription inventoryEndpoint(
